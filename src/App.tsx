@@ -7,7 +7,7 @@ import PermissionRoute from './components/PermissionRoute';
 import RouteFallback from './components/RouteFallback';
 import ChunkErrorBoundary from './components/ChunkErrorBoundary';
 import { usePrefetchRoutes } from './utils/prefetchRoutes';
-// import { prefetchCallHistory } from './pages/ip-telephone/callHistory';
+import { prefetchCallHistory } from './pages/ip-telephone/callHistory';
 import useGlobalDragScroll from './hooks/useGlobalDragScroll';
 import ContractsOnlyApp from './ContractsOnlyApp';
 
@@ -22,75 +22,72 @@ import ContractsOnlyApp from './ContractsOnlyApp';
  *
  * Marshrutlar ro'yxati va ruxsat tekshiruvlari o'zgarmagan.
  */
-// const Dashboard = lazy(() => import('./pages/dashboard'));
-// const Lids = lazy(() => import('./pages/lid'));
-// // const Payments = lazy(() => import('./pages/payments'));
-// const Courses = lazy(() => import('./pages/courses'));
-// const Reports = lazy(() => import('./pages/reports'));
-// const Tasks = lazy(() => import('./pages/tasks'));
-// const Cyclogram = lazy(() => import('./pages/cyclogram'));
-// const Registration = lazy(() => import('./pages/registration'));
-// const NotFound = lazy(() => import('./pages/notFound'));
-// const LoginPage = lazy(() => import('./pages/login'));
-// const Attendance = lazy(() => import('./pages/attendance'));
-// const EmployeeAttendanceDetail = lazy(() => import('./pages/attendance/EmployeeAttendanceDetail'));
-// // const Groups = lazy(() => import('./pages/groups'));
-// // const GroupMembersPage = lazy(() => import('./pages/groups/GroupMembersPage'));
-// const Contracts = lazy(() => import('./pages/contracts'));
-// const ContractDetailPage = lazy(() => import('./pages/contracts/ContractDetailPage'));
-// const StudentsAttendance = lazy(() => import('./pages/students-attendance'));
-// const PreschoolAttendance = lazy(() => import('./pages/preschool-attendance'));
-// const PreschoolPrices = lazy(() => import('./pages/preschool-prices'));
-// const PreschoolContracts = lazy(() => import('./pages/preschool-contracts'));
-// const PreschoolContractCreate = lazy(() => import('./pages/preschool-contracts/PreschoolContractCreate'));
-// const ContractsCreate = lazy(() => import('./pages/contracts/ContractsCreate'));
-// const RoleManagement = lazy(() => import('./pages/roles/RoleManagement'));
-// const Users = lazy(() => import('./pages/users'));
-// const Regions = lazy(() => import('./pages/regions'));
-// const Districts = lazy(() => import('./pages/districts'));
-// const Expenses = lazy(() => import('./pages/expenses'));
-// const Lessons = lazy(() => import('./pages/lessons'));
-// const LessonSchedule = lazy(() => import('./pages/lesson-schedule'));
-// // Marshrut bo'lagi yuklanayotgan paytda PBX tarixi ham boshlanadi: ma'lumot
-// // kutish bo'lak yuklashdan KEYIN emas, u bilan BIRGA o'tadi.
-// const IPTelephone = lazy(() => {
-//   prefetchCallHistory();
-//   return import('./pages/ip-telephone');
-// });
-// const StudentsContract = lazy(() => import('./pages/students-contract'));
-// const UnderAge = lazy(() => import('./pages/students-contract/underAge'));
-// const LegalEntity = lazy(() => import('./pages/students-contract/legalEntity'));
-// const RepresentativeEntity = lazy(() => import('./pages/students-contract/representativeEntity'));
-// const ContractDetails = lazy(() => import('./pages/students-contract/ContractDetails'));
-// const StudentExamPage = lazy(() => import('./pages/student-exam'));
-// const StudentExamsPage = lazy(() => import('./pages/student-exams'));
-// const ProfilePage = lazy(() => import('./pages/profile'));
-// const NotificationsPage = lazy(() => import('./pages/notifications'));
-// const FaqPage = lazy(() => import('./pages/faq'));
-// const DemoLesson = lazy(() => import('./pages/demo-lesson'));
-// // `chek` moduli nomlangan eksport beradi — `lazy` esa `default` kutadi.
-// const ChekDownloadPage = lazy(() =>
-//   import('./pages/chek').then((m) => ({ default: m.ChekDownloadPage })),
-// );
-// const ContractConfirmPage = lazy(() => import('./pages/contract-confirm'));
-// const SetPasswordPage = lazy(() => import('./pages/set-password'));
-// const Finances = lazy(() => import('./pages/finance'));
-// const DebtsPage = lazy(() => import('./pages/debts'));
-// const PayrollDistribution = lazy(() => import('./pages/payroll-distribution'));
-// const PayrollAdjustments = lazy(() => import('./pages/payroll-adjustments'));
-// const AdjustmentForm = lazy(() => import('./pages/payroll-adjustments/AdjustmentForm'));
-// const PayrollDistributionRequests = lazy(
-//   () => import('./pages/payroll-distribution-requests'),
-// );
-// const DailyCashReports = lazy(() => import('./pages/daily-cash-reports'));
-// const FinanceGeneration = lazy(() => import('./pages/finance-generation'));
-// const AdvanceSchedule = lazy(() => import('./pages/advance-schedule'));
-// const SalarySchedule = lazy(() => import('./pages/salary-schedule'));
-// const Penalties = lazy(() => import('./pages/penalties'));
-// const FinancePlans = lazy(() => import('./pages/finance-plans'));
-// const MonthEndAnalysis = lazy(() => import('./pages/month-end-analysis'));
-// const PriceListPage = lazy(() => import('./pages/courses/PriceListPage'));
-// const TestPage = lazy(() => import('./pages/students-test'));
+const Dashboard = lazy(() => import('./pages/dashboard'));
+const Lids = lazy(() => import('./pages/lid'));
+const Courses = lazy(() => import('./pages/courses'));
+const Reports = lazy(() => import('./pages/reports'));
+const Tasks = lazy(() => import('./pages/tasks'));
+const Cyclogram = lazy(() => import('./pages/cyclogram'));
+const Registration = lazy(() => import('./pages/registration'));
+const NotFound = lazy(() => import('./pages/notFound'));
+const LoginPage = lazy(() => import('./pages/login'));
+const Attendance = lazy(() => import('./pages/attendance'));
+const EmployeeAttendanceDetail = lazy(() => import('./pages/attendance/EmployeeAttendanceDetail'));
+const Contracts = lazy(() => import('./pages/contracts'));
+const ContractDetailPage = lazy(() => import('./pages/contracts/ContractDetailPage'));
+const StudentsAttendance = lazy(() => import('./pages/students-attendance'));
+const PreschoolAttendance = lazy(() => import('./pages/preschool-attendance'));
+const PreschoolPrices = lazy(() => import('./pages/preschool-prices'));
+const PreschoolContracts = lazy(() => import('./pages/preschool-contracts'));
+const PreschoolContractCreate = lazy(() => import('./pages/preschool-contracts/PreschoolContractCreate'));
+const ContractsCreate = lazy(() => import('./pages/contracts/ContractsCreate'));
+const RoleManagement = lazy(() => import('./pages/roles/RoleManagement'));
+const Users = lazy(() => import('./pages/users'));
+const Regions = lazy(() => import('./pages/regions'));
+const Districts = lazy(() => import('./pages/districts'));
+const Expenses = lazy(() => import('./pages/expenses'));
+const Lessons = lazy(() => import('./pages/lessons'));
+const LessonSchedule = lazy(() => import('./pages/lesson-schedule'));
+// Marshrut bo'lagi yuklanayotgan paytda PBX tarixi ham boshlanadi: ma'lumot
+// kutish bo'lak yuklashdan KEYIN emas, u bilan BIRGA o'tadi.
+const IPTelephone = lazy(() => {
+  prefetchCallHistory();
+  return import('./pages/ip-telephone');
+});
+const StudentsContract = lazy(() => import('./pages/students-contract'));
+const UnderAge = lazy(() => import('./pages/students-contract/underAge'));
+const LegalEntity = lazy(() => import('./pages/students-contract/legalEntity'));
+const RepresentativeEntity = lazy(() => import('./pages/students-contract/representativeEntity'));
+const ContractDetails = lazy(() => import('./pages/students-contract/ContractDetails'));
+const StudentExamPage = lazy(() => import('./pages/student-exam'));
+const StudentExamsPage = lazy(() => import('./pages/student-exams'));
+const ProfilePage = lazy(() => import('./pages/profile'));
+const NotificationsPage = lazy(() => import('./pages/notifications'));
+const FaqPage = lazy(() => import('./pages/faq'));
+const DemoLesson = lazy(() => import('./pages/demo-lesson'));
+// `chek` moduli nomlangan eksport beradi — `lazy` esa `default` kutadi.
+const ChekDownloadPage = lazy(() =>
+  import('./pages/chek').then((m) => ({ default: m.ChekDownloadPage })),
+);
+const ContractConfirmPage = lazy(() => import('./pages/contract-confirm'));
+const SetPasswordPage = lazy(() => import('./pages/set-password'));
+const Finances = lazy(() => import('./pages/finance'));
+const DebtsPage = lazy(() => import('./pages/debts'));
+const PayrollDistribution = lazy(() => import('./pages/payroll-distribution'));
+const PayrollAdjustments = lazy(() => import('./pages/payroll-adjustments'));
+const AdjustmentForm = lazy(() => import('./pages/payroll-adjustments/AdjustmentForm'));
+const PayrollDistributionRequests = lazy(
+  () => import('./pages/payroll-distribution-requests'),
+);
+const DailyCashReports = lazy(() => import('./pages/daily-cash-reports'));
+const FinanceGeneration = lazy(() => import('./pages/finance-generation'));
+const AdvanceSchedule = lazy(() => import('./pages/advance-schedule'));
+const SalarySchedule = lazy(() => import('./pages/salary-schedule'));
+const Penalties = lazy(() => import('./pages/penalties'));
+const FinancePlans = lazy(() => import('./pages/finance-plans'));
+const MonthEndAnalysis = lazy(() => import('./pages/month-end-analysis'));
+const PriceListPage = lazy(() => import('./pages/courses/PriceListPage'));
+const TestPage = lazy(() => import('./pages/students-test'));
 
 import {
   COURSES_PAGE_VIEW,

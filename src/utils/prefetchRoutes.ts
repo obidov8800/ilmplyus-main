@@ -13,7 +13,6 @@ import { useEffect } from 'react';
 const ROUTES: Array<() => Promise<unknown>> = [
   () => import('../pages/lid'),
   () => import('../pages/payments'),
-  () => import('../pages/groups'),
   () => import('../pages/students-attendance'),
   () => import('../pages/students-contract'),
   () => import('../pages/lessons'),
