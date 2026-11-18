@@ -1,0 +1,577 @@
+.students-test-container {
+  width: auto;
+  margin-top: 50px !important;
+  margin-left: 140px !important;
+  min-height: 100vh;
+}
+
+.students-test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.students-test-header h1 {
+  font-size: 24px;
+  font-family: noto-b, sans-serif;
+  color: #000000;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  /* "list" ko'rinishida sarlavha yo'q — shu qator yagona farzand bo'lganda
+     ham o'ngda turishi uchun. */
+  margin-left: auto;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 300px;
+}
+
+.search-input-wrapper input {
+  width: 100%;
+  padding: 10px 16px 10px 40px;
+  border: 1px solid #7a7473;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-family: noto-m, sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input-wrapper input:focus {
+  border-color: #1565c0;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7a7473;
+}
+
+
+.btn-primary {
+  padding: 10px 24px;
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-size: 14px;
+  font-family: noto-b, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #e68200;
+}
+
+.btn-secondary {
+  padding: 10px 24px;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-size: 14px;
+  font-family: noto-b, sans-serif;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-secondary:hover {
+  opacity: 0.9;
+}
+
+.btn-outline {
+  padding: 10px 24px;
+  background-color: transparent;
+  border: 1px solid #7a7473;
+  border-radius: var(--radius-md);
+  color: #7a7473;
+  font-size: 14px;
+  font-family: noto-m, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-outline:hover {
+  background-color: #f1f5f9;
+}
+
+/* Jadval ko'rinishi (`.table-card`/`.data-table`) endi `primitives.css`da
+   umumiy — bu yerdagi eski nusxa (uppercase, markazlashgan) olib
+   tashlandi. */
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: noto-b, sans-serif;
+}
+
+.status-active {
+  background-color: #c4faba;
+  color: var(--color-success);
+}
+
+.status-inactive {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+/* Qator amallari endi `.row-actions`/`.row-action--*` (`primitives.css`) */
+
+/* Form Styles */
+.form-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.form-header {
+  padding: 16px 24px;
+  background-color: #d9d9d9;
+  color: var(--color-primary);
+  font-family: noto-b, sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.form-body {
+  padding: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-family: noto-sb, sans-serif;
+  color: #7a7473;
+}
+
+.form-control {
+  padding: 10px 12px;
+  border: 1px solid #7a7473;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-family: noto-m, sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-container,
+.form-card {
+  margin-left: 0px !important;
+}
+
+.form-control:focus {
+  border-color: #1565c0;
+}
+
+/*
+ * `expenses/users.css` da global `.form-grid input, .form-grid select { height: 36px }`
+ * qoidasi bor va u (0,1,1) aniqligi bilan bu yerdagi `.form-control` (0,1,0) ni yengib
+ * ketardi — natijada select matni quti ichiga sig'may, pastdan kesilib qolardi.
+ * Konteynerga bog'lab (0,3,0) o'z o'lchamlarimizni qaytaramiz.
+ */
+.students-test-container .form-group > .form-control,
+.students-test-container .input-with-suffix > .form-control {
+  box-sizing: border-box;
+  height: 42px;
+  line-height: 20px;
+  padding: 10px 12px;
+}
+
+.students-test-container select.form-control {
+  /* Strelka uchun joy — matn uning ostiga kirib ketmasin */
+  padding-right: 32px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.students-test-container select.form-control:disabled {
+  background-color: #f1f3f5;
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.input-with-suffix {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-suffix input {
+  padding-right: 40px;
+  width: 100%;
+}
+
+.input-suffix {
+  position: absolute;
+  right: 12px;
+  color: #7a7473;
+  font-size: 13px;
+  font-family: noto-m, sans-serif;
+}
+
+.toggle-group {
+  display: flex;
+  background-color: #f1f5f9;
+  border-radius: var(--radius-md);
+  padding: 4px;
+}
+
+.toggle-item {
+  flex: 1;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  font-family: noto-m, sans-serif;
+  color: #7a7473;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+}
+
+.toggle-item.active {
+  background-color: #fff;
+  color: var(--color-primary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* Question Form */
+.question-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #fff;
+  border: 1px solid #7a7473;
+  border-radius: var(--radius-sm);
+  padding: 12px;
+}
+
+.option-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #7a7473;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-checkbox.checked {
+  background-color: #1565c0;
+  border-color: #1565c0;
+  color: #fff;
+}
+
+/* Results View */
+.results-summary {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+.summary-card {
+  background-color: #f8fafc;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  border: 1px solid #f1f5f9;
+}
+
+.summary-value {
+  font-size: 24px;
+  font-family: noto-b, sans-serif;
+  color: var(--color-accent);
+}
+
+.summary-label {
+  font-size: 12px;
+  color: var(--color-primary);
+  text-transform: uppercase;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1565c0;
+  font-family: noto-sb, sans-serif;
+}
+
+.section-icon {
+  background-color: #1565c0;
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.empty-state {
+  padding: 25px 25px;
+  text-align: center !important;
+}
+
+/* ── Natijalar sahifasi (ResultsView) ───────────────────────────────
+   Bu yerdagi layout klasslari (flex-between, flex-wrap, info-item ...)
+   hech qayerda e'lon qilinmagan edi — shu sabab blok elementlar ustma-ust
+   tushib ketardi. Barchasi `.results-container` ichiga bog'langan, aks holda
+   `.info-item` kabi umumiy nomlar boshqa sahifalarga ta'sir qiladi. */
+/* `.students-test-container` ichida joylashgan — chetki margin u yerdan keladi. */
+.results-container {
+  width: auto;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.results-container .flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.results-container .flex-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.results-container .mb-24 {
+  margin-bottom: 24px;
+}
+
+.results-container .p-0 {
+  padding: 0;
+}
+
+.results-container .p-16-24 {
+  padding: 16px 24px;
+}
+
+.results-container .w-240 {
+  width: 240px;
+}
+
+/* Test ma'lumotlari: teng ustunli responsive grid — har biri alohida katakcha,
+   yorliq (kichik, katta harf) tepada, qiymat pastda. */
+.results-container .form-body.flex-wrap {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  padding: 20px 24px 24px;
+}
+
+/* `lesson-schedule/lessonSchedule.css` dagi global `.info-item` (0,1,0) bu
+   sahifaga ham tushadi — o'z qoidamizni (0,2,0) bilan qaytaramiz. */
+.results-container .info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+  border-radius: 10px;
+  line-height: 1.35;
+}
+
+.results-container .info-label {
+  font-size: 11px !important;
+  font-family: noto-b, sans-serif;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.results-container .info-value {
+  font-size: 15px !important;
+  font-family: noto-sb, sans-serif;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+/* Statistika kartalari: 5 tasi bir qatorda, har biriга rang urg'usi. */
+.results-container .results-summary-inner {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  padding: 0 24px 24px;
+}
+
+.results-container .summary-card {
+  min-width: 0;
+  padding: 16px 12px 14px;
+  background: #fff;
+  border: 1px solid #eef2f7;
+  border-top: 3px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+.results-container .summary-value {
+  margin-bottom: 2px;
+  font-size: 26px;
+  line-height: 1.1;
+  color: #334155;
+}
+
+.results-container .summary-label {
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  color: #64748b;
+}
+
+/* Rang urg'ulari — status bo'yicha. */
+.results-container .summary-card--submitted {
+  border-top-color: #2563eb;
+}
+.results-container .summary-card--submitted .summary-value {
+  color: #2563eb;
+}
+.results-container .summary-card--passed {
+  border-top-color: #16a34a;
+}
+.results-container .summary-card--passed .summary-value {
+  color: #16a34a;
+}
+.results-container .summary-card--failed {
+  border-top-color: #dc2626;
+}
+.results-container .summary-card--failed .summary-value {
+  color: #dc2626;
+}
+.results-container .summary-card--missed {
+  border-top-color: #d97706;
+}
+.results-container .summary-card--missed .summary-value {
+  color: #d97706;
+}
+
+@media (max-width: 1100px) {
+  .results-container .results-summary-inner {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .results-container .form-body.flex-wrap {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+  }
+  .results-container .results-summary-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .results-container .w-240 {
+    width: 100%;
+  }
+}
+
+/* Responsive: 1920px -> 768px. Page offset is reduced progressively but kept
+   wide enough to clear the fixed 80px sidebar rail. */
+@media (max-width: 1600px) {
+  .students-test-container {
+    margin-left: 110px !important;
+  }
+}
+
+@media (max-width: 1400px) {
+  .students-test-container {
+    margin-left: 100px !important;
+  }
+  .form-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .results-summary {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .students-test-container {
+    margin-left: 92px !important;
+  }
+  .table-card {
+    overflow-x: auto;
+  }
+  .data-table {
+    min-width: 720px;
+  }
+}
+
+@media (max-width: 992px) {
+  .students-test-container {
+    margin-left: 90px !important;
+    margin-right: 16px !important;
+  }
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .results-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .students-test-container {
+    margin-left: 88px !important;
+    margin-right: 12px !important;
+    margin-top: 24px !important;
+  }
+  .students-test-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .search-input-wrapper {
+    width: 100%;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-footer {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ILM PLYUS TA'LIM TIZIMI</title>
+    <!-- Ikonka CDN'iga ulanish (DNS + TLS) sahifa yuklanishi bilan boshlanadi —
+         birinchi so'rov navbat kutmaydi. (API uchun alohida preconnect kerak emas:
+         `/api` shu saytning o'z domeni, ulanish allaqachon ochiq.) -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <!--
+      Font Awesome: faqat kerakli qism.
+
+      Ilgari `all.min.css` (7 ta stil: solid/regular/brands/light/thin/duotone/
+      sharp, ~74 KB) sinxron `<link rel=stylesheet>` bilan yuklanardi — sahifa
+      render bo'lishi shu faylni kutib turardi. Kodda faqat `fa-solid` va
+      `fa-regular` ishlatiladi (brands/light/thin/duotone/sharp — hech qayerda
+      yo'q), shuning uchun uchta kichik faylga bo'lindi: `fontawesome.min.css`
+      (bazaviy — barcha ikonka nomlarining glyph xaritasi, shart) + `solid` va
+      `regular` (faqat shu ikki stilning `@font-face`si). SRI xeshlari shu
+      versiyaning haqiqiy fayllaridan hisoblangan.
+
+      `media="print"` + `onload` — sahifa render bo'lishini bloklamaydi: brauzer
+      buni "ekran uchun emas" deb darhol o'tkazib yuboradi, fon rejimida
+      yuklanib bo'lgach `onload` uni "all" ga o'tkazadi va ikonkalar chiqadi.
+      Bu SPA'da JS'siz umuman render bo'lmaydi, shuning uchun <noscript>
+      fallback keraksiz.
+    -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/fontawesome.min.css"
+      integrity="sha512-M5Kq4YVQrjg5c2wsZSn27Dkfm/2ALfxmun0vUE3mPiJyK53hQBHYCVAtvMYEC7ZXmYLg8DVG4tF8gD27WmDbsg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/solid.min.css"
+      integrity="sha512-EHa6vH03/Ty92WahM0/tet1Qicl76zihDCkBnFhN3kFGQkC+mc86d7V+6y2ypiLbk3h0beZAGdUpzfMcb06cMg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/regular.min.css"
+      integrity="sha512-x3gns+l9p4mIK7vYLOCUoFS2P1gavFvnO9Its8sr0AkUk46bgf9R51D8xeRUwCSk+W93YbXWi19BYzXDNBH5SA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      media="print"
+      onload="this.media='all'"
+    />
+    <!-- Login sahifasida Telegram/YouTube ikonkalari `fa-brands` stilidan
+         foydalanadi (login/index.tsx) — u ilgari umuman yuklanmagan edi. -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/brands.min.css"
+      integrity="sha512-WxpJXPm/Is1a/dzEdhdaoajpgizHQimaLGL/QqUIAjIihlQqlPQb1V9vkGs9+VzXD7rgI6O+UsSKl4u5K36Ydw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      media="print"
+      onload="this.media='all'"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

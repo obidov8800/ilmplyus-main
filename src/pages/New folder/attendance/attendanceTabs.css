@@ -1,0 +1,77 @@
+.attendance-wrapper {
+  padding-bottom: 24px;
+}
+
+.attendance-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 24px 0 16px;
+}
+
+.attendance-tab {
+  padding: 9px 20px;
+  border: 1px solid #dde3ed;
+  border-radius: var(--radius-md);
+  background: #fff;
+  font-size: 14px;
+  font-family: noto-sb, sans-serif;
+  color: #1a2340;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.attendance-tab:hover {
+  border-color: var(--color-primary);
+}
+
+.attendance-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* Bo'lim filtri — jadvalning to'q sarlavhasida, oy almashtirish tugmalaridan keyin
+   (Belgilar jadvalidagi filial tanlagichi bilan bir xil ko'rinish). */
+.attendance-department-filter {
+  height: 34px;
+  max-width: 220px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
+  background: #fff;
+  color: #03213f;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* Kelish-ketish vaqti sarlavhasida oy tugmalari 36px — tanlagich ham shunga mos. */
+.attendance-top-left .attendance-department-filter {
+  height: 36px;
+}
+
+.attendance-department-filter:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 1px;
+}
+
+@media (max-width: 768px) {
+  /* Telefon: tanlagich oy tugmalari tagida o'z qatorida, to'liq kenglikda. */
+  .attendance-department-filter {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: none;
+  }
+
+  .attendance-top-left {
+    flex-wrap: wrap;
+  }
+
+  .attendance-tabs {
+    padding: 16px 0 12px;
+    flex-wrap: wrap;
+  }
+}

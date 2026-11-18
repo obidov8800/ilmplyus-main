@@ -1,0 +1,277 @@
+.notif-page {
+  margin-top: 40px;
+}
+
+.notif-header__subtitle {
+  font-size: 13px;
+  color: var(--color-muted);
+  font-family: noto-m, sans-serif;
+  margin: 0 0 16px;
+}
+
+.notif-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1.5px solid #e5e9f0;
+  margin-bottom: 16px;
+}
+
+.notif-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 18px;
+  background: none;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  margin-bottom: -1.5px;
+  font-family: noto-m, sans-serif;
+  font-size: 13.5px;
+  color: #64748b;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color 0.18s,
+    border-color 0.18s;
+}
+
+.notif-tab:hover {
+  color: #1e293b;
+}
+
+.notif-tab--active {
+  color: var(--color-accent);
+  font-family: noto-b, sans-serif;
+  border-bottom-color: var(--color-accent);
+}
+
+.notif-tab__count {
+  min-width: 20px;
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  background: #eef1f5;
+  color: #64748b;
+  font-size: 11px;
+  font-family: noto-b, sans-serif;
+  text-align: center;
+}
+
+.notif-tab--active .notif-tab__count {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.notif-feed {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.notif-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background 0.15s ease;
+}
+
+.notif-row:last-child {
+  border-bottom: none;
+}
+
+.notif-row:hover {
+  background: #f8fafc;
+}
+
+/* O'qilgan qator — xiralashtirilgan, e'tiborni o'qilmaganlarga qaratadi. */
+.notif-row--read {
+  background: #fbfbfc;
+}
+
+.notif-row--read .notif-row__text {
+  color: #94a3b8;
+}
+
+.notif-row__read-toggle {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: #94a3b8;
+  font-size: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.notif-row__read-toggle:hover {
+  background: #eef1f5;
+  color: var(--color-accent);
+}
+
+.notif-row__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.notif-row__icon--task {
+  background: #e2eefe;
+  color: var(--color-info);
+}
+
+.notif-row__icon--lid {
+  background: #e1f7e0;
+  color: var(--color-success);
+}
+
+.notif-row__icon--debt {
+  background: #fde2e2;
+  color: var(--color-danger);
+}
+
+.notif-row__icon--payroll {
+  background: #fef3e2;
+  color: #b5760a;
+}
+
+.notif-row__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.notif-row__text {
+  font-size: 13.5px;
+  font-family: noto-m, sans-serif;
+  color: #1e293b;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.notif-row__time {
+  font-size: 11px;
+  font-family: noto-m, sans-serif;
+  color: var(--color-muted);
+}
+
+.notif-row__dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-danger);
+}
+
+.notif-row__view {
+  flex-shrink: 0;
+  border: 1px solid var(--color-accent);
+  background: transparent;
+  color: var(--color-accent);
+  font-family: noto-sb, sans-serif;
+  font-size: 12px;
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.notif-row__view:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.notif-page-loading {
+  padding: 60px 0;
+  text-align: center;
+  color: var(--color-muted);
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+}
+
+.notif-empty-all {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 70px 20px;
+  color: #c3c9d1;
+  font-family: noto-m, sans-serif;
+  font-size: 15px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.notif-empty-all i {
+  font-size: 42px;
+  opacity: 0.5;
+}
+
+@media (max-width: 1400px) {
+  .notif-page {
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .notif-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+  }
+
+  .notif-row {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 14px 16px;
+    row-gap: 10px;
+    min-height: 60px;
+  }
+
+  /* Ikonka (38) + gap (14) = 52px — matn shu chiziqdan boshlanadi */
+  .notif-row__body {
+    flex-basis: calc(100% - 52px);
+  }
+
+  .notif-row__dot {
+    order: 2;
+    margin-top: 6px;
+  }
+
+  .notif-row__read-toggle {
+    order: 3;
+    margin-top: -6px;
+  }
+
+  /* "Ko'rish" — alohida qatorda, matn bilan tekislangan, keng tap-target */
+  .notif-row__view {
+    order: 4;
+    flex: 1 1 100%;
+    margin-left: 52px;
+    text-align: center;
+    padding: 10px 16px;
+  }
+}

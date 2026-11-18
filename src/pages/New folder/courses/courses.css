@@ -1,0 +1,1327 @@
+.courses {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 50px !important;
+  margin-left: 140px !important;
+}
+
+.courses-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.courses-top-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.courses-top__send-btn {
+  background-color: var(--color-primary-soft);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 10px 20px;
+  font-size: 14px;
+  font-family: noto-m, sans-serif;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.courses-top__send-btn:hover:not(:disabled) {
+  background-color: #254f7d;
+}
+
+.courses-top__send-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.courses-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.courses-top__approve-btn {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 10px 20px;
+  font-size: 14px;
+  font-family: noto-m, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.courses-top__approve-btn:hover:not(:disabled) {
+  background-color: #00254d;
+}
+
+.courses-top__approve-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.courses-top__reject-btn {
+  background-color: var(--color-danger);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 10px 20px;
+  font-size: 14px;
+  font-family: noto-m, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.courses-top__reject-btn:hover:not(:disabled) {
+  background-color: #c00909;
+}
+
+.courses-top__reject-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/*
+ * Qidiruv va «Qo'shish» — boshqa sahifalardagidek (guruhlar, ro'yxatga olish).
+ * Ilgari bu yerda `registration-top__*` klasslari ishlatilardi, lekin
+ * `registration.css` bu sahifaga import qilinmagani uchun ular uslubsiz —
+ * brauzerning standart input/tugmasi ko'rinishida chiqardi.
+ */
+.courses-top__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 280px;
+  padding: 10px 18px;
+  border: 1.5px solid #d9d9d9;
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  transition: border-color 0.2s ease;
+}
+
+.courses-top__search:focus-within {
+  border-color: var(--color-accent);
+}
+
+.courses-top__search i {
+  color: #aaa;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.courses-top__search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  font-family: inherit;
+  color: #333;
+}
+
+.courses-top__search input::placeholder {
+  color: #aaa;
+}
+
+.courses-top__add-btn {
+  padding: 10px 22px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: #ffffff;
+  font-size: 14px;
+  font-family: noto-sb, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.courses-top__add-btn:hover {
+  background: #e07d00;
+}
+
+.courses-top__pricelist-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ed7d31;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 10px 20px;
+  font-size: 14px;
+  font-family: noto-m, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.courses-top__pricelist-btn:hover:not(:disabled) {
+  background-color: #d76c22;
+}
+
+.courses-top__pricelist-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.courses-content {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Holat tablari ---------- */
+.courses-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 20px 0;
+  border-bottom: 1px solid #eaecf0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.courses-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.courses-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: none;
+  padding: 12px 14px;
+  margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #7a8fa6;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.courses-tab:hover {
+  color: #3d4a5c;
+}
+
+.courses-tab--active {
+  color: var(--color-primary-soft);
+  border-bottom-color: var(--color-primary-soft);
+  font-family: noto-sb, sans-serif;
+}
+
+.courses-tab__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background-color: #f0f2f5;
+  color: #7a8fa6;
+  font-size: 11px;
+  font-family: noto-sb, sans-serif;
+}
+
+.courses-tab--active .courses-tab__count {
+  background-color: #e8f0fe;
+  color: var(--color-primary-soft);
+}
+
+.courses-loading {
+  padding: 40px;
+  text-align: center;
+  color: #7a8fa6;
+  font-size: 14px;
+}
+
+.courses-error {
+  padding: 40px;
+  text-align: center;
+  color: #e74c3c;
+  font-size: 14px;
+}
+
+.courses-table-wrap {
+  overflow-x: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+}
+
+/*
+ * Bazaviy th/td ko'rinishi (rang, chegara, hover) endi `.data-table`
+ * (`primitives.css`) — bu yerda faqat shu jadvalga xos qo'shimchalar:
+ * scroll paytida yopishqoq sarlavha, minimal kenglik va raqamli
+ * ustunlarni o'ngga tekislash (narx/son ustunlarini solishtirish oson
+ * bo'lishi uchun — ilgari hammasi chapga tekislangan edi).
+ */
+/* Ustunlar soni 13 dan 9 taga tushirilgach (qolgani "Ko'rish" modalida),
+   minimal kenglik ham shunga mos kichraytirildi. */
+.courses-table {
+  min-width: 900px;
+}
+
+/* Bu jadvalda 13 ta ustun bor — `.data-table`ning standart 16px/20px
+   bo'shlig'i shu qadar ustunda jadvalni kerakidan kengaytirib, avval
+   scrollsiz sig'gan joyda ham gorizontal scroll talab qila boshlagan
+   edi. Zichroq bo'shliq bilan qaytarildi. */
+.courses-table th,
+.courses-table td {
+  padding: 12px 10px;
+}
+
+.courses-table__head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.courses-table__th--cb {
+  width: 46px;
+  padding-left: 20px;
+  padding-right: 8px;
+}
+
+/*
+ * Butun jadval (jumladan Eski/Yangi narx) markazga tekislanadi.
+ *
+ * Nega alohida, kuchliroq selector kerak: `.data-table th` (primitives.css)
+ * klass+element birikmasi bo'lgani uchun (specificity 0,0,1,1) faqat
+ * klassdan iborat `.courses-table__th--num { text-align: right }`ni
+ * (0,0,1,0) sarlavhalarda har doim yengib turardi — `.data-table td`da esa
+ * bunday raqobatchi qoida yo'q edi. Natijada sarlavha ("Eski narx") chapda
+ * qolib, tagidagi raqam esa o'ngda — ikkalasi mos kelmasdi. `.courses-table`
+ * va `.data-table` klasslarini birlashtirib (0,0,2,1), specificity’dan
+ * qat'i nazar barcha ustunlar bir xil — markazda — ko'rinadi.
+ */
+.courses-table.data-table th,
+.courses-table.data-table td {
+  text-align: center;
+}
+
+.courses-table__row {
+  border-bottom: 1px solid #f0f2f5;
+  transition: background-color 0.15s ease;
+}
+
+.courses-table__row:last-child {
+  border-bottom: none;
+}
+
+.courses-table__row:hover {
+  background-color: #f8fafd;
+}
+
+.courses-table__row--selected {
+  background-color: #eef4ff;
+}
+
+.courses-table__row--selected:hover {
+  background-color: #e3edff;
+}
+
+/* `.data-table`ning umumiy hover qoidasi `<td>`larga bevosita rang beradi
+   (shu bilan qatordagi fonni yashiradi) — tanlangan qator hover qilinganda
+   ham o'zining (to'qroq) rangida qolishi uchun shu yerda ustidan yoziladi. */
+.courses-table tr.courses-table__row--selected:hover td {
+  background-color: #e3edff;
+}
+
+.courses-table__td {
+  white-space: nowrap;
+}
+
+.courses-table__td--cb {
+  width: 46px;
+  padding-left: 20px;
+  padding-right: 8px;
+}
+
+.courses-table__td--num {
+  font-family: noto-sb, sans-serif;
+}
+
+/* `<td>`ning o'ziga `display: flex` BERILMAYDI: u katakni jadval qatoridan chiqarib, alohida (anonim) katak qiladi —
+   natijada «Amallar» ustida o'zining pastki chizig'i qator chizig'idan ALOHIDA, ikki qavat bo'lib chiqardi.
+   Tugmalar ichidagi `.row-actions` (primitives.css, flex) ichida markazlanadi. */
+.courses-table__td--actions .row-actions {
+  justify-content: center;
+}
+
+.courses-table__checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-primary-soft);
+  flex-shrink: 0;
+}
+
+.courses-pct {
+  font-family: noto-sb, sans-serif;
+  font-size: 13px;
+}
+
+/* Asosiy sana — "keyingi indeksatsiya" belgisi bo'lmagan qatorlar bilan
+   balandligi bir xil turishi uchun aniq blok qilingan. */
+.courses-table__date {
+  display: block;
+  line-height: 1.3;
+}
+
+/* Eski/yangi narx — endi alohida ustunlarda. */
+.courses-table__price {
+  font-family: noto-m, sans-serif;
+  white-space: nowrap;
+}
+
+.courses-table__price--old {
+  color: #94a3b8;
+  text-decoration: line-through;
+  text-decoration-color: #cbd5e1;
+}
+
+.courses-table__price--new {
+  color: #3d4a5c;
+  font-family: noto-sb, sans-serif;
+}
+
+/*
+ * Keyingi avtomatik indeksatsiya: "01.09.2027 → 600 000".
+ *
+ * Ilgari asosiy sana ostida oddiy matn qatori edi — shu qatorlar boshqa
+ * qatorlardan sezilarli balandroq bo'lib, jadval notekis ko'rinardi.
+ * Endi kichik yorliq (chip) ko'rinishida: ixcham, o'z fonida, va
+ * qatorning umumiy balandligiga kamroq ta'sir qiladi. To'liq izoh
+ * (`title`) hover'da baribir chiqadi.
+ */
+.courses-table__auto-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(237, 125, 49, 0.12);
+  font-size: 10.5px;
+  font-family: noto-m, sans-serif;
+  line-height: 1.4;
+  color: #ed7d31;
+  white-space: nowrap;
+  cursor: help;
+}
+
+.courses-table__auto-hint i {
+  font-size: 9px;
+}
+
+.courses-pct--up {
+  color: #27ae60;
+}
+
+.courses-pct--down {
+  color: #e74c3c;
+}
+
+.courses-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: noto-m, sans-serif;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.courses-badge--blue {
+  background-color: var(--color-primary);
+}
+
+.courses-badge--red {
+  background-color: var(--color-danger);
+}
+
+.courses-badge--orange {
+  background-color: var(--color-accent);
+}
+
+.courses-badge--green {
+  background-color: #1a7f3c;
+}
+
+.courses-table__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 16px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-family: noto-m, sans-serif;
+  cursor: pointer;
+  transition:
+    opacity 0.15s ease,
+    transform 0.1s ease;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.courses-table__action-btn:hover {
+  opacity: 0.85;
+}
+
+.courses-table__action-btn:active {
+  transform: scale(0.97);
+}
+
+.courses-table__action-btn--approve {
+  background-color: var(--color-primary-soft);
+}
+
+.courses-table__action-btn--reject {
+  background-color: #e74c3c;
+}
+
+.courses-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.courses-modal {
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.courses-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px 14px;
+  background: var(--color-primary-soft);
+  border-radius: 14px 14px 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.courses-modal__title {
+  font-size: 16px;
+  font-family: noto-sb, sans-serif;
+  color: #fff;
+  margin: 0;
+}
+
+.courses-modal__date {
+  font-size: 13px;
+  color: #c8d8e8;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.courses-modal__body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.courses-modal__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.courses-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.courses-modal__field--full {
+  grid-column: 1 / -1;
+}
+
+.courses-modal__label {
+  font-size: 13px;
+  font-family: noto-m, sans-serif;
+  color: #4a5568;
+}
+
+.courses-modal__input,
+.courses-modal__select,
+.courses-modal__textarea {
+  border: 1px solid #dde3ec;
+  border-radius: var(--radius-md);
+  padding: 9px 12px;
+  font-size: 14px;
+  color: #3d4a5c;
+  background: #fff;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+  font-family: noto-m, sans-serif;
+}
+
+.courses-modal__input:focus,
+.courses-modal__select:focus,
+.courses-modal__textarea:focus {
+  border-color: var(--color-primary-soft);
+}
+
+.courses-modal__input--readonly {
+  background-color: #f7f9fb;
+  color: #7a8fa6;
+  cursor: default;
+}
+
+.courses-modal__input--error,
+.courses-modal__select--error {
+  border-color: #e74c3c;
+}
+
+.courses-modal__input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.courses-modal__input-wrap .courses-modal__input {
+  padding-right: 52px;
+}
+
+.courses-modal__currency {
+  position: absolute;
+  right: 12px;
+  font-size: 11px;
+  font-family: noto-b, sans-serif;
+  color: #7a8fa6;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: 0.03em;
+}
+
+.courses-modal__hint {
+  font-size: 11px;
+  color: #7a8fa6;
+}
+
+.courses-modal__hint--up {
+  color: #27ae60;
+}
+
+.courses-modal__hint--down {
+  color: #e74c3c;
+}
+
+.courses-modal__error {
+  font-size: 11px;
+  color: #e74c3c;
+}
+
+.courses-modal__select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239aa5b4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 34px;
+  cursor: pointer;
+}
+
+.courses-modal__textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.courses-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px 20px;
+  border-top: 1px solid #eaecf0;
+}
+
+.courses-modal__btn {
+  padding: 10px 28px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-family: noto-m, sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.courses-modal__btn--cancel {
+  background-color: #f0f2f5;
+  color: #4a5568;
+}
+
+.courses-modal__btn--cancel:hover {
+  background-color: #e2e6ec;
+}
+
+.courses-modal__btn--save {
+  background-color: #f5a623;
+  color: #fff;
+  font-family: noto-sb, sans-serif;
+}
+
+.courses-modal__btn--save:hover {
+  background-color: #e09510;
+}
+
+.courses-modal__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.courses-level-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-family: noto-sb, sans-serif;
+  background-color: #e8f0fe;
+  color: var(--color-primary-soft);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Yaratdi / Tasdiqladi ustunlari ---------- */
+.courses-actor {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.3;
+  min-width: 0;
+}
+
+.courses-actor__name {
+  font-size: 12.5px;
+  font-family: noto-m, sans-serif;
+  color: #3d4a5c;
+  overflow-wrap: break-word;
+}
+
+.courses-actor__at {
+  font-size: 11px;
+  color: #7a8fa6;
+}
+
+.courses-actor__empty {
+  color: #b9c3cf;
+}
+
+.courses-table__course-name {
+  font-family: noto-m, sans-serif;
+  color: #2d3748;
+}
+
+.courses-empty {
+  padding: 48px 20px;
+  text-align: center;
+  color: #7a8fa6;
+  font-size: 14px;
+}
+
+/* ── Narx o'zgarishlar tarixi modali ("Ko'rish" tugmasi) ─────────────────
+   `.courses-modal` bazasidan kengroq — bitta yozuv emas, xronologik vaqt
+   chizig'i (timeline) sig'ishi kerak: har bir yozuv nuqta+chiziq bilan
+   bog'langan, eng yangisi maxsus belgilangan. */
+.courses-modal--history {
+  max-width: 640px;
+  /* Bazaviy `.courses-modal` butun oynani (sarlavha bilan birga) scroll
+     qiladi — shu sababli scrollbar sarlavhaning dumaloq burchagini kesib
+     o'tardi. Bu yerda faqat ro'yxat (`__body--history`) scroll qiladi,
+     sarlavha va pastki tugma doim joyida qoladi. */
+  overflow: hidden;
+}
+
+.courses-modal__header--history {
+  justify-content: flex-start;
+}
+
+.courses-modal__header--history .courses-modal__date {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.courses-modal__header-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-accent);
+  font-size: 15px;
+}
+
+.courses-modal__header-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.courses-modal__history-subtitle {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  font-family: noto-m, sans-serif;
+  color: #c8d8e8;
+}
+
+.courses-modal__body--history {
+  padding: 20px 22px 20px;
+  gap: 0;
+  background: #fbfcfd;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #c3cbd6 transparent;
+}
+
+.courses-modal__body--history::-webkit-scrollbar {
+  width: 7px;
+}
+
+.courses-modal__body--history::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.courses-modal__body--history::-webkit-scrollbar-thumb {
+  background-color: #c3cbd6;
+  border-radius: var(--radius-pill);
+}
+
+.courses-modal__body--history::-webkit-scrollbar-thumb:hover {
+  background-color: #a8b3c2;
+}
+
+/* Vaqt chizig'i: ro'yxat o'zi bitta uzluksiz vertikal chiziq beradi
+   (`::before`), har bir yozuv shu chiziq ustida o'z nuqtasiga ega. */
+.courses-history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+}
+
+.courses-history-list::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: 7px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: linear-gradient(to bottom, #dde3ec, #dde3ec 88%, transparent);
+}
+
+.courses-history-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: courses-history-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes courses-history-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.courses-history-item__dot {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  margin-top: 6px;
+  border-radius: 50%;
+  border: 3px solid #fbfcfd;
+  box-shadow: 0 0 0 1px #dde3ec;
+  background: #94a3b8;
+}
+
+.courses-history-item__dot--up {
+  background: #27ae60;
+}
+
+.courses-history-item__dot--down {
+  background: #e74c3c;
+}
+
+.courses-history-item__dot--flat {
+  background: #94a3b8;
+}
+
+.courses-history-item--latest .courses-history-item__dot {
+  width: 16px;
+  height: 16px;
+  margin-top: 5px;
+  box-shadow: 0 0 0 4px rgba(27, 58, 92, 0.14);
+}
+
+.courses-history-item__card {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #eaecf0;
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.courses-history-item--latest .courses-history-item__card {
+  background: #fff;
+  border-color: #cfe0f5;
+  box-shadow: 0 6px 20px rgba(0, 51, 102, 0.08);
+}
+
+.courses-history-item__latest-tag {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(27, 58, 92, 0.1);
+  color: var(--color-primary-soft);
+  font-size: 10.5px;
+  font-family: noto-sb, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.courses-history-item__latest-tag i {
+  font-size: 9px;
+  color: var(--color-accent);
+}
+
+.courses-history-item__top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+}
+
+.courses-history-item__top .courses-badge {
+  margin-left: auto;
+}
+
+.courses-history-item__price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.courses-history-item__price-old {
+  font-size: 13px;
+  font-family: noto-m, sans-serif;
+  color: #9aa5b4;
+  text-decoration: line-through;
+  text-decoration-color: #cbd5e1;
+}
+
+.courses-history-item__price i {
+  font-size: 11px;
+  color: #b9c3cf;
+}
+
+.courses-history-item__price-new {
+  font-size: 17px;
+  font-family: noto-b, sans-serif;
+  color: var(--color-primary);
+}
+
+.courses-history-item__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.courses-history-item__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-family: noto-m, sans-serif;
+  color: #64748b;
+}
+
+.courses-history-item__stat i {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #eef2f6;
+  color: #8896a8;
+  font-size: 10px;
+}
+
+/* Kim/qachon — avatar-yorliq panjara. `auto-fit`/`minmax` uzun ismlar
+   (masalan "System Administrator") uchun yetarli joy qoldiradi — 3-tasi
+   sig'masa, "Rad etdi" keyingi qatorga tushadi, siqilib sinib qolmaydi. */
+.courses-history-item__audit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px 14px;
+  padding-top: 10px;
+  border-top: 1px dashed #e5e9f0;
+}
+
+.courses-audit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.courses-audit__avatar {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10.5px;
+  font-family: noto-sb, sans-serif;
+  background: var(--color-primary-soft);
+  color: #fff;
+}
+
+.courses-audit--empty .courses-audit__avatar {
+  background: #eef1f5;
+  color: #b9c3cf;
+  font-size: 10px;
+}
+
+.courses-audit--empty {
+  opacity: 0.5;
+}
+
+.courses-audit__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.courses-audit__label {
+  font-size: 9.5px;
+  font-family: noto-m, sans-serif;
+  color: #9aa5b4;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.courses-history-item__reason,
+.courses-history-item__comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+  font-family: noto-m, sans-serif;
+  line-height: 1.5;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+}
+
+.courses-history-item__reason i,
+.courses-history-item__comment i {
+  margin-top: 2px;
+  font-size: 11px;
+}
+
+.courses-history-item__comment {
+  color: #5b6b81;
+  background: #fff;
+  border: 1px solid #eef1f5;
+}
+
+.courses-history-item__comment i {
+  color: #cbd5e1;
+}
+
+.courses-history-item__reason {
+  color: #c0392b;
+  background: #fdf1f0;
+}
+
+@media (max-width: 640px) {
+  .courses-modal--history {
+    max-width: 100%;
+  }
+
+  .courses-history-item__audit {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+/* Responsive Scaling: 1920px -> 1200px */
+@media (max-width: 1600px) {
+  .courses {
+    margin-left: 100px !important;
+  }
+  .courses-modal {
+    max-width: 480px;
+  }
+  .courses-table__th,
+  .courses-table__td {
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .courses {
+    margin-left: 80px !important;
+  }
+  .courses-top__send-btn {
+    padding: 9px 18px;
+  }
+  .courses-modal {
+    max-width: 450px;
+  }
+  .courses-table__th,
+  .courses-table__td {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .courses {
+    margin-left: 60px;
+  }
+
+  .courses-table {
+    font-size: 13px;
+  }
+
+  .courses-table__th {
+    padding: 11px 12px;
+    font-size: 10px;
+  }
+
+  .courses-table__td {
+    padding: 11px 12px;
+    font-size: 13px;
+  }
+
+  .courses-top__send-btn {
+    padding: 9px 16px;
+    font-size: 13px;
+  }
+
+  .courses-top__search {
+    width: 220px;
+    padding: 8px 14px;
+  }
+}
+
+@media (max-width: 991px) {
+  .courses {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .courses-table-wrap {
+    overflow-x: scroll;
+  }
+
+  .courses-table__head {
+    position: sticky;
+    top: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .courses {
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: 24px !important;
+  }
+
+  .courses-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .courses-top-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .courses-top__search {
+    width: 100%;
+  }
+
+  .courses-content {
+    border-radius: var(--radius-sm);
+  }
+
+  .courses-tabs {
+    padding: 4px 12px 0;
+  }
+
+  .courses-tab {
+    padding: 10px 10px;
+    font-size: 13px;
+  }
+
+  .courses-table-wrap {
+    overflow-x: visible;
+  }
+
+  .courses-table,
+  .courses-table thead,
+  .courses-table tbody,
+  .courses-table tr,
+  .courses-table th,
+  .courses-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .courses-table__head {
+    display: none;
+  }
+
+  .courses-table__row {
+    border: 1px solid #eaecf0;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 12px;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+
+  .courses-table__row:hover {
+    background-color: #f8fafd;
+  }
+
+  .courses-table__row--selected {
+    background-color: #eef4ff;
+    border-color: #9bbff5;
+  }
+
+  .courses-table__td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    white-space: normal;
+    border-bottom: 1px solid #f5f7fa;
+    font-size: 13px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .courses-table__td:last-child {
+    border-bottom: none;
+  }
+
+  .courses-table__td[data-label]::before {
+    content: attr(data-label);
+    font-size: 11px;
+    font-family: noto-sb, sans-serif;
+    color: #7a8fa6;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    margin-right: 8px;
+    min-width: 110px;
+  }
+
+  .courses-table__td--cb {
+    display: none;
+  }
+
+  .courses-table__td--actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding-top: 10px;
+    border-bottom: none;
+  }
+
+  .courses-table__td--actions::before {
+    display: none;
+  }
+
+  .courses-table__action-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    justify-content: center;
+  }
+
+  .courses-modal__row {
+    grid-template-columns: 1fr;
+  }
+
+  .courses-modal {
+    max-width: 100%;
+    max-height: 95vh;
+  }
+}

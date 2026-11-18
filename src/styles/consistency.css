@@ -1,0 +1,788 @@
+/*
+ * Sahifalar orasidagi yagona ko'rinish — "qoplama" qatlami.
+ *
+ * Nega kerak: sahifalar turli vaqtda yozilgani uchun bir xil narsa (asosiy
+ * "yaratish" tugmasi, jadval sarlavhasi, sahifa tavsifi...) har sahifada
+ * o'zicha ko'rinardi — to'q sariq tugma bir joyda 42px, boshqa joyda 46px,
+ * yana boshqasida to'q ko'k yoki ko'k; jadval sarlavhasi bir joyda ko'k-kulrang
+ * fonli, boshqasida uppercase kulrang, uchinchisida butunlay ko'rinmas.
+ *
+ * `modal.css` modallar bilan qilgan ishni (bitta joyda ta'riflab, sahifa
+ * klasslarini ro'yxatga olish) bu fayl sahifa darajasida qiladi. Sahifaning
+ * o'z CSS'i o'zgarmaydi — bu yerdagi qoidalar `main.page` prefiksi bilan
+ * ANIQROQ bo'lgani uchun yuklanish tartibidan qat'i nazar ustun turadi.
+ *
+ * Yangi sahifa yozganda: shu fayldagi (va `primitives.css`dagi) klasslardan
+ * foydalaning, ro'yxatga o'z klassingizni qo'shing — o'zingiz boshqa rang/o'lcham
+ * tanlamang.
+ *
+ * Qoidalar:
+ *   · to'q sariq (`--color-accent`) — sahifa yuqori o'ng burchagidagi "yaratish/qo'shish";
+ *   · to'q ko'k (`--color-primary`) — tasdiqlash/saqlash/faol tab;
+ *   · yashil / qizil — tasdiqlash / rad etish;
+ *   · oq + kulrang chegara — ikkinchi darajali (Saralash, Orqaga, Bekor qilish).
+ */
+
+/* ── 1. Shrift: belgilanmagan hamma narsa ham Noto ──────────────────────
+ * Tugma/maydonlar brauzerda `font-family`ni o'zi meros qilmaydi — shu sababli
+ * o'z shrifti berilmagan tugmalar tizim shriftida chiqardi (OT'ga qarab
+ * har xil). `inherit` ularni sahifa shriftiga bog'laydi. */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+body {
+  font-family: noto-r, sans-serif;
+}
+
+/* ── 2. Sahifa tavsifi (sarlavha tagidagi bir qator izoh) ───────────────
+ * Sarlavhaning o'zi Header'da — sahifa ichida takrorlanmaydi. Ma'lumot
+ * beradigan izoh (nima qiladi, qanday ishlaydi) saqlanadi va hamma joyda
+ * bir xil ko'rinadi. */
+.page-description,
+main.page .pen-subtitle,
+main.page .fp-subtitle,
+main.page .pdr-subtitle,
+main.page .ps-subtitle,
+main.page .dcr-subtitle,
+main.page .mea-subtitle {
+  margin: 0 0 20px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+/* ── 3. Asosiy "yaratish/qo'shish" tugmasi ──────────────────────────────
+ * Rang va shrift — hamma ekranda; balandlik/ichki bo'shliq — faqat katta
+ * ekranda (mobil o'lchamlari sahifalarning o'z media-qoidalarida). */
+main.page
+  :is(
+    .payments-create-btn,
+    .groups-add-btn,
+    .dl-create-btn,
+    .sc-create-btn,
+    .courses-top__add-btn,
+    .registration-top__register-btn,
+    .add-lesson-btn,
+    .tasks-create-btn,
+    .ipt-call-btn,
+    .fin-btn-add,
+    .btn-accent
+  ) {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: noto-b, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+main.page
+  :is(
+    .payments-create-btn,
+    .groups-add-btn,
+    .dl-create-btn,
+    .sc-create-btn,
+    .courses-top__add-btn,
+    .registration-top__register-btn,
+    .add-lesson-btn,
+    .tasks-create-btn,
+    .ipt-call-btn,
+    .fin-btn-add,
+    .btn-accent
+  ):hover:not(:disabled) {
+  background: #e07f00;
+}
+
+/* Balandlik va shrift o'lchami — telefonda ham bir xil (ilgari sahifalarda 36/38/42px aralash edi). */
+main.page
+  :is(
+    .payments-create-btn,
+    .groups-add-btn,
+    .dl-create-btn,
+    .sc-create-btn,
+    .courses-top__add-btn,
+    .registration-top__register-btn,
+    .add-lesson-btn,
+    .tasks-create-btn,
+    .ipt-call-btn,
+    .fin-btn-add,
+    .btn-accent
+  ) {
+  height: 42px;
+  font-size: 14px;
+}
+
+@media (min-width: 901px) {
+  main.page
+    :is(
+      .payments-create-btn,
+      .groups-add-btn,
+      .dl-create-btn,
+      .sc-create-btn,
+      .courses-top__add-btn,
+      .registration-top__register-btn,
+      .add-lesson-btn,
+      .tasks-create-btn,
+      .ipt-call-btn,
+      .fin-btn-add,
+      .btn-accent
+    ) {
+    height: 42px;
+    padding: 0 22px;
+    font-size: 14px;
+  }
+}
+
+/* ── 4. Qidiruv maydoni (toolbar) ───────────────────────────────────────
+ * To'lovlar sahifasidagi namuna: 42px, `#e0e0e0` chegara, radius 15. */
+main.page .registration-top__search {
+  height: 42px;
+  border-color: #e0e0e0;
+  padding: 0 16px;
+}
+
+main.page .registration-top__search input {
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+/* ── 5. Umumiy toolbar (yangi/qayta yozilgan sahifalar uchun) ───────────
+ * Qidiruv + filtr + asosiy tugma — o'ng tomonda. Markup:
+ *   <div class="page-toolbar">
+ *     <div class="page-toolbar__search"><i class="fa-solid fa-magnifying-glass"/><input/></div>
+ *     <button class="btn-accent">Qo'shish</button>   ← «+» belgisisiz, hamma joyda shu tugma
+ *   </div>
+ */
+.page-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.page-toolbar__search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 220px;
+  max-width: 420px;
+}
+
+.page-toolbar__search > i {
+  position: absolute;
+  left: 14px;
+  color: #aaa;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.page-toolbar__search > input {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius-md);
+  padding: 0 16px 0 38px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+  color: #333;
+  transition: border-color 0.2s;
+}
+
+.page-toolbar__search > input:focus {
+  border-color: var(--color-primary);
+}
+
+.page-toolbar__search > input::placeholder {
+  color: #aaa;
+}
+
+.page-toolbar__select {
+  height: 42px;
+  min-width: 180px;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius-md);
+  padding: 0 14px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  background: #fff;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+}
+
+.page-toolbar__select:focus {
+  border-color: var(--color-primary);
+}
+
+/* Jadval katagidagi ikki qatorli matn: sarlavha + kichik izoh (ism + telefon). */
+.cell-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cell-stack__title {
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  color: #000;
+}
+
+.cell-stack__sub {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #888;
+}
+
+/* Bo'sh / yuklanmoqda qatori — ilgari faqat `payments.css`da edi, boshqa
+ * sahifalarda ishlatilganda (dev rejimida) stilsiz qolardi. */
+.table-empty-row td {
+  text-align: center;
+  padding: 50px 16px;
+  color: #aaa;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+}
+
+/* ── 6. Sarlavha (Header) ostidan bir xil masofa — 50px ─────────────────
+ * Namuna: To'lovlar/Guruhlar/Chiqimlar... (`margin-top: 50px`). Quyidagi
+ * sahifalar 0/24/30/40px berar edi — kontent Header'ga yopishib yoki har xil
+ * balandlikda boshlanardi. Faqat katta ekran: mobil o'lchamlar sahifalarning
+ * o'z media-qoidalarida. */
+@media (min-width: 901px) {
+  main.page .registration {
+    padding-top: 50px;
+  }
+  /* `.attendance-tabs` ichida o'z 24px ichki bo'shlig'i bor — 26 + 24 = 50 */
+  main.page .attendance-wrapper {
+    margin-top: 26px;
+  }
+  main.page .eatt-page {
+    margin-top: 50px !important;
+  }
+  main.page .roles.container {
+    padding-top: 50px;
+  }
+  main.page .notif-page {
+    margin-top: 50px;
+  }
+  main.page .faq-page {
+    margin-top: 50px;
+  }
+  main.page .finances {
+    margin-top: 50px !important;
+  }
+}
+
+/* Sahifa ildizi: sarlavha (Header) ostidan bir xil masofa. `main.page`ning
+ * o'zida yuqori bo'shliq yo'q, har sahifa o'zinikini beradi — yangi sahifalar
+ * shu klassni ishlatsin. */
+.page-root {
+  margin-top: 50px !important;
+}
+
+/* `.btn-accent` — yangi sahifalar uchun tayyor tugma: o'lchami hamma ekranda
+ * o'zida (eski sahifa klasslari mobil o'lchamini o'zlari beradi, shu sabab
+ * ular uchun balandlik/ichki bo'shliq faqat katta ekranda berilgan). */
+main.page .btn-accent {
+  height: 42px;
+  padding: 0 22px;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .page-toolbar__search {
+    max-width: none;
+    flex: 1 1 100%;
+  }
+
+  /* Telefon: tugma va tanlagich butun qatorni egallaydi (Guruhlar sahifasidagidek). */
+  .page-toolbar > .btn-accent,
+  .page-toolbar__select {
+    flex: 1 1 100%;
+  }
+}
+
+/* ── 7. Jadval sarlavhasi — hamma ro'yxat jadvalida bir xil ─────────────
+ * Namuna: `.data-table` (`primitives.css`) — och-kulrang fon, to'q ko'k
+ * qalin matn. Ilgari: bir joyda ko'k-kulrang fonli, boshqasida kulrang
+ * uppercase, uchinchisida (Mantine jadvali) oq matn oq fonda — ko'rinmas.
+ * Tarjima matnlari ham har xil registrda (ba'zisi "AMALLAR", ba'zisi
+ * "Amallar") — `uppercase` hammasini tenglashtiradi.
+ *
+ * O'lcham: oddiy jadvallar 14px (namuna), zich (ko'p ustunli) moliya/ish haqi
+ * jadvallari 12px. Faqat rang/shrift/registr — ustun kengligi, ichki bo'shliq
+ * va saralash belgisiga tegilmaydi. */
+main.page .data-table th,
+main.page :is(.groups-table, .fin-table) thead th {
+  background-color: #f8fafc;
+  color: var(--color-primary);
+  font-family: noto-b, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+main.page :is(.groups-table, .fin-table) thead th {
+  font-size: 12px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+/* Jadval ichidagi matn — hamma joyda Noto (ba'zi jadvallar tizim shriftida edi). */
+main.page .groups-table td {
+  font-family: noto-m, sans-serif;
+}
+
+/* ── 8. (bo'sh) — "Yangi tuzatish" tugmasi endi umumiy `ListToolbar`da (18-bo'lim). */
+
+/* ── 9. Ikkinchi darajali "Prays-list" tugmasi ──────────────────────────
+ * Kurslar sahifasida `#ed7d31` (brendda yo'q boshqa to'q sariq) edi —
+ * asosiy "Qo'shish" tugmasi bilan bir xil rangda, lekin chegara ko'rinishida
+ * (ikkinchi daraja) bo'ladi. */
+main.page .courses-top__pricelist-btn {
+  background: #fff;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+main.page .courses-top__pricelist-btn:hover:not(:disabled) {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* ── 10. Boshqa yagona-yo'l sozlamalar ──────────────────────────────────
+ * IP-telefoniya: sahifa sarlavhasi Header'da, ichkarida takrorlanmaydi —
+ * qolgan boshqaruv (SIP holati + "Qo'ng'iroq") o'ngda. "Qo'ng'iroq" tugmasi
+ * ilgari soya va sakrash effekti bilan boshqa tugmalardan ajralib turardi. */
+main.page .ipt-header {
+  justify-content: flex-end;
+}
+
+main.page .ipt-call-btn {
+  box-shadow: none;
+  transform: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+main.page .ipt-call-btn:hover:not(:disabled) {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Vazifalar: faol filtr — boshqa tab/chip'lar kabi to'q ko'k (to'q sariq faqat
+ * "yaratish" tugmasi uchun). */
+main.page .tasks-filter-btn.active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* ── 11. Modal ichidagi asosiy "Saqlash/Qo'shish" tugmasi — to'q ko'k ─────
+ * Ko'pchilik modal (To'lov, Demo dars, Kassa, Jarima, Reja, Mantine
+ * oynalari) tasdiqlash tugmasini to'q ko'k qilgan; Guruh/Kurs/Vazifa/Ro'yxat
+ * oynalarida esa uchta turli to'q sariq (`#fe9100`, `#f5a623`, `#f97316`) edi.
+ * To'q sariq — faqat sahifadagi "yaratish" tugmasi uchun. */
+body :is(.gm-modal-save-btn, .courses-modal__btn--save, .modal__save-btn, .rm-btn--submit) {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+body
+  :is(.gm-modal-save-btn, .courses-modal__btn--save, .modal__save-btn, .rm-btn--submit):hover:not(
+    :disabled
+  ) {
+  background: #00254d;
+}
+
+/* ── 12. "Chiqim kiritish" oynasi — boshqa forma oynalari kabi ───────────
+ * Boshqa forma oynalari (To'lov, Guruh, Demo...) to'q ko'k sarlavha panelli;
+ * Chiqimlar oynasi esa oddiy markazlashgan oq quti edi. Markaziy `.modal`
+ * oilasi (o'chirish tasdig'i kabi kichik ogohlantirishlar) tegilmaydi —
+ * faqat shu FORMA oynasi. */
+@media (min-width: 641px) {
+  body .expenses-create {
+    padding: 0 var(--modal-pad) var(--modal-pad);
+    max-width: 640px;
+    border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.24);
+  }
+
+  body .expenses-create > h1 {
+    margin: 0 calc(-1 * var(--modal-pad)) 22px;
+    padding: 15px 20px;
+    background: var(--color-primary);
+    color: #fff;
+    text-align: left;
+    font-family: noto-b, sans-serif;
+    font-size: 16px;
+    line-height: 1.3;
+    border-radius: 16px 16px 0 0;
+  }
+
+  body .expenses-create .modal-actions {
+    justify-content: flex-end;
+    margin: 26px calc(-1 * var(--modal-pad)) calc(-1 * var(--modal-pad));
+    padding: 14px 20px;
+    border-top: 1px solid #eef1f5;
+  }
+}
+
+/* ── 13. Hisobotlar / Qarzlar toolbar'i — boshqa ro'yxat sahifalari kabi ──
+ * Qidiruv + Saralash + asosiy tugma bitta guruhda o'ngda (To'lovlar namunasi);
+ * qidiruv maydoni 1px kulrang chegarali, belgisi chapda. Ilgari: qidiruv
+ * chapda 2px to'q ko'k chegara bilan, belgi o'ngda, tugma esa chekkada. */
+@media (min-width: 901px) {
+  main.page .fin-toolbar {
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  main.page .fin-btn-add {
+    margin-left: 0;
+  }
+}
+
+main.page .fin-search-box input {
+  border: 1px solid #e0e0e0;
+  padding: 0 16px 0 38px;
+  color: #333;
+}
+
+main.page .fin-search-box input:focus {
+  border-color: var(--color-primary);
+  box-shadow: none;
+}
+
+main.page .fin-search-box i {
+  left: 14px;
+  right: auto;
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* ── 14. "Orqaga / Bekor qilish" — neytral ikkinchi darajali tugma ────────
+ * Qizil — xavfli amal (o'chirish, rad etish). "Orqaga" esa shunchaki
+ * qaytish, shu sabab oq fon + kulrang chegara (modal'lardagi "Bekor qilish"
+ * kabi). */
+main.page .pa-btn--ghost,
+main.page .pd-btn-cancel {
+  background: #fff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+main.page .pa-btn--ghost:hover:not(:disabled),
+main.page .pd-btn-cancel:hover:not(:disabled) {
+  background: #f1f5f9;
+  opacity: 1;
+}
+
+/* ── 15. Sahifa-forma tasdiqlash tugmasi (Saqlash / Keyingisi) — to'q ko'k ─
+ * Modal'dagi "Saqlash" bilan bir xil (11-bo'lim). Shartnoma formalarida u
+ * to'q sariq edi, ish haqi formalarida — to'q ko'k. To'q sariq — faqat
+ * ro'yxat sahifasi tepasidagi "yaratish" tugmasi. `.btn-submit` — yangi
+ * formalar uchun tayyor klass. */
+main.page :is(.btn-submit, .sc-form-save-btn, .sc-form-submit-btn, .sc-form-next-btn) {
+  background: var(--color-primary);
+  color: #fff;
+  font-family: noto-sb, sans-serif;
+}
+
+main.page
+  :is(.btn-submit, .sc-form-save-btn, .sc-form-submit-btn, .sc-form-next-btn):hover:not(:disabled) {
+  background: #00254d;
+}
+
+/* ── 16. Qolgan farqlar ──────────────────────────────────────────────────
+ * · Kurslar: "Tasdiqlashga yuborish" `#1b3a5c` edi — brend to'q ko'k;
+ * · IP-telefoniya: faol tab to'q sariq edi — boshqa tablar kabi to'q ko'k;
+ * · Davomat (xodim) jadvalining sarlavha kataklari boshqa jadvallar bilan bir xil. */
+main.page .courses-top__send-btn:not(:disabled) {
+  background: var(--color-primary);
+}
+
+main.page .ipt-tab.active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+main.page .eatt-table thead th {
+  background-color: #f8fafc;
+  color: var(--color-primary);
+  font-family: noto-b, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+main.page .eatt-table thead th {
+  font-size: 12px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+/* ── 17. Shartnoma formalari (kattalar / voyaga yetmagan / yuridik) ──────
+ * To'rttala forma ham amal tugmalarini inline stil bilan (har biri o'zicha:
+ * radius 8 yoki 10px, ichki bo'shliq 10/12px, yorqin soya) chizar edi —
+ * inline stillar olib tashlandi, ko'rinish shu yerda va `studentsContracts.css`
+ * dagi `.sc-form-save-btn` / `.sc-form-cancel-btn` qoidalarida bitta.
+ * "Keyingisi" (`next`) va "Oldingi" (`prev`) tugmalarining CSS'i umuman yo'q
+ * edi — saqlash tugmasi bilan bir xil o'lchamda. */
+main.page .sc-form-next-btn,
+main.page .sc-form-prev-btn {
+  min-width: 150px;
+  height: 42px;
+  padding: 0 28px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+main.page .sc-form-prev-btn {
+  background: #fff;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+main.page .sc-form-prev-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+}
+
+@media (max-width: 640px) {
+  main.page .sc-form-actions .sc-form-next-btn,
+  main.page .sc-form-actions .sc-form-prev-btn {
+    flex: 1 1 140px;
+    min-height: 46px;
+    margin: 0;
+  }
+}
+
+/* ── 18. Moliya ro'yxat sahifalari — "Hisobotlar" / "Qarzlar" namunasi ─────
+ * Hisobotlar va Qarzlardan boshqa moliya sahifalari (Ish haqi tuzatishlari,
+ * Taqsimlash so'rovlari, Kunlik kassa, Avans/Oylik jadvali, Jarimalar, Rejalar,
+ * Oy yakuni tahlili) o'zicha edi: filtr hamisha ochiq (Saralash tugmasi yo'q),
+ * jadval ichki bo'shliqli kartada, ustunlar chapga tekislangan. Endi namuna
+ * (`finance.css`: .fin-toolbar / .fin-filter-card / .fin-table-wrapper /
+ * .fin-table) bilan bir xil:
+ *   · `ListToolbar` (components/ListToolbar): [qidiruv] [Saralash] [asosiy tugma],
+ *     filtr paneli faqat Saralash bosilgandan keyin ochiladi;
+ *   · `.list-table-wrap` > `table.list-table`: chegarali o'ram, markazlashgan
+ *     o'ng ajratgichli sarlavha, markazlashgan katak, 10px ichki bo'shliq.
+ *     Matnli murakkab katak (bir necha qator) — `.list-left` bilan chapga.
+ * Namunadagi `fin-*` qoidalari `finance.css`da qoladi (u sahifalarga tegilmadi);
+ * bular global, shu sabab dev rejimida ham har qanday sahifada ishlaydi. */
+/* Sahifa ildizi (`.list-page`): oraliqlarni toolbar/jadval o'zi beradi (konteyner
+ * `gap` qo'shilsa 40px bo'lib qoladi). Tepa masofa — namuna (`.finances`) kabi:
+ * katta ekranda 50px (sahifaning o'z qoidasi), planshetda 16px, telefonda 10px. */
+main.page .list-page {
+  gap: 0;
+}
+
+@media (max-width: 900px) {
+  main.page .list-page {
+    margin-top: 16px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  main.page .list-page {
+    margin-top: 10px !important;
+  }
+}
+
+.list-toolbar__left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-right: auto;
+  min-width: 0;
+}
+
+.list-toolbar .page-toolbar__search {
+  min-width: 200px;
+  max-width: 380px;
+}
+
+.list-filter-card {
+  background: #fff;
+  border: 1px solid #e3e9f0;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.list-filter-card .fb-bar {
+  border-bottom: none;
+}
+
+/* Status tablari (toolbar'ning chap qismida): oq pill, faol — to'q ko'k. */
+.list-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.list-tab {
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid #bdbdbd;
+  border-radius: 999px;
+  background: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #000;
+  cursor: pointer;
+}
+
+.list-tab:hover {
+  background: #f4f6f8;
+}
+
+.list-tab--active,
+.list-tab--active:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+main.page .list-table-wrap {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+main.page .list-table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+main.page .list-table thead {
+  background: #f8fafc;
+}
+
+main.page .list-table thead th {
+  padding: 11px 10px;
+  background: #f8fafc;
+  color: var(--color-primary);
+  text-align: center;
+  font-family: noto-b, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-right: 1px solid rgba(158, 157, 157, 0.35);
+  border-bottom: 2px solid #e2e8f0;
+}
+
+main.page .list-table thead th:last-child {
+  border-right: none;
+}
+
+main.page .list-table td {
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 13px;
+  border-bottom: 1px solid #f0f4f8;
+}
+
+/* Shrift va rang — `:where` (spetsifiklik 0): ta'kidlangan kataklar (`.pen-name`,
+ * `.ps-strong`, `.pa-emp-name`...) o'z klassi bilan bu standartni bosib ketadi. */
+:where(main.page .list-table) td {
+  font-family: noto-m, sans-serif;
+  color: #333;
+}
+
+main.page .list-table tbody tr:hover {
+  background: var(--color-bg);
+}
+
+main.page .list-table :is(th, td).list-left {
+  text-align: left;
+}
+
+/* Bo'sh / yuklanmoqda / xato qatori (`<td colSpan>`) */
+main.page .list-table td[colspan] {
+  padding: 36px 16px;
+  color: #6b7280;
+}
+
+@media (max-width: 900px) {
+  .list-toolbar {
+    justify-content: flex-start;
+  }
+
+  .list-toolbar__left {
+    flex: 1 1 100%;
+    margin-right: 0;
+  }
+
+  .list-toolbar .page-toolbar__search {
+    flex: 1 1 160px;
+    min-width: 160px;
+    max-width: 100%;
+  }
+
+  .list-toolbar > .btn-accent {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  main.page .list-table {
+    font-size: 12px;
+  }
+
+  main.page .list-table thead th,
+  main.page .list-table td {
+    padding: 8px 7px;
+  }
+}
+
+/* ── Jadval matni 2 qatorga sig'adi ─────────────────────────────────────────────────────────────────────────
+   Ilgari `th, td { white-space: nowrap }` + `table-layout: auto` uzun matnni (masalan, 17 ta jamg'arma nomini)
+   bitta cheksiz qatorga cho'zib, jadvalni gorizontal aylantirardi va katak mazmuni tushunarsiz bo'lib qolardi.
+   Endi ma'lumot kataklari (tugma, belgi, ikonka, input'siz) o'ralib, 360px dan kengaymaydi. Ro'yxat ko'rinishidagi
+   (vergul bilan) kataklar `ClampText` bilan 2 qatordan oshmaydi. ID/belgilash/amallar ustunlari nowrap qoladi
+   (yuqoridagi qoidalar kattaroq spetsifiklikda). */
+main.page table > tbody > tr > td:not([colspan], .actions, :has(button, a, i, input, select, textarea, img, svg)) {
+  max-width: 360px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: break-word;
+  line-height: 1.35;
+}
+
+.clamp-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  white-space: normal;
+  text-align: inherit;
+}

@@ -1,0 +1,206 @@
+/* ═══════════════════════════════════════════════════════════════
+   DEBTS MODULE — debts.css
+   Extends finance.css (fin-*) with debts-specific additions.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Sahifa balandligi ───────────────────────────────────────────
+   finance.css dagi `.finances` da `min-height: 864px` + `display: flex`
+   bor, `.fin-table-wrapper` esa `flex: 1` — shuning uchun yozuvlar kam
+   bo'lsa ham jadval qolgan bo'sh joyni cho'zib to'ldirardi. Bu yerda
+   ikkalasi ham bekor qilinadi: jadval faqat o'z kontenti bo'yicha
+   balandlik oladi. Moliya sahifasiga ta'sir qilmaydi. ──────────── */
+.finances.debts {
+  min-height: 0;
+  margin-bottom: 0 !important;
+}
+
+.debts .fin-table-wrapper {
+  flex: 0 0 auto;
+}
+
+/* ─── Override finance.css's nth-child(2) nowrap rule ──────────────
+   That rule was tuned for a single-line branch label; our giver/
+   receiver columns hold a multi-line fund cell and must wrap. ───── */
+.debts-transfers-table {
+  table-layout: fixed;
+  width: 100%;
+  min-width: 1050px;
+}
+
+.debts-transfers-table th,
+.debts-transfers-table td {
+  white-space: normal;
+  vertical-align: top;
+}
+
+/* ID — faqat ikki xonali raqam turadi. */
+.debts-transfers-table th:nth-child(1),
+.debts-transfers-table td:nth-child(1) {
+  width: 3%;
+}
+
+/* Chiquvchi jamg'arma — nomi eng uzuni, shuning uchun kengroq. Bo'shatilgan
+   joy ID va Izoh ustunlaridan olindi (jami baribir 100%). */
+.debts-transfers-table th:nth-child(2),
+.debts-transfers-table td:nth-child(2) {
+  width: 18%;
+}
+
+.debts-transfers-table th:nth-child(3),
+.debts-transfers-table td:nth-child(3) {
+  width: 14%;
+}
+
+.debts-transfers-table th:nth-child(4) {
+  width: 12%;
+}
+
+/* Ma'sul shaxslar — yorliq + ism bir qatorda sig'ishi uchun eng keng ustun. */
+.debts-transfers-table th:nth-child(5) {
+  width: 22%;
+}
+
+.debts-transfers-table th:nth-child(6) {
+  width: 11%;
+}
+
+.debts-transfers-table th:nth-child(7) {
+  width: 10%;
+}
+
+.debts-transfers-table th:nth-child(8) {
+  width: 10%;
+}
+
+/* ─── Ma'sul shaxslar ustuni ──────────────────────────────────────
+   finance.css dagi `.fin-resp-row` flex + wrap: yorliq va ism alohida
+   flex elementlari bo'lgani uchun ustun torayganda ism butunlay yangi
+   qatorga tushib ketardi. Blok layout'da ular oddiy inline matn kabi
+   bir qatorda qoladi, sana esa o'z qatoriga o'tadi. ──────────────── */
+.debts-transfers-table td.fin-responsible-cell {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Ikki ustunli grid: yorliq chapda, ism va sana esa o'ng ustunda ustma-ust
+   (bir xil chap chekkadan) turadi. */
+.debts-transfers-table .fin-resp-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 6px;
+  font-size: 11px;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.debts-transfers-table .fin-resp-label {
+  grid-column: 1;
+  grid-row: 1;
+  white-space: nowrap;
+}
+
+.debts-transfers-table .fin-resp-name {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.debts-transfers-table .fin-resp-date {
+  grid-column: 2;
+  grid-row: 2;
+  width: auto;
+  text-align: left;
+  margin-top: 1px;
+}
+
+/* ─── Fund Cell (giver / receiver columns in the transfers table) ─
+   Plain block layout, not flex: a flex child's min-width doesn't
+   reliably bubble up into the table's auto column-width algorithm,
+   which let the column collapse narrower than its content. ──────── */
+.debts-fund-cell {
+  text-align: left;
+}
+
+.debts-fund-name,
+.debts-fund-section,
+.debts-fund-tag {
+  display: block;
+}
+
+.debts-fund-name {
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  color: var(--color-primary);
+}
+
+.debts-fund-section {
+  font-size: 11px;
+  color: #777;
+  margin-top: 2px;
+}
+
+.debts-fund-tag {
+  font-size: 10px;
+  font-family: noto-m, sans-serif;
+  color: var(--color-danger);
+  margin-top: 2px;
+}
+
+/* Filter (Saralash) popover styles are shared — see .fin-filter-* in finance.css */
+
+/* ─── Responsive ──────────────────────────────────────────────────
+   1920 dagi taqsimot yaxshi, shuning uchun u asosiy qoida bo'lib qoladi.
+   Ekran kichrayganda "Ma'sul shaxslar" ustuni birinchi bo'lib qisiladi
+   (ism yorliq yoniga sig'may qoladi), shuning uchun unga qo'shimcha joy
+   Izoh, Status va Amallar ustunlaridan olinadi. Jami har doim 100%.
+   `table-layout: fixed` bo'lgani uchun faqat `th` kengliklari yetarli. */
+@media (max-width: 1600px) {
+  .debts-transfers-table th:nth-child(2) {
+    width: 16%;
+  }
+  .debts-transfers-table th:nth-child(3) {
+    width: 13%;
+  }
+  .debts-transfers-table th:nth-child(4) {
+    width: 11%;
+  }
+  .debts-transfers-table th:nth-child(5) {
+    width: 26%;
+  }
+  .debts-transfers-table th:nth-child(6) {
+    width: 11%;
+  }
+  .debts-transfers-table th:nth-child(7) {
+    width: 10%;
+  }
+  .debts-transfers-table th:nth-child(8) {
+    width: 10%;
+  }
+}
+
+@media (max-width: 1400px) {
+  .debts-transfers-table th:nth-child(2) {
+    width: 15%;
+  }
+  .debts-transfers-table th:nth-child(3) {
+    width: 13%;
+  }
+  .debts-transfers-table th:nth-child(4) {
+    width: 11%;
+  }
+  .debts-transfers-table th:nth-child(5) {
+    width: 28%;
+  }
+  .debts-transfers-table th:nth-child(6) {
+    width: 10%;
+  }
+  .debts-transfers-table th:nth-child(7) {
+    width: 10%;
+  }
+  .debts-transfers-table th:nth-child(8) {
+    width: 10%;
+  }
+
+  .debts-transfers-table .fin-resp-row {
+    column-gap: 4px;
+  }
+}

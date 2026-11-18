@@ -1,0 +1,414 @@
+/* Siklogramma sahifasi. Prefiks `cy-` — boshqa sahifa CSS'lari bilan to'qnashmasligi uchun (production'da
+   hamma CSS bitta faylda: `cssCodeSplit: false`). */
+
+.cy-page {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cy-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+
+.cy-subtitle {
+  margin: 0;
+  font-family: noto-r, sans-serif;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.cy-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cy-meta-chip {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #eef3f9;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #334155;
+}
+
+/* ---------- Holat xabarlari ---------- */
+.cy-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 36px 20px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  background: #f8fafc;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #64748b;
+  text-align: center;
+}
+
+.cy-state--error {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #7f1d1d;
+}
+
+.cy-state--error span {
+  max-width: 560px;
+  font-family: noto-r, sans-serif;
+  line-height: 1.5;
+}
+
+.cy-btn {
+  margin-top: 6px;
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.cy-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---------- Ko'rsatkichlar + yaqin tadbirlar ---------- */
+.cy-stats {
+  display: grid;
+  grid-template-columns: 150px 150px minmax(0, 1fr);
+  gap: 14px;
+}
+
+.cy-stat,
+.cy-upcoming {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.cy-stat-label {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.cy-stat-value {
+  font-family: noto-b, sans-serif;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--color-primary);
+}
+
+.cy-upcoming-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cy-upcoming-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cy-upcoming-date {
+  flex-shrink: 0;
+  min-width: 92px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #eef3f9;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #334155;
+  text-align: center;
+}
+
+.cy-upcoming-date--ongoing {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.cy-upcoming-date--today {
+  background: var(--color-accent, #f59e0b);
+  color: #fff;
+}
+
+.cy-upcoming-name {
+  min-width: 0;
+  overflow: hidden;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #1f2937;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Oy tanlash + qidiruv ---------- */
+.cy-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cy-chips {
+  display: flex;
+  flex: 1 1 520px;
+  gap: 6px;
+  min-width: 0;
+  padding-bottom: 4px;
+  overflow-x: auto;
+}
+
+.cy-chip {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  background: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.cy-chip:hover {
+  background: #f1f5f9;
+}
+
+.cy-chip--current {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.cy-chip.cy-chip--active {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.cy-chip-count {
+  min-width: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: rgba(100, 116, 139, 0.15);
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.cy-chip--active .cy-chip-count {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.cy-search {
+  flex: 0 1 300px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #fff;
+  font-family: noto-r, sans-serif;
+  font-size: 14px;
+  outline: none;
+}
+
+.cy-search:focus {
+  border-color: var(--color-primary);
+}
+
+/* ---------- Oylar ---------- */
+.cy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.cy-grid--single {
+  grid-template-columns: minmax(0, 760px);
+}
+
+.cy-month {
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.cy-month--current {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(0, 51, 102, 0.12);
+}
+
+.cy-month-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #eef3f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.cy-month--current .cy-month-head {
+  background: var(--color-primary);
+}
+
+.cy-month-title {
+  margin: 0;
+  font-family: noto-b, sans-serif;
+  font-size: 15px;
+  color: var(--color-primary);
+}
+
+.cy-month--current .cy-month-title {
+  color: #fff;
+}
+
+.cy-badge {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--color-accent, #f59e0b);
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  color: #fff;
+}
+
+.cy-month-count {
+  margin-left: auto;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.cy-month--current .cy-month-count {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cy-month-empty {
+  margin: 0;
+  padding: 16px;
+  font-family: noto-r, sans-serif;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.cy-events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cy-event {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cy-event:last-child {
+  border-bottom: 0;
+}
+
+.cy-day {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #eef3f9;
+  color: var(--color-primary);
+}
+
+.cy-day--month {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.cy-day-num {
+  font-family: noto-b, sans-serif;
+  font-size: 20px;
+}
+
+.cy-day-whole {
+  font-family: noto-m, sans-serif;
+  font-size: 10px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.cy-event-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.cy-event-name {
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #1f2937;
+  overflow-wrap: anywhere;
+}
+
+.cy-event-people {
+  font-family: noto-r, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #64748b;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.cy-event-people--none {
+  color: #cbd5e1;
+}
+
+@media (max-width: 900px) {
+  .cy-page {
+    margin-top: 24px;
+  }
+
+  .cy-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cy-upcoming {
+    grid-column: 1 / -1;
+  }
+
+  .cy-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cy-search {
+    flex: 1 1 100%;
+  }
+}

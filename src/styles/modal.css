@@ -1,0 +1,548 @@
+/*
+ * Modallarning umumiy ko'rinishi — bitta manba.
+ *
+ * Nega kerak: `.modal-overlay` va `.modal` uchta sahifa CSS'ida (lid, tasks,
+ * expenses) qayta-qayta e'lon qilingan edi. Qaysi biri kuchga kirishi bundle
+ * tartibiga bog'liq bo'lgani uchun bir xil modal sahifadan sahifaga turlicha
+ * ko'rinardi — fon quyuqligi, burchak radiusi, kengligi har xil edi.
+ *
+ * Endi ular faqat shu yerda ta'riflanadi va `App.tsx` da bir marta ulanadi.
+ * Sahifa CSS'laridagi nusxalar olib tashlangan. Sahifaga xos qo'shimchalar
+ * (masalan `.modal.add-user-modal`) o'z faylida qolaveradi — ular bu yerdagi
+ * asosni bekor qilmaydi, ustiga qo'shiladi.
+ */
+
+:root {
+  --modal-radius: 14px;
+  --modal-pad: 28px;
+  /* Bir xil #003366 endi bitta joyda — `index.css`dagi umumiy token. */
+  --modal-brand: var(--color-primary);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* Modal qutisi. `.modal-container`, `.expenses-create` va
+   `.expenses-subcategory` ham xuddi shu ko'rinishda bo'lishi uchun qo'shildi. */
+.modal,
+.modal-container,
+.expenses-create,
+.expenses-subcategory {
+  background: #fff;
+  border-radius: var(--modal-radius);
+  padding: var(--modal-pad);
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.22);
+}
+
+.modal.small {
+  max-width: 380px;
+  text-align: center;
+}
+
+/* Sarlavha — modal qaysi sahifada bo'lishidan qat'i nazar bir xil. */
+.modal > h1,
+.modal > h3,
+.modal-container > h1,
+.modal-container > h3,
+.expenses-create > h1,
+.expenses-subcategory > h1 {
+  margin: 0 0 22px;
+  text-align: center;
+  font-family: noto-b, sans-serif;
+  font-size: 20px;
+  color: var(--modal-brand);
+}
+
+/* Tugmalar qatori. */
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.modal-actions button {
+  min-width: 120px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  transition:
+    background-color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.modal-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-actions .primary {
+  background: var(--modal-brand);
+  color: #fff;
+}
+
+.modal-actions .primary:hover:not(:disabled) {
+  background: #00284f;
+}
+
+.modal-actions .danger {
+  background: #c90000;
+  color: #fff;
+}
+
+.modal-actions .danger:hover:not(:disabled) {
+  background: #a80000;
+}
+
+.modal-actions .cancel {
+  background: #eef1f5;
+  color: #334155;
+}
+
+.modal-actions .cancel:hover:not(:disabled) {
+  background: #e2e7ee;
+}
+
+/* Modal ichidagi forma maydonlari — balandlik va burchaklar bir xil. */
+.modal-overlay label {
+  display: block;
+  margin-bottom: 6px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: var(--modal-brand);
+}
+
+.modal-overlay input:not([type='checkbox']):not([type='radio']),
+.modal-overlay select,
+.modal-overlay textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 14px;
+  background: #fff;
+  color: #0f172a;
+}
+
+.modal-overlay input:focus,
+.modal-overlay select:focus,
+.modal-overlay textarea:focus {
+  outline: none;
+  border-color: var(--modal-brand);
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.12);
+}
+
+/*
+ * Mantine `<Modal>` standart bo'yicha z-index 200 — ilovaning pastki
+ * navigatsiya paneli (`.mobile-tabbar`, z-index 998) undan yuqorida turib,
+ * modalning pastki qismini (oxirgi maydon + Saqlash/Bekor) yopib qo'yardi.
+ * z-index POZITSIYALANGAN elementga berilishi kerak — `.mantine-Modal-root`
+ * `position: static`, shu sabab unga berilgan z-index ishlamas edi.
+ */
+.mantine-Modal-overlay,
+.mantine-Modal-inner {
+  z-index: 9999 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+ * BIR XIL MODAL KO'RINISHI — "branded" (ko'k sarlavha panelli)
+ *
+ * Ilovada ~20 xil modal oilasi bor edi (payment, sc, courses, fp, pen, gm,
+ * dcr, dl, exam, faq, fin, cc, cp, ps, rm, dcm, ddm, dsm, detail...) + Mantine
+ * `<Modal>` — har biri o'z burchak radiusi, overlay quyuqligi, sarlavha
+ * uslubi (ba'zisi ko'k panel, ba'zisi oddiy oq, Mantine esa butunlay boshqa)
+ * bilan. Quyidagi qoidalar HAMMASINI bitta ko'rinishga keltiradi:
+ *   overlay: rgba(15,23,42,.55) · panel: radius 16, bir xil soya ·
+ *   sarlavha: ko'k (#003366) panel + oq qalin matn chapda + oq × o'ngda ·
+ *   futer: yuqori chiziq + tugmalar o'ngda (mobil'da to'liq enli, ustma-ust).
+ * Markazlashgan ogohlantirish (`.modal` / `.modal-container` — o'chirishni
+ * tasdiqlash) ATAYLAB tegilmaydi — u alohida, lekin o'zaro bir xil.
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Overlay ─────────────────────────────────────────────────────────── */
+.cc-modal-overlay,
+.chek-modal-overlay,
+.courses-modal-overlay,
+.cp-modal-overlay,
+.custom-modal-overlay,
+.dcm-overlay,
+.dcr-overlay,
+.ddm-overlay,
+.detail-modal-overlay,
+.dl-overlay,
+.dsm-overlay,
+.exam-modal-overlay,
+.faq-modal-overlay,
+.fin-modal-overlay,
+.fp-overlay,
+.gm-modal-overlay,
+.ipt-modal-overlay,
+.ldm-overlay,
+.mp-overlay,
+.payment-modal-overlay,
+.pen-overlay,
+.ps-overlay,
+.rm-overlay,
+.sc-modal-overlay,
+.mantine-Modal-overlay {
+  background: rgba(15, 23, 42, 0.55) !important;
+  backdrop-filter: none !important;
+}
+
+/* ── Panel (quti) ───────────────────────────────────────────────────── */
+.cc-modal,
+.courses-modal,
+.cp-modal,
+.custom-modal,
+.dcm-modal,
+.dcr-modal,
+.ddm-modal,
+.detail-modal,
+.dl-modal,
+.dsm-modal,
+.exam-modal,
+.faq-modal,
+.fin-modal,
+.fp-modal,
+.gm-modal,
+.payment-modal,
+.pen-modal,
+.ps-modal,
+.rm-modal,
+.sc-modal,
+.mantine-Modal-content {
+  border-radius: 16px !important;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.24) !important;
+  /* `overflow` har panelning o'zinikicha qoladi (ba'zisi `hidden`, ba'zisi
+     `auto` — ichida scroll kerak). `border-radius` `visible`dan boshqa har
+     qanday `overflow`da kontentni yaxlitlab kesadi, shu sabab ko'k sarlavha
+     panelining yuqori burchaklari baribir 16px bo'lib chiqadi. */
+}
+
+/* ── Sarlavha paneli (ko'k) ─────────────────────────────────────────── */
+.cp-modal-header,
+.courses-modal__header,
+.dcr-modal-head,
+.dl-modal-header,
+.fp-modal-head,
+.gm-modal-header,
+.payment-modal-header,
+.pen-modal-head,
+.ps-modal-head,
+.rm-modal__header,
+.sc-modal-header,
+.cc-modal-title,
+.dcm-modal__title,
+.detail-modal-title,
+.exam-modal-title,
+.faq-modal__title,
+.fin-modal-title,
+.mantine-Modal-header {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  margin: 0 !important;
+  padding: 15px 20px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  font-family: noto-b, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+  min-height: 0 !important;
+}
+
+/* Sarlavha ichidagi matn (span/h*) — oq. Sarlavha konteynerlarining BARCHA
+   bevosita bolalari (o'z `color` qoidasi bo'lgan `<h2>` lar ham) oq bo'lsin. */
+.courses-modal__title,
+.courses-modal__header-text,
+.cp-modal-title,
+.gm-modal-header-title,
+.payment-modal-title,
+.rm-modal__title,
+.sc-modal-header-title,
+.mantine-Modal-title,
+.cp-modal-header > *:not([class*='close']),
+.courses-modal__header > *:not([class*='close']),
+.dcr-modal-head > *:not([class*='close']),
+.dl-modal-header > *:not([class*='close']),
+.fp-modal-head > *:not([class*='close']),
+.gm-modal-header > *:not([class*='close']),
+.payment-modal-header > *:not([class*='close']),
+.pen-modal-head > *:not([class*='close']),
+.ps-modal-head > *:not([class*='close']),
+.rm-modal__header > *:not([class*='close']),
+.sc-modal-header > *:not([class*='close']) {
+  color: #fff !important;
+  margin: 0 !important;
+  font-family: noto-b, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+/* ── Yopish (×) tugmasi — oq ────────────────────────────────────────── */
+.cc-modal-close,
+.dcr-modal-close,
+.fp-modal-close,
+.gm-modal-close-btn,
+.payment-modal-close,
+.pen-modal-close,
+.ps-modal-close,
+.rm-modal__close,
+.sc-modal-close,
+.mantine-Modal-close {
+  color: #fff !important;
+  background: transparent !important;
+  border: none !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 7px !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  transition: background-color 0.15s ease !important;
+}
+.cc-modal-close:hover,
+.dcr-modal-close:hover,
+.fp-modal-close:hover,
+.gm-modal-close-btn:hover,
+.payment-modal-close:hover,
+.pen-modal-close:hover,
+.ps-modal-close:hover,
+.rm-modal__close:hover,
+.sc-modal-close:hover,
+.mantine-Modal-close:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+}
+
+/* ── Futer (tugmalar qatori) — yuqori chiziq + o'ngda ───────────────── */
+.courses-modal__footer,
+.dl-modal-footer,
+.fp-modal-foot,
+.gm-modal-footer,
+.payment-modal-footer,
+.pen-modal-foot,
+.ps-modal-foot,
+.cc-modal-actions,
+.cp-modal-actions,
+.dcm-modal__actions,
+.dcr-modal-actions,
+.end-modal-actions,
+.exam-modal-actions,
+.faq-modal__actions,
+.fin-modal-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  padding: 14px 20px !important;
+  border-top: 1px solid #eef1f5 !important;
+  margin: 0 !important;
+}
+/* `.fp-modal-foot` ichida izoh + tugmalar guruhi bo'ladi — izohni chapga */
+.fp-modal-foot {
+  justify-content: space-between !important;
+}
+
+/* ── Mantine ichki tuzatishlar ──────────────────────────────────────── */
+.mantine-Modal-header {
+  border-bottom: none !important;
+}
+.mantine-Modal-body {
+  padding: 22px 20px !important;
+}
+/* Mantine "sarlavhasiz" modal (agar bo'lsa) — radius baribir yaxlit */
+
+@media (max-width: 640px) {
+  /* Bottom-sheet'da yuqori burchaklar 18px — panel `overflow:hidden`
+     bo'lgani uchun sarlavha paneli avtomatik moslashadi. */
+  .cc-modal,
+  .courses-modal,
+  .cp-modal,
+  .custom-modal,
+  .dcm-modal,
+  .dcr-modal,
+  .ddm-modal,
+  .detail-modal,
+  .dl-modal,
+  .dsm-modal,
+  .exam-modal,
+  .faq-modal,
+  .fin-modal,
+  .fp-modal,
+  .gm-modal,
+  .payment-modal,
+  .pen-modal,
+  .ps-modal,
+  .rm-modal,
+  .sc-modal,
+  .mantine-Modal-content {
+    border-radius: 18px 18px 0 0 !important;
+  }
+
+  /* Futer tugmalari — to'liq enli, ustma-ust (asosiy tepada) */
+  .courses-modal__footer,
+  .dl-modal-footer,
+  .fp-modal-foot,
+  .gm-modal-footer,
+  .payment-modal-footer,
+  .pen-modal-foot,
+  .ps-modal-foot,
+  .cc-modal-actions,
+  .cp-modal-actions,
+  .dcm-modal__actions,
+  .dcr-modal-actions,
+  .end-modal-actions,
+  .exam-modal-actions,
+  .faq-modal__actions,
+  .fin-modal-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  .fp-modal-foot {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Telefon: modal pastdan chiqadigan "sheet" — ekran eniga to'liq,
+     faqat yuqori burchaklari yumaloq, ichida scroll. */
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal,
+  .modal-container,
+  .expenses-create,
+  .expenses-subcategory {
+    padding: 20px 18px calc(20px + env(safe-area-inset-bottom, 0px));
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .modal.small {
+    max-width: 100%;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .modal-actions button {
+    width: 100%;
+  }
+
+  /* iOS fokusda zoom bo'lmasin */
+  .modal-overlay input:not([type='checkbox']):not([type='radio']),
+  .modal-overlay select,
+  .modal-overlay textarea {
+    font-size: 16px;
+  }
+
+  /*
+   * Sahifalarga xos modal oilalari (`.modal` emas, o'z prefiksi bilan) ham
+   * xuddi shu pastki-varaq ko'rinishida. Ro'yxat ANIQ — tugma/popover
+   * (`.close-modal`, `.start-modal-btn`, `.sa-popover-overlay`,
+   * `.camera-overlay`, `.cm-overlay` kabilar) ataylab qoldirilgan.
+   * `!important` — sahifa CSS'i modal.css'dan KEYIN yuklanadi (load-order).
+   */
+  .cc-modal-overlay,
+  .courses-modal-overlay,
+  .cp-modal-overlay,
+  .custom-modal-overlay,
+  .detail-modal-overlay,
+  .exam-modal-overlay,
+  .faq-modal-overlay,
+  .fin-modal-overlay,
+  .gm-modal-overlay,
+  .payment-modal-overlay,
+  .sc-modal-overlay,
+  .dcr-overlay,
+  .dl-overlay,
+  .dsm-overlay,
+  .fp-overlay,
+  .pen-overlay,
+  .ps-overlay,
+  .rm-overlay,
+  .ldm-overlay,
+  .mp-overlay,
+  .dcm-overlay,
+  .modal-centered-overlay {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+
+  .cc-modal,
+  .courses-modal,
+  .custom-modal,
+  .dcm-modal,
+  .detail-modal,
+  .dl-modal,
+  .dsm-modal,
+  .exam-modal,
+  .faq-modal,
+  .fp-modal,
+  .gm-modal,
+  .payment-modal,
+  .pen-modal,
+  .ps-modal,
+  .rm-modal,
+  .sc-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 92vh !important;
+    border-radius: 18px 18px 0 0 !important;
+    overflow-y: auto;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /*
+   * Mantine `<Modal>` (users, regions, districts, expenses, lesson-schedule,
+   * login) — bu komponentlar `.modal` / `*-modal` oilalaridan foydalanmaydi,
+   * shu sabab yuqoridagi qoidalar ularga tegmaydi. Ularni ham pastki-varaq
+   * ko'rinishiga keltiramiz.
+   */
+  .mantine-Modal-inner {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+
+  .mantine-Modal-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 92vh !important;
+    border-radius: 18px 18px 0 0 !important;
+  }
+
+  .mantine-Modal-body {
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}

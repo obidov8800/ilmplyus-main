@@ -1,0 +1,581 @@
+/* lessons.css */
+
+.lessons-container {
+  padding: 0;
+  margin-left: 140px !important;
+  margin-top: 50px !important;
+}
+
+.lessons-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 15px 30px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  margin-bottom: 25px;
+  border: 1px solid #e1e5ea;
+}
+
+.lessons-filters {
+  display: flex;
+  gap: 40px;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-item label {
+  font-family: noto-b, sans-serif;
+  color: #1a365d; /* Dark blue label */
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.custom-select {
+  padding: 8px 15px;
+  border: 1px solid #ced4da;
+  border-radius: var(--radius-md);
+  min-width: 280px;
+  color: #495057;
+  background-color: #fff;
+  outline: none;
+  font-size: 14px;
+  font-family: noto-m, sans-serif;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a365d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.add-lesson-btn {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.add-lesson-btn:hover {
+  background-color: #002244;
+}
+
+/* Table */
+.lessons-table-wrapper {
+  background-color: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+  border: 1px solid #e1e5ea;
+}
+
+/* Sichqoncha bilan ushlab surish (`useDragScroll`) — tor ekranda jadval keng. */
+.lessons-table-wrapper.is-scrollable {
+  cursor: grab;
+}
+.lessons-table-wrapper.is-drag-scrolling {
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* Telefon karta ro'yxati — jadval o'rniga (≤768px). */
+.lessons-cards {
+  display: none;
+}
+
+.lessons-cards__empty {
+  padding: 28px 16px;
+  text-align: center;
+  color: #666;
+  font-size: 15px;
+  font-family: noto-m, sans-serif;
+  background: #fff;
+  border: 1px solid #e1e5ea;
+  border-radius: var(--radius-md);
+}
+
+.lessons-card__files {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Bazaviy th/td ko'rinishi endi `.data-table` (`primitives.css`). */
+
+.fw-700 {
+  font-family: noto-b, sans-serif;
+}
+
+.table-link {
+  color: #111;
+  text-decoration: underline;
+  font-family: noto-b, sans-serif;
+}
+
+.table-link:hover {
+  color: #0b3b60;
+}
+
+.view-btn {
+  background: none;
+  border: none;
+  color: #111;
+  font-family: noto-b, sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.view-btn:hover {
+  text-decoration: underline;
+}
+
+/*
+ * DIQQAT — quyidagi UMUMIY nomli qoidalar (`.modal-header`, `.modal-body`, `.modal-footer`, `.form-group`,
+ * `.section-title`, `.required`, `.save-btn`, `.cancel-btn`…) endi Darslar sahifasining o'zida ISHLATILMAYDI
+ * (oyna `FormModal` + pastdagi `lsn-` klasslariga o'tgan), lekin O'CHIRILMAYDI: production'da hamma CSS bitta
+ * faylga yig'iladi (`cssCodeSplit: false`) va boshqa sahifalar (shartnoma formalari, rollar, lid oynasi…)
+ * aynan shu qoidalarga tayanadi — masalan `.save-btn` / `.cancel-btn` boshqa hech qayerda ta'riflanmagan.
+ */
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.custom-modal {
+  background-color: #fff;
+  width: 950px;
+  max-height: 90vh;
+  max-width: 95%;
+  border-radius: var(--radius-md);
+  border: 1px solid #ced4da;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  background-color: #d1d5da; /* specific header gray color from screenshot */
+  padding: 25px 30px;
+}
+
+.modal-header h2 {
+  margin: 0 0 5px 0;
+  color: #fff;
+  font-size: 22px;
+  font-family: noto-b, sans-serif;
+}
+
+.modal-header p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 14px;
+  font-family: noto-m, sans-serif;
+}
+
+.modal-body {
+  padding: 30px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.form-section {
+  margin-bottom: 25px;
+}
+
+.section-title {
+  color: var(--color-accent-soft); /* Orange color */
+  font-size: 16px;
+  font-family: noto-b, sans-serif;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  color: #0b3b60;
+  font-family: noto-b, sans-serif;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.required {
+  color: red;
+  margin-left: 3px;
+}
+
+.custom-input,
+.custom-textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  box-sizing: border-box;
+  font-family: inherit;
+  color: #333;
+  font-family: noto-sb, sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.custom-input::placeholder,
+.custom-textarea::placeholder {
+  color: #a0a0a0;
+  font-family: noto-m, sans-serif;
+}
+
+.custom-input:focus,
+.custom-textarea:focus {
+  border-color: #0b3b60;
+  outline: none;
+}
+
+.custom-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* File Upload custom UI */
+.custom-file-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: var(--radius-md);
+  height: 48px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.file-btn {
+  background-color: var(--color-accent);
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  padding: 13px 65px;
+  cursor: pointer;
+  font-family: noto-b, sans-serif;
+  border-radius: var(--radius-md);
+  font-family: noto-b, sans-serif;
+  font-size: 20px;
+  transition: 0.3s;
+  flex-shrink: 0;
+}
+
+.file-btn:hover {
+  background-color: #e58200;
+}
+
+.file-btn input[type='file'] {
+  display: none;
+}
+
+.file-name {
+  padding-left: 20px;
+  color: #666;
+  font-size: 14px;
+  font-family: noto-sb, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px 30px 40px;
+  border-top: 1px solid #f1f3f5;
+}
+
+.cancel-btn,
+.save-btn {
+  padding: 12px 60px;
+  border-radius: var(--radius-md);
+  font-family: noto-b, sans-serif;
+  cursor: pointer;
+  font-size: 15px;
+  border: none;
+  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cancel-btn {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ced4da;
+}
+
+.cancel-btn:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+.save-btn {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+
+.save-btn:hover {
+  background-color: #e58200;
+}
+.save-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ===== Dars oynasi (`FormModal` ichida) — `lsn-` ===== */
+.lessons-table__empty {
+  text-align: center;
+  padding: 30px;
+  font-size: 16px;
+  color: #666;
+}
+
+.lsn-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #eef1f5;
+}
+
+/* Birinchi bo'lim (mavjud darsda sana maydoni yo'q) — tepada ortiqcha chiziq qolmasin. */
+.lsn-section:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.lsn-section__title {
+  margin: 0;
+  font-family: noto-b, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Fayl qatori: nom/holat + «Fayl tanlash» */
+.lsn-file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 5px 5px 5px 12px;
+  border: 1px dashed #c3ccd8;
+  border-radius: 10px;
+  background: #fafbfc;
+  box-sizing: border-box;
+}
+
+.lsn-file.has-new {
+  border-style: solid;
+  border-color: rgba(254, 145, 0, 0.55);
+  background: rgba(254, 145, 0, 0.06);
+}
+
+.lsn-file__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.lsn-file__name,
+.lsn-file__link {
+  font-family: noto-sb, sans-serif;
+  font-size: 13.5px;
+  color: var(--color-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lsn-file__link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.lsn-file__link:hover {
+  color: var(--color-accent);
+}
+
+.lsn-file__meta {
+  font-family: noto-r, sans-serif;
+  font-size: 11.5px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lsn-file__empty {
+  font-family: noto-r, sans-serif;
+  font-size: 13.5px;
+  color: #9aa5b4;
+}
+
+.lsn-file__btn {
+  flex-shrink: 0;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--color-primary);
+  font-family: noto-sb, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+.lsn-file__btn:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.lsn-file__clear {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #64748b;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.lsn-file__clear:hover {
+  background: rgba(231, 10, 10, 0.08);
+  color: var(--color-danger);
+}
+
+/* Responsive: 1920px -> 768px */
+@media (max-width: 1600px) {
+  .lessons-container {
+    margin-left: 110px !important;
+  }
+}
+
+@media (max-width: 1400px) {
+  .lessons-container {
+    margin-left: 100px !important;
+  }
+  .lessons-filters {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .lessons-container {
+    margin-left: 92px !important;
+  }
+  .lessons-table-wrapper {
+    overflow-x: auto;
+  }
+  .lessons-table {
+    min-width: 760px;
+  }
+}
+
+@media (max-width: 992px) {
+  .lessons-container {
+    margin-left: 90px !important;
+    margin-right: 16px !important;
+  }
+  .lessons-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .lessons-filters {
+    flex-wrap: wrap;
+  }
+  .filter-item {
+    flex: 1 1 200px;
+  }
+  .custom-select {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .lessons-container {
+    margin-left: 88px !important;
+    margin-right: 12px !important;
+    margin-top: 24px !important;
+  }
+
+  /* Jadval o'rniga karta ro'yxati */
+  .lessons-table-wrapper {
+    display: none;
+  }
+  .lessons-cards {
+    display: block;
+  }
+
+  .add-lesson-btn {
+    width: 100%;
+  }
+
+  /* Modal — pastdan chiqadigan "sheet" */
+  .custom-modal-overlay {
+    align-items: flex-end;
+  }
+  .custom-modal {
+    width: 100%;
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 18px 18px 0 0;
+  }
+  .modal-header {
+    padding: 16px 18px;
+  }
+  .modal-header h2 {
+    font-size: 18px;
+  }
+  .modal-body {
+    padding: 20px 16px;
+  }
+
+  .modal-footer {
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 16px 16px calc(20px + env(safe-area-inset-bottom, 0px));
+  }
+  .cancel-btn,
+  .save-btn {
+    padding: 12px 28px;
+    flex: 1 1 auto;
+  }
+  .file-btn {
+    padding: 13px 28px;
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,196 @@
+/* Oy yakuni tahlili — reja va amaldagi natijalarni solishtirish (BEP nazorati). */
+
+.mea-container {
+  width: calc(100% - 140px);
+  margin-top: 50px !important;
+  margin-left: 140px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: calc(100vh - 50px);
+  padding-bottom: 34px;
+}
+
+.mea-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.mea-title {
+  font-family: noto-b, sans-serif;
+  font-size: 22px;
+  color: #111827;
+  margin: 0;
+}
+
+.mea-subtitle {
+  margin: 4px 0 0;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.mea-section {
+  margin-top: 18px;
+}
+
+.mea-section h2 {
+  margin: 0 0 12px;
+  font-family: noto-b, sans-serif;
+  font-size: 17px;
+  color: #111827;
+}
+
+/* ---------- Stat kartalari ---------- */
+.mea-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.mea-stat {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid #e2e6eb;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.mea-stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.mea-stat-icon--purple {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.mea-stat-icon--blue {
+  background: #dbeafe;
+  color: var(--color-primary);
+}
+
+.mea-stat-icon--green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.mea-stat-icon--red {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.mea-stat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mea-stat-value {
+  font-family: noto-b, sans-serif;
+  font-size: 19px;
+  color: #111827;
+}
+
+.mea-stat-label {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.mea-stat-sub {
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  color: #dc2626;
+}
+
+/* ---------- Jadval ----------
+   Ko'rinish (o'ram, sarlavha, katak) — umumiy `.list-table` (styles/consistency.css). */
+.mea-num {
+  white-space: nowrap;
+}
+
+.mea-strong {
+  font-family: noto-b, sans-serif;
+}
+
+.mea-diff--negative {
+  color: #dc2626;
+}
+
+.mea-diff--positive {
+  color: #16a34a;
+}
+
+.mea-empty {
+  padding: 24px 0;
+  text-align: center;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.mea-forbidden {
+  padding: 40px 0;
+  text-align: center;
+  font-family: noto-m, sans-serif;
+  color: #6b7280;
+}
+
+/* ---------- Bajarilish progress-bar ---------- */
+.mea-progress-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 90px;
+}
+
+.mea-progress-track {
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: #e2e6eb;
+  overflow: hidden;
+}
+
+.mea-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+}
+
+.mea-fill--good {
+  background: #16a34a;
+}
+
+.mea-fill--mid {
+  background: var(--color-primary);
+}
+
+.mea-fill--low {
+  background: #f59e0b;
+}
+
+.mea-progress-label {
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+@media (max-width: 1024px) {
+  .mea-container {
+    width: calc(100% - 90px);
+    margin-left: 90px !important;
+  }
+}

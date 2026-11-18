@@ -1,0 +1,1125 @@
+/*
+ * Maktabga tayyorlov bo'limi: ta'lim narxi oynasi (`pp-`) va davomat jurnali (`pa-`).
+ * Admin va User ilovalarida bir xil fayl; ko'rinishi guruh oynasi bilan bir xil (navy, radius 15, markazda tugmalar).
+ * Faqat User'dagi `.pp-page` (sahifa ildizi) Admin faylida yo'q — u yerda sahifa sarlavhasi o'z qatlamida.
+ */
+
+/* ── Sahifa ildizi (User) ──
+ * Chap/o'ng chetlarni `index.css`dagi umumiy gutter beradi; tepa masofa har sahifada o'zida (Jarimalar `.pen-container`,
+ * Kunlik kassa `.dcr-container` kabi 50px). Planshet/telefonda uni `consistency.css` `.list-page` qoidasi kamaytiradi. */
+.pp-page {
+  margin-top: 50px !important;
+  padding-bottom: 34px;
+}
+
+/* ── Narx: tasdiqlash holati va amal tugmalari ── */
+.pp-status {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #eef1f5;
+  color: #475569;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.pp-status--approved {
+  background: #eaf7ee;
+  color: #14733f;
+}
+
+.pp-status--pending {
+  background: #fff4e0;
+  color: #a35f00;
+}
+
+.pp-status--rejected {
+  background: #fdeceb;
+  color: #a12018;
+}
+
+.pp-status--cancelled,
+.pp-status--inactive {
+  background: #eef1f5;
+  color: #64748b;
+}
+
+.pp-row-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.pp-act {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #d9dee5;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.pp-act--approve {
+  border-color: #b7e1c5;
+  color: #14733f;
+}
+
+.pp-act--approve:hover {
+  background: #eaf7ee;
+}
+
+.pp-act--status {
+  border-color: #c9d6e6;
+  color: #003366;
+}
+
+.pp-act--status:hover {
+  background: #eef3fa;
+}
+
+/* «Faol» belgisi (narx formasi) — `.pp-field input` qoidalaridan tashqarida, cho'zilmasin */
+.pp-check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #003366;
+}
+
+.pp-check-row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.pp-check-row input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #003366;
+  cursor: pointer;
+}
+
+/* Tahrirlashda narx qayta tasdiqlanishi haqida ogohlantirish */
+.pp-note {
+  padding: 10px 12px;
+  border: 1px solid #f3dcae;
+  border-radius: 12px;
+  background: #fff8e8;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #8a5a00;
+}
+
+/* ── Umumiy oyna (narx formasi, kunlik belgilash, bitta belgini o'zgartirish) ── */
+.pp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.pp-modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 28px 32px 32px;
+  background: #fff;
+  border: 1px solid #003366;
+  border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+  color: #003366;
+}
+
+.pp-modal--wide {
+  max-width: 720px;
+}
+
+.pp-title {
+  margin: 0 0 22px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid #eef0f3;
+  text-align: center;
+  font-family: noto-b, sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #003366;
+}
+
+.pp-sub {
+  margin: -10px 0 16px;
+  text-align: center;
+  font-size: 13px;
+  color: #8b97a7;
+}
+
+.pp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.pp-field > label {
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #003366;
+}
+
+.pp-field select,
+.pp-field input,
+.pp-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #003366;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pp-field select,
+.pp-field input {
+  height: 42px;
+}
+
+.pp-field textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.pp-field select:focus,
+.pp-field input:focus,
+.pp-field textarea:focus {
+  border-color: #003366;
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+
+.pp-field input[readonly] {
+  background: #f4f6f9;
+  color: #475569;
+  cursor: default;
+}
+
+.pp-field--invalid select,
+.pp-field--invalid input {
+  border-color: #d93025;
+}
+
+.pp-hint {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #8b97a7;
+}
+
+.pp-error {
+  margin-top: 4px;
+  text-align: center;
+  font-size: 13px;
+  color: #d93025;
+}
+
+.pp-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.pp-btn {
+  min-height: 47px;
+  padding: 10px 24px;
+  border-radius: 15px;
+  font-family: noto-m, sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.pp-btn--primary {
+  background: #003366;
+  border: 0;
+  color: #fff;
+}
+
+.pp-btn--primary:hover:not(:disabled) {
+  background: #00254d;
+}
+
+.pp-btn--primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pp-btn--cancel {
+  background: #fff;
+  border: 2px solid #666;
+  color: #666;
+}
+
+.pp-btn--cancel:hover {
+  background: #f6f7f9;
+}
+
+.pp-btn--danger {
+  background: #fff;
+  border: 2px solid #d93025;
+  color: #d93025;
+}
+
+.pp-btn--danger:hover {
+  background: #fdecea;
+}
+
+/* Narx qatoridagi miqdor */
+.pp-money {
+  font-family: noto-b, sans-serif;
+  white-space: nowrap;
+}
+
+/* ── Davomat jurnali ───────────────────────────────────────────────────────
+   Ko'rinish xodim davomati (`pages/attendance/attendanceTime.css`) bilan bir xil: to'q ko'k panel (oy tugmalari, filtrlar,
+   belgilar izohi), oq jadval kartasi, avatarli qatorlar va to'liq rangli kataklar. Klasslar `pj-` prefiksli (prod'da
+   hamma CSS bitta faylda — `attendance-*` nomlariga tegmaslik uchun). */
+.pj-board {
+  width: 100%;
+}
+
+.pj-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 20px;
+  padding: 20px 40px;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 15px 15px 0 0;
+}
+
+.pj-top-left,
+.pj-top-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+.pj-top-right {
+  gap: 12px 20px;
+}
+
+.pj-nav-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pj-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.pj-month {
+  position: relative;
+}
+
+.pj-month-label {
+  min-width: 130px;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: noto-b, sans-serif;
+  font-size: 17px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pj-month-label:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Haqiqiy oy tanlovi (`showPicker()` bilan ochiladi) — ko'rinmaydi, lekin yozuv sifatida qoladi */
+.pj-month-input {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pj-filter {
+  display: flex;
+}
+
+/* Ko'rinmas yorliq (ekran o'qiydi) — tanlagichlarda matnli yorliq yo'q, ular to'q panelda turadi */
+.pj-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.pj-filter select {
+  height: 36px;
+  max-width: 200px;
+  padding: 0 10px;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #03213f;
+  cursor: pointer;
+}
+
+.pj-filter select:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 1px;
+}
+
+.pj-add-btn {
+  height: 36px;
+  margin-left: auto;
+  padding: 0 18px;
+  background: var(--color-primary);
+  border: 0;
+  border-radius: 8px;
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.pj-add-btn:hover:not(:disabled) {
+  background: #00254d;
+}
+
+.pj-add-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Belgilar izohi: to'q panelda rangli doira + nom (xodim davomatidagi `attendance-box` kabi) */
+.pj-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+}
+
+.pj-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pj-legend-item h4 {
+  margin: 0;
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.pj-legend-box {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+}
+
+.pj-legend-box--present {
+  background: #1bb200;
+}
+
+.pj-legend-box--late {
+  background: #fe9100;
+}
+
+.pj-legend-box--absent {
+  background: #ff0000;
+}
+
+.pj-legend-box--reason {
+  background: #3f88c9;
+}
+
+.pj-content {
+  background: #fff;
+  border: 1px solid #dde3ed;
+  border-top: none;
+  border-radius: 0 0 15px 15px;
+  overflow: hidden;
+}
+
+.pj-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #dde3ed;
+  font-size: 14px;
+  color: #1a2340;
+}
+
+.pj-info strong {
+  font-family: noto-b, sans-serif;
+  color: var(--color-primary);
+}
+
+.pj-info a {
+  color: #22a7f0;
+}
+
+.pj-empty {
+  padding: 40px 16px;
+  text-align: center;
+  color: #8b97a7;
+}
+
+.pj-wrap {
+  overflow-x: auto;
+}
+
+.pj-table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.pj-table th,
+.pj-table td {
+  padding: 0;
+  border-bottom: 1px solid #dde3ed;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pj-table thead th {
+  padding: 6px 2px;
+  background: #fff;
+  border-bottom: 2px solid #dde3ed;
+  font-family: noto-b, sans-serif;
+  color: #1a2340;
+}
+
+.pj-table tbody tr {
+  height: 72px;
+}
+
+.pj-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.pj-table .pj-name {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  min-width: 290px;
+  max-width: 380px;
+  padding: 10px 16px;
+  background: #fff;
+  border-right: 1px solid #dde3ed;
+  text-align: left;
+}
+
+.pj-table thead .pj-name {
+  z-index: 3;
+  padding: 12px 16px;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.pj-student {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.pj-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #e8f0fe;
+  border-radius: 50%;
+}
+
+.pj-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pj-student-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.pj-name b {
+  display: block;
+  /* Ism-familiya TO'LIQ chiqadi (uzun bo'lsa keyingi qatorga o'tadi), «…» bilan kesilmaydi */
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #1a2340;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* Tartib raqami (qator boshida) */
+.pj-num {
+  flex: none;
+  min-width: 24px;
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  text-align: right;
+  color: #64748b;
+}
+
+.pj-num--head {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.pj-name small {
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  line-height: 1.3;
+  color: #3f88c9;
+}
+
+.pj-name--left {
+  opacity: 0.6;
+}
+
+.pj-day {
+  min-width: 52px;
+}
+
+.pj-day-wd,
+.pj-day-num {
+  display: block;
+  font-family: noto-b, sans-serif;
+  line-height: 1.2;
+  color: #1a2340;
+}
+
+.pj-day-wd {
+  font-size: 12px;
+}
+
+.pj-day-num {
+  font-size: 13px;
+}
+
+/* Dam olish kunlari — sarlavhada xiraroq, katakda fon yo'q (xodim davomatidagi kabi bo'sh) */
+.pj-table thead .pj-day--weekend .pj-day-wd,
+.pj-table thead .pj-day--weekend .pj-day-num {
+  color: #9aa3b0;
+}
+
+.pj-table thead .pj-day--today {
+  box-shadow: inset 0 -3px 0 #fe9100;
+}
+
+.pj-daycell {
+  padding: 3px 4px;
+}
+
+.pj-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 44px;
+  min-height: 30px;
+  margin: 0 auto;
+  padding: 4px 2px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1;
+  color: #fff;
+  cursor: pointer;
+}
+
+.pj-cell:hover:not(:disabled) {
+  border: 1px dashed var(--color-primary);
+}
+
+.pj-cell:disabled {
+  cursor: default;
+}
+
+/* Ruxsat cheklovi sabab bloklangan katak (o'tgan sana / saqlangan belgi) */
+.pj-cell--locked:disabled {
+  cursor: not-allowed;
+}
+
+.pj-cell--present {
+  background: #1bb200;
+}
+
+.pj-cell--late {
+  background: #fe9100;
+}
+
+.pj-cell--absent {
+  background: #ff0000;
+}
+
+.pj-cell--reason {
+  background: #3f88c9;
+}
+
+.pj-cell--present:hover:not(:disabled),
+.pj-cell--late:hover:not(:disabled),
+.pj-cell--absent:hover:not(:disabled),
+.pj-cell--reason:hover:not(:disabled) {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.pj-cell--present:disabled,
+.pj-cell--late:disabled,
+.pj-cell--absent:disabled,
+.pj-cell--reason:disabled {
+  opacity: 0.55;
+}
+
+/* Kunlik belgilash / bitta belgi oynasidagi kichik belgi (yengil rang) */
+.pj-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  font-size: 11px;
+}
+
+.pj-dot--present {
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+}
+
+.pj-dot--absent {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+.pj-dot--late {
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  color: #d97706;
+}
+
+.pj-dot--reason {
+  background: #dbeafe;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+}
+
+/* To'lov holati — o'ng chetda qotib turadi (oy jadvali keng, gorizontal aylanadi) */
+.pj-table .pj-pay {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  min-width: 150px;
+  padding: 6px 14px;
+  background: #fff;
+  border-left: 1px solid #dde3ed;
+  text-align: left;
+}
+
+.pj-table thead .pj-pay {
+  z-index: 3;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.pj-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: noto-sb, sans-serif;
+  font-size: 12px;
+}
+
+.pj-badge--paid {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.pj-badge--partial {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.pj-badge--unpaid {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.pj-pay small {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: #8b97a7;
+}
+
+/* Bitta belgini o'zgartirish / kunlik belgilash */
+.pj-statuses {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.pj-status-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1.5px solid #dde1e7;
+  border-radius: 12px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #1a2332;
+  cursor: pointer;
+}
+
+.pj-status-btn:hover:not(:disabled) {
+  border-color: #003366;
+}
+
+.pj-status-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pj-status-btn--on {
+  border-color: #003366;
+  box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.12);
+}
+
+.pj-day-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 46vh;
+  overflow-y: auto;
+  margin: 4px 0 0;
+  padding-right: 4px;
+}
+
+.pj-day-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 1.2fr) auto minmax(100px, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.pj-day-row b {
+  font-family: noto-sb, sans-serif;
+  font-size: 13px;
+  color: #003366;
+}
+
+/* Bugun allaqachon saqlangan o'quvchi — qulflangan (faqat «tahrirlash» ruxsati o'zgartira oladi) */
+.pj-day-row--locked {
+  opacity: 0.6;
+}
+
+.pj-day-row--locked b i {
+  color: #8a5a00;
+}
+
+.pj-seg button:disabled,
+.pj-day-row input[type='text']:disabled {
+  cursor: not-allowed;
+}
+
+.pj-seg {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.pj-seg button {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: #fff;
+  border: 1.5px solid #dde1e7;
+  border-radius: 9px;
+  font-size: 14px;
+  color: #8b97a7;
+  cursor: pointer;
+}
+
+.pj-seg button.pj-seg--present {
+  background: #dcfce7;
+  border-color: #16a34a;
+  color: #16a34a;
+}
+
+.pj-seg button.pj-seg--absent {
+  background: #fee2e2;
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
+.pj-seg button.pj-seg--late {
+  background: #fef3c7;
+  border-color: #d97706;
+  color: #d97706;
+}
+
+.pj-seg button.pj-seg--reason {
+  background: #dbeafe;
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.pj-day-row input[type='text'] {
+  height: 34px;
+  min-width: 0;
+  padding: 0 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.pj-bulk {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 10px;
+}
+
+.pj-bulk button {
+  padding: 6px 12px;
+  background: #fff;
+  border: 1.5px solid #003366;
+  border-radius: 10px;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #003366;
+  cursor: pointer;
+}
+
+/* Ekran kengligiga qarab panel va avatar kichrayishi — xodim davomatidagi bosqichlar bilan bir xil */
+@media (max-width: 1600px) {
+  .pj-top {
+    padding: 16px 32px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .pj-top {
+    padding: 14px 24px;
+  }
+
+  .pj-avatar {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .pj-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .pj-table .pj-name {
+    padding: 10px 12px;
+  }
+
+  .pj-day-num {
+    font-size: 12px;
+  }
+
+  .pj-day-wd {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 992px) {
+  .pj-top {
+    gap: 12px;
+    padding: 14px 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pj-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px;
+  }
+
+  .pj-top-left {
+    width: 100%;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .pj-top-right {
+    width: 100%;
+    gap: 8px 14px;
+  }
+
+  .pj-legend-box {
+    width: 18px;
+    height: 18px;
+  }
+
+  .pj-legend-item h4 {
+    font-size: 12.5px;
+  }
+
+  .pj-month-label {
+    min-width: 0;
+    font-size: 15px;
+  }
+
+  .pj-nav-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Telefonda to'lov ustuni qotib turmaydi — kunlar uchun joy qolsin (jadval bilan birga aylanadi) */
+  .pj-table .pj-pay {
+    position: static;
+    min-width: 130px;
+  }
+
+  .pj-table .pj-name {
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 860px) {
+  .pj-day-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .pj-day-row input[type='text'] {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Telefon: pastdan chiqadigan «sheet» */
+@media (max-width: 640px) {
+  .pp-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .pp-modal {
+    max-width: 100%;
+    max-height: 92vh;
+    padding: 20px 18px calc(20px + env(safe-area-inset-bottom, 0px));
+    border: 0;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .pp-title {
+    font-size: 18px;
+  }
+
+  .pp-actions {
+    flex-direction: column-reverse;
+  }
+
+  .pp-btn {
+    width: 100%;
+  }
+
+  .pp-field select,
+  .pp-field input,
+  .pp-field textarea,
+  .pj-filter select,
+  .pj-filter input {
+    font-size: 16px;
+  }
+
+  .pj-filter {
+    flex: 1 1 100%;
+  }
+
+  .pj-filter select {
+    width: 100%;
+    max-width: none;
+  }
+
+  .pj-add-btn {
+    width: 100%;
+  }
+
+  .pj-table .pj-name {
+    min-width: 150px;
+  }
+}

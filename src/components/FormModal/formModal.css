@@ -1,0 +1,351 @@
+/* Forma oynasi (`FormModal`). Klasslar `fm-` prefiksi bilan scope qilingan —
+ * `cm-` (ConfirmModal) va `mp-` (ModalPattern) bilan bir xil dizayn tokenlari:
+ * `--color-primary` sarlavha, `--color-accent` asosiy tugma. */
+
+.fm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Pastki tab bar (998), drawer (1000) va dars tugmasi panelidan yuqorida. */
+  z-index: 10000;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.fm-dialog {
+  background: #ffffff;
+  border-radius: 12px;
+  width: 100%;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.28);
+  animation: fm-pop 0.16s ease-out;
+}
+
+.fm-dialog--sm {
+  max-width: 400px;
+}
+.fm-dialog--md {
+  max-width: 480px;
+}
+.fm-dialog--lg {
+  max-width: 640px;
+}
+
+@keyframes fm-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Sarlavha ── */
+.fm-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 14px 20px;
+  background: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.fm-header__text {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.fm-title {
+  margin: 0;
+  font-family: noto-b, sans-serif;
+  font-size: 17px;
+  line-height: 1.3;
+  color: #ffffff;
+}
+
+.fm-subtitle {
+  margin: 3px 0 0;
+  font-family: noto-m, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.78);
+  overflow-wrap: anywhere;
+}
+
+.fm-close {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+.fm-close:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+.fm-close:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Tana va tugmalar ── */
+.fm-form {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+
+.fm-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+}
+
+.fm-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 20px 16px;
+  border-top: 1px solid #eef1f5;
+  flex-shrink: 0;
+}
+
+/* Chapga suriladigan tugma (masalan «O'chirish»). */
+.fm-footer__start {
+  margin-right: auto;
+}
+
+.fm-btn {
+  height: 40px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+.fm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fm-btn--ghost {
+  background: #ffffff;
+  border-color: #cfd6df;
+  color: #334155;
+  font-family: noto-m, sans-serif;
+}
+.fm-btn--ghost:hover:not(:disabled) {
+  background: #f4f6f9;
+}
+
+.fm-btn--primary {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+.fm-btn--primary:hover:not(:disabled) {
+  background: #e58200;
+}
+
+.fm-btn--danger-text {
+  background: transparent;
+  color: var(--color-danger);
+  padding: 0 10px;
+  font-family: noto-m, sans-serif;
+}
+.fm-btn--danger-text:hover:not(:disabled) {
+  background: rgba(231, 10, 10, 0.07);
+}
+
+/* ── Maydonlar ── */
+.fm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.fm-label {
+  font-family: noto-sb, sans-serif;
+  font-size: 13px;
+  color: var(--color-primary);
+}
+
+.fm-label__note {
+  font-family: noto-r, sans-serif;
+  color: #64748b;
+  margin-left: 4px;
+}
+
+.fm-req {
+  color: var(--color-danger);
+  margin-left: 2px;
+}
+
+.fm-input,
+.fm-select,
+.fm-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cfd6df;
+  border-radius: 10px;
+  background: #ffffff;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #1a202c;
+  outline: none;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.fm-input,
+.fm-select {
+  height: 42px;
+  padding: 0 12px;
+}
+
+.fm-select {
+  appearance: none;
+  padding-right: 34px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23003366' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+}
+
+.fm-textarea {
+  min-height: 84px;
+  padding: 10px 12px;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.fm-input::placeholder,
+.fm-textarea::placeholder {
+  color: #9aa5b4;
+  font-family: noto-r, sans-serif;
+}
+
+.fm-input:focus,
+.fm-select:focus,
+.fm-textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(254, 145, 0, 0.16);
+}
+
+.fm-input:disabled,
+.fm-select:disabled,
+.fm-textarea:disabled {
+  background: #f4f6f9;
+  color: #475569;
+  cursor: not-allowed;
+}
+
+.fm-input.is-invalid,
+.fm-textarea.is-invalid {
+  border-color: var(--color-danger);
+}
+
+.fm-hint {
+  font-family: noto-r, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #64748b;
+}
+
+.fm-error {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-danger);
+}
+
+.fm-text {
+  margin: 0;
+  font-family: noto-r, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #334155;
+}
+
+/* ── Telefon: pastdan chiqadigan varaq ── */
+@media (max-width: 640px) {
+  /* iOS fokusda sahifani kattalashtirmasin */
+  .fm-input,
+  .fm-select,
+  .fm-textarea {
+    font-size: 16px;
+  }
+  .fm-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .fm-dialog,
+  .fm-dialog--sm,
+  .fm-dialog--md,
+  .fm-dialog--lg {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 16px 16px 0 0;
+    max-height: 92vh;
+    max-height: 92dvh;
+    animation-name: fm-rise;
+  }
+  .fm-body {
+    padding: 16px;
+  }
+  .fm-footer {
+    padding: 12px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+  .fm-footer .fm-btn--ghost,
+  .fm-footer .fm-btn--primary {
+    flex: 1 1 0;
+    padding: 0 12px;
+  }
+}
+
+@keyframes fm-rise {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fm-dialog {
+    animation: none;
+  }
+}

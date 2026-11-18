@@ -1,0 +1,114 @@
+/* Butun ilova bo'ylab bitta sahifalash ko'rinishi — `src/components/Pagination`
+   izohiga qarang. */
+.app-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-top: 1px solid #eaecf0;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.app-pagination__left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.app-pagination__info {
+  font-size: 13px;
+  color: #7a8fa6;
+  font-family: noto-m, sans-serif;
+}
+
+.app-pagination__size {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #7a8fa6;
+  font-family: noto-m, sans-serif;
+  white-space: nowrap;
+}
+
+.app-pagination__size-select {
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid #dde3ec;
+  border-radius: var(--radius-md);
+  background: #fff;
+  font-size: 13px;
+  color: #3d4a5c;
+  font-family: noto-m, sans-serif;
+  cursor: pointer;
+  outline: none;
+}
+
+.app-pagination__size-select:focus {
+  border-color: var(--color-primary-soft, #2f6fb0);
+}
+
+.app-pagination__controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.app-pagination__btn {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid #dde3ec;
+  background: #fff;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: #3d4a5c;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+  font-family: noto-m, sans-serif;
+}
+
+.app-pagination__btn:hover:not(:disabled) {
+  background-color: #f5f7fa;
+  border-color: #b0bbc8;
+}
+
+.app-pagination__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.app-pagination__btn--active {
+  background-color: var(--color-primary-soft);
+  border-color: var(--color-primary-soft);
+  color: #fff;
+  font-family: noto-sb, sans-serif;
+}
+
+.app-pagination__btn--active:hover {
+  background-color: #254f7d !important;
+  border-color: #254f7d !important;
+}
+
+.app-pagination__ellipsis {
+  font-size: 13px;
+  color: #7a8fa6;
+  padding: 0 4px;
+  user-select: none;
+}
+
+@media (max-width: 640px) {
+  .app-pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

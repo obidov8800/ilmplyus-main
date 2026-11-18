@@ -1,0 +1,1744 @@
+.students-contract {
+  margin-top: 50px !important;
+  margin-left: 140px !important;
+}
+
+.sc-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+  padding: 0 4px;
+}
+
+.sc-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---- Search Input ---- */
+.sc-search-wrapper {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  gap: 10px;
+  width: 280px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sc-search-wrapper:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(254, 145, 0, 0.12);
+}
+
+.sc-search-wrapper i {
+  color: #9ca3af;
+  font-size: 15px;
+}
+
+.sc-search-wrapper input {
+  border: none;
+  outline: none;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #374151;
+  background: transparent;
+  width: 100%;
+}
+
+.sc-search-wrapper input::placeholder {
+  color: #9ca3af;
+}
+
+/* ---- Create Button ---- */
+.sc-create-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: linear-gradient(135deg, var(--color-accent), #e07e00);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(254, 145, 0, 0.35);
+}
+
+.sc-create-btn:hover {
+  background: linear-gradient(135deg, #e07e00, #c96f00);
+  box-shadow: 0 6px 18px rgba(254, 145, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+.sc-create-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(254, 145, 0, 0.3);
+}
+
+/* ---- Table Card ---- */
+.sc-table-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid #e8f0fb;
+  box-shadow: 0 2px 12px rgba(0, 51, 102, 0.06);
+  overflow: hidden;
+}
+
+/* ---- Table ----
+   Bazaviy th/td ko'rinishi endi `.data-table` (`primitives.css`) — bu
+   yerda faqat `.sc-table` o'zi (layout: auto, kerak bo'lsa boshqa
+   sozlamalar). */
+.sc-table {
+  table-layout: auto;
+}
+
+/* Barcha ustun matni markazda — sarlavhalar, ID (saralash o'qi bilan),
+   o'quvchi katagi (avatar + ism) va amal tugmalari ham markazga tekislanadi.
+   `.sc-table.data-table` — `.data-table th/td { text-align:left }` ni yengish
+   uchun (bir xil bo'lmagan aniqlik). */
+.sc-table.data-table th,
+.sc-table.data-table td {
+  text-align: center;
+}
+.sc-table .sc-student-cell,
+.sc-table .row-actions {
+  justify-content: center;
+}
+
+/* ---- Student Cell ---- */
+.sc-student-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sc-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--color-accent), #ffb347);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(254, 145, 0, 0.3);
+}
+
+.sc-student-name {
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.sc-student-phone {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* ---- Course Badge ---- */
+.sc-course-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+}
+
+.sc-course-badge .badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9b59b6;
+}
+
+.sc-course-badge.purple {
+  background: rgba(155, 89, 182, 0.1);
+  color: #9b59b6;
+}
+
+.sc-course-badge.blue {
+  background: rgba(0, 51, 102, 0.08);
+  color: var(--color-primary);
+}
+
+.sc-course-badge.orange {
+  background: rgba(254, 145, 0, 0.1);
+  color: var(--color-accent);
+}
+
+/* ---- Status Badge ---- */
+.sc-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-lg);
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+}
+
+.sc-status-badge.active {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+}
+
+.sc-status-badge.active::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #16a34a;
+}
+
+.sc-status-badge.pending {
+  background: rgba(254, 145, 0, 0.12);
+  color: #d97706;
+}
+
+.sc-status-badge.pending::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d97706;
+}
+
+.sc-status-badge.cancelled {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+.sc-status-badge.cancelled::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #dc2626;
+}
+
+.sc-status-badge.in_progress {
+  background: rgba(254, 145, 0, 0.12);
+  color: #d97706;
+}
+
+.sc-status-badge.in_progress::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d97706;
+}
+
+.sc-status-badge.completed {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+}
+
+.sc-status-badge.completed::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #16a34a;
+}
+
+.sc-status-badge.expired {
+  background: rgba(100, 116, 139, 0.1);
+  color: #64748b;
+}
+
+.sc-status-badge.expired::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #64748b;
+}
+
+/* ---- Action Buttons ----
+   O'lcham/shakl/hover endi `.row-actions`/`.row-action` (`primitives.css`).
+   SMS tugmasi ikki holatli (yuborilmagan/yuborilgan) — bu boshqa amallardan
+   farqli o'ziga xos ma'no, shuning uchun o'z rangida qoladi, faqat
+   o'lchami/burchagi umumiy `.row-action`dan keladi. */
+.sc-action-btn.sms {
+  background: #eff6ff;
+  color: #0f3460;
+  border: 1px solid #bfdbfe;
+}
+
+.sc-action-btn.sms:hover:not(:disabled) {
+  background: #0f3460;
+  color: #fff;
+}
+
+.sc-action-btn.sms.sent {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.sc-action-btn.sms.sent:hover:not(:disabled) {
+  background: #16a34a;
+  color: #fff;
+}
+
+.sc-action-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  min-width: 170px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.sc-action-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 14px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-family: noto-m, sans-serif;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.sc-action-dropdown-item:hover {
+  background: #f8faff;
+}
+
+.sc-action-dropdown-item.activate {
+  color: #16a34a;
+}
+
+.sc-action-dropdown-item.cancel {
+  color: #dc2626;
+}
+
+.sc-action-dropdown-item.terminate {
+  color: #d97706;
+}
+
+.sc-action-dropdown-item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   MODAL - Shartnoma tuzish turini tanlang
+   ============================================ */
+.sc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: sc-overlay-in 0.2s ease;
+}
+
+@keyframes sc-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.sc-modal {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 0;
+  width: 460px;
+  max-width: 92vw;
+  box-shadow: 0 24px 60px rgba(0, 51, 102, 0.18);
+  animation: sc-modal-in 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+@keyframes sc-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.sc-modal-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #004f9e 100%);
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sc-modal-header-title {
+  font-family: noto-sb, sans-serif;
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: 0.2px;
+}
+
+.sc-modal-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.sc-modal-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.sc-modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---- Contract Type Option Button ---- */
+.sc-contract-option {
+  width: 100%;
+  padding: 16px 22px;
+  border: 2px solid #e8eef6;
+  border-radius: var(--radius-md);
+  background: #f8faff;
+  font-family: noto-m, sans-serif;
+  font-size: 15px;
+  color: #1e293b;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sc-contract-option::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: transparent;
+  transition: background 0.22s ease;
+}
+
+.sc-contract-option:hover {
+  border-color: var(--color-primary);
+  background: #f0f5ff;
+  color: var(--color-primary);
+  transform: translateX(3px);
+}
+
+.sc-contract-option:hover::before {
+  background: var(--color-primary);
+}
+
+.sc-contract-option:nth-child(2):hover {
+  border-color: #9b59b6;
+  background: #faf5ff;
+  color: #9b59b6;
+}
+
+.sc-contract-option:nth-child(2):hover::before {
+  background: #9b59b6;
+}
+
+.sc-contract-option:nth-child(3):hover {
+  border-color: var(--color-accent);
+  background: #fff8f0;
+  color: var(--color-accent);
+}
+
+.sc-contract-option:nth-child(3):hover::before {
+  background: var(--color-accent);
+}
+
+.sc-contract-option:nth-child(4):hover {
+  border-color: #16a34a;
+  background: #f0fff5;
+  color: #16a34a;
+}
+
+.sc-contract-option:nth-child(4):hover::before {
+  background: #16a34a;
+}
+
+.sc-contract-option-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+  transition: all 0.22s ease;
+}
+
+.sc-contract-option:nth-child(1) .sc-contract-option-icon {
+  background: rgba(0, 51, 102, 0.1);
+  color: var(--color-primary);
+}
+
+.sc-contract-option:nth-child(2) .sc-contract-option-icon {
+  background: rgba(155, 89, 182, 0.1);
+  color: #9b59b6;
+}
+
+.sc-contract-option:nth-child(3) .sc-contract-option-icon {
+  background: rgba(254, 145, 0, 0.1);
+  color: var(--color-accent);
+}
+
+.sc-contract-option:nth-child(4) .sc-contract-option-icon {
+  background: rgba(22, 163, 74, 0.1);
+  color: #16a34a;
+}
+
+.sc-contract-option-text {
+  flex: 1;
+}
+
+.sc-contract-option-arrow {
+  color: #cbd5e1;
+  font-size: 13px;
+  transition: all 0.22s ease;
+}
+
+.sc-contract-option:hover .sc-contract-option-arrow {
+  color: inherit;
+  transform: translateX(3px);
+}
+
+/* ============================================
+   CONTRACT FORM PAGES (shared layout)
+   ============================================ */
+.sc-form-page {
+  padding: 24px;
+}
+
+.sc-form-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.sc-form-back-btn {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.sc-form-back-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.sc-form-page-title {
+  font-family: noto-b, sans-serif;
+  font-size: 22px;
+  color: var(--color-primary);
+}
+
+.sc-form-page-subtitle {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* ---- Section Card ---- */
+.sc-section-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid #e8f0fb;
+  box-shadow: 0 2px 10px rgba(0, 51, 102, 0.05);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.sc-section-card-header {
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%);
+  border-bottom: 1px solid #e8f0fb;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sc-section-card-header i {
+  color: var(--color-accent);
+  font-size: 16px;
+}
+
+.sc-section-card-title {
+  font-family: noto-sb, sans-serif;
+  font-size: 15px;
+  color: var(--color-primary);
+}
+
+.sc-section-card-body {
+  padding: 24px;
+}
+
+/* ---- Form Grid ---- */
+.sc-form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.sc-form-grid.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.sc-form-grid.cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.sc-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sc-form-group.span-2 {
+  grid-column: span 2;
+}
+
+.sc-form-group.span-3 {
+  grid-column: span 3;
+}
+
+.sc-form-label {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #475569;
+}
+
+.sc-form-label span {
+  color: #ef4444;
+}
+
+.sc-form-input {
+  width: 100%;
+  height: 43.69px;
+  padding: 0 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #1e293b;
+  background: #f8faff;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.sc-form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.08);
+}
+
+.sc-form-input::placeholder {
+  color: #cbd5e1;
+}
+
+/* JSHSHR maydoni — bazadan tekshirilayotganda input ichida spinner,
+   ostida natija yozuvi. */
+.sc-jshshir-field {
+  position: relative;
+}
+
+.sc-jshshir-field .sc-form-input {
+  padding-right: 38px;
+}
+
+.sc-jshshir-spinner {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-primary);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.sc-jshshir-hint {
+  margin-top: 6px;
+  font-family: noto-m, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: #64748b;
+}
+
+.sc-jshshir-hint--ok {
+  color: var(--color-success, #1bb200);
+}
+
+.sc-form-select {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #1e293b;
+  background: #f8faff;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  box-sizing: border-box;
+}
+
+.sc-form-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.08);
+}
+
+/* Passport seriya/raqam maydonlari inline uslub bilan chiziladi — balandligi
+   qolgan inputlar bilan bir xil bo'lishi uchun shu yerdan beriladi. */
+.sc-passport-series,
+.sc-passport-number {
+  height: 43.69px;
+  box-sizing: border-box;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #1e293b;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* ---- Form Submit Area ---- */
+.sc-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.sc-form-cancel-btn {
+  padding: 10px 24px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  background: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sc-form-cancel-btn:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.sc-form-submit-btn {
+  padding: 10px 28px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-primary), #004f9e);
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 51, 102, 0.3);
+}
+
+.sc-form-submit-btn:hover {
+  background: linear-gradient(135deg, #002952, #003d7a);
+  box-shadow: 0 6px 18px rgba(0, 51, 102, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ---- Placeholder page styles ---- */
+.sc-placeholder-page {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #94a3b8;
+}
+
+.sc-placeholder-page i {
+  font-size: 48px;
+  opacity: 0.3;
+}
+/* ---- Contract Details Page ---- */
+.sc-details-page {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  margin-bottom: 24px;
+}
+
+.sc-details-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.sc-details-title {
+  font-family: noto-b, sans-serif;
+  font-size: 18px;
+  color: #1e293b;
+  text-transform: uppercase;
+}
+
+.sc-details-section {
+  margin-bottom: 32px;
+}
+
+.sc-details-section:last-child {
+  margin-bottom: 0;
+}
+
+.sc-details-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: noto-b, sans-serif;
+  font-size: 15px;
+  color: var(--color-accent);
+  margin-bottom: 20px;
+}
+
+.sc-details-section-title i {
+  color: var(--color-primary);
+}
+
+.sc-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.sc-details-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #f1f5f9;
+}
+
+.sc-details-label {
+  font-family: noto-sb, sans-serif;
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sc-details-value {
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #334155;
+  word-break: break-word;
+}
+
+/* ---- Details Page Actions (bekor qilish / tugatish) ---- */
+.sc-details-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sc-details-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sc-details-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sc-details-action-btn.cancel {
+  border: 1.5px solid #fecaca;
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.sc-details-action-btn.cancel:hover:not(:disabled) {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #fff;
+}
+
+.sc-details-action-btn.terminate {
+  border: 1.5px solid #fed7aa;
+  background: #fff7ed;
+  color: #d97706;
+}
+
+.sc-details-action-btn.terminate:hover:not(:disabled) {
+  background: #d97706;
+  border-color: #d97706;
+  color: #fff;
+}
+
+.sc-details-student-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+}
+.sc-placeholder-page p {
+  font-family: noto-m, sans-serif;
+  font-size: 15px;
+}
+
+/* Responsive: 1920px -> 768px */
+@media (max-width: 1600px) {
+  .students-contract {
+    margin-left: 110px !important;
+  }
+}
+
+@media (max-width: 1400px) {
+  .students-contract {
+    margin-left: 100px !important;
+  }
+  .sc-form-grid,
+  .sc-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .students-contract {
+    margin-left: 92px !important;
+  }
+  /* Wide table scrolls horizontally inside its card */
+  .sc-table-card {
+    overflow-x: auto;
+  }
+  .sc-table {
+    min-width: 860px;
+  }
+}
+
+@media (max-width: 992px) {
+  .students-contract {
+    margin-left: 90px !important;
+    margin-right: 16px !important;
+  }
+  .sc-page-header {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .sc-form-group.span-2,
+  .sc-form-group.span-3 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Chetki bo'shliqni umumiy `main.page` beradi (bu yerdagi eski
+     `margin-left: 88px` allaqachon `index.css`ning `main.page > *
+     { margin-left: 0 !important }` bilan bekor bo'lardi). */
+  .students-contract {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 24px !important;
+  }
+  .sc-header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .sc-search-wrapper {
+    width: 100%;
+  }
+  .sc-header-actions > .sc-create-btn {
+    flex: 1 1 auto;
+  }
+  .sc-form-grid,
+  .sc-form-grid.cols-2,
+  .sc-details-grid {
+    grid-template-columns: 1fr;
+  }
+  /* Batafsil sahifadagi maydonlarda inline `grid-column: "2 / -1"` bor —
+     bir ustunli gridda u nol-enli joy hosil qilardi. `!important` inline'ni
+     ham yengadi. */
+  .sc-details-grid > *,
+  .sc-form-grid > * {
+    grid-column: 1 / -1 !important;
+  }
+  .sc-form-actions {
+    flex-wrap: wrap;
+  }
+  .sc-details-page {
+    padding: 20px 16px;
+  }
+}
+
+/* ---- 12 ustunli grid (voyaga yetgan shaxs shartnomasi) ----
+   Maydonlar shablondagidek turli kenglikda joylashishi uchun. Mavjud
+   `cols-1` / `cols-2` variantlariga tegilmagan — boshqa formalar o'z
+   holicha qoladi. */
+.sc-form-grid.cols-12 {
+  grid-template-columns: repeat(12, 1fr);
+  align-items: start;
+}
+
+.sc-col-2 { grid-column: span 2; }
+.sc-col-3 { grid-column: span 3; }
+.sc-col-4 { grid-column: span 4; }
+.sc-col-5 { grid-column: span 5; }
+.sc-col-6 { grid-column: span 6; }
+.sc-col-8 { grid-column: span 8; }
+.sc-col-12 { grid-column: span 12; }
+
+/* Planshetda ikki ustun, telefonda bitta. */
+@media (max-width: 1024px) {
+  .sc-form-grid.cols-12 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sc-form-grid.cols-12 > [class*='sc-col-'] {
+    grid-column: span 1;
+  }
+
+  .sc-form-grid.cols-12 > .sc-col-12 {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .sc-form-grid.cols-12 {
+    grid-template-columns: 1fr;
+  }
+
+  /* `!important` — quyidagi `.sc-row-start.sc-col-N` qoidalari (media'siz,
+     yuqori spetsifiklik) `grid-column: 1 / span N` bilan telefonда ham
+     ikkinchi ustun hosil qilardi. Telefonда har maydon to'liq enli. */
+  .sc-form-grid.cols-12 > [class*='sc-col-'],
+  .sc-form-grid.cols-12 > .sc-form-group.sc-row-start[class*='sc-col-'] {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+/* Yangi qatordan boshlaydi — shablonda narxlar va sanalar alohida qatorda.
+   `grid-column` to'liq yoziladi: faqat `grid-column-start` berilsa, `span`
+   yo'qolib maydon bir ustunga siqilib qolardi. */
+.sc-form-grid.cols-12 > .sc-form-group.sc-row-start.sc-col-2 {
+  grid-column: 1 / span 2;
+}
+.sc-form-grid.cols-12 > .sc-form-group.sc-row-start.sc-col-3 {
+  grid-column: 1 / span 3;
+}
+.sc-form-grid.cols-12 > .sc-form-group.sc-row-start.sc-col-4 {
+  grid-column: 1 / span 4;
+}
+.sc-form-grid.cols-12 > .sc-form-group.sc-row-start.sc-col-5 {
+  grid-column: 1 / span 5;
+}
+.sc-form-grid.cols-12 > .sc-form-group.sc-row-start.sc-col-6 {
+  grid-column: 1 / span 6;
+}
+
+@media (max-width: 1024px) {
+  .sc-form-grid.cols-12 > .sc-form-group.sc-row-start.sc-col-3 {
+    grid-column: span 1;
+  }
+}
+
+/* ---- Qatorli formalar (voyaga yetmagan, yuridik shaxs, vakil) ----
+ *
+ * Bu uch forma `sc-form-row` / `sc-form-col` tuzilishida yozilgan, lekin ular
+ * uchun CSS umuman yo'q edi: joylashuv faqat inline `style` ga tayanardi.
+ * Natijada `flex` berilmagan maydonlar torayib, qatorlar bir-biriga o'xshamay
+ * qolardi. Bu yerda ularga voyaga yetgan shaxs formasidagi bilan bir xil
+ * ritm beriladi — maydon balandligi va bo'shliqlar `sc-form-grid` bilan bir xil.
+ */
+.sc-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 18px;
+  margin-bottom: 24px;
+  align-items: start;
+}
+
+/* Har bir maydon teng ulush oladi va matni uzun bo'lsa ham siqilmaydi. */
+.sc-form-col {
+  flex: 1 1 220px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Qator ichidagi maydonlar bir xil balandlikda tursin. */
+.sc-form-row .sc-form-input,
+.sc-form-row .sc-form-select,
+.sc-form-row textarea.sc-form-input {
+  width: 100%;
+}
+
+.sc-form-row textarea.sc-form-input {
+  height: auto;
+  min-height: 88px;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+@media (max-width: 640px) {
+  .sc-form-row {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .sc-form-col {
+    flex: 1 1 auto;
+  }
+}
+
+/* ================================================================
+ * Shartnoma formalarining yakuniy ko'rinishi (shablonga moslash)
+ *
+ * Fayl oxirida turadi — yuqoridagi eski qiymatlarni bila turib bekor
+ * qiladi. Asosiy farqlar: yorliqlar quyuqroq va qalinroq, maydonlar
+ * kamroq yumaloq va oq fonli, o'lchamlar barcha to'rt formada bir xil.
+ * ================================================================ */
+
+.sc-form-label {
+  font-family: noto-sb, noto-m, sans-serif;
+  font-size: 13.5px;
+  color: #0f3f6e;
+  letter-spacing: 0.1px;
+}
+
+.sc-form-label span {
+  color: #e11d48;
+  margin-left: 1px;
+}
+
+.sc-form-input,
+.sc-form-select,
+.sc-passport-series,
+.sc-passport-number {
+  height: 42px;
+  border: 1px solid #d7dee8;
+  border-radius: var(--radius-sm);
+  background-color: #fff;
+  color: #0f172a;
+  font-size: 14px;
+  box-shadow: none;
+}
+
+.sc-form-input::placeholder,
+.sc-passport-series::placeholder,
+.sc-passport-number::placeholder {
+  color: #b6c0cd;
+}
+
+.sc-form-input:hover:not(:disabled),
+.sc-form-select:hover:not(:disabled) {
+  border-color: #b9c4d2;
+}
+
+.sc-form-input:focus,
+.sc-form-select:focus,
+.sc-passport-series:focus,
+.sc-passport-number:focus {
+  border-color: #0f3f6e;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(15, 63, 110, 0.1);
+}
+
+/* Avtomatik to'ladigan maydonlar (Shahar, Kurs narxi) — o'chirilgani bilinsin. */
+.sc-form-input:disabled,
+.sc-form-input[readonly],
+.sc-form-select:disabled {
+  background-color: #eef1f5;
+  border-color: #dde3ea;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.sc-form-row textarea.sc-form-input,
+.sc-form-grid textarea.sc-form-input {
+  height: auto;
+  min-height: 84px;
+  padding: 11px 14px;
+  line-height: 1.45;
+}
+
+/* ---- Tugmalar: bekor qilish oq, saqlash to'q sariq ---- */
+.sc-form-actions {
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.sc-form-cancel-btn {
+  min-width: 150px;
+  height: 42px;
+  padding: 0 24px;
+  border: 1px solid #d7dee8;
+  border-radius: var(--radius-sm);
+  color: #334155;
+}
+
+.sc-form-cancel-btn:hover {
+  border-color: #b9c4d2;
+  color: #0f172a;
+}
+
+.sc-form-save-btn,
+.sc-form-submit-btn {
+  min-width: 150px;
+  height: 42px;
+  padding: 0 28px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: #f59e0b;
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: none;
+  transition:
+    background-color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.sc-form-save-btn:hover,
+.sc-form-submit-btn:hover {
+  background: #e08c07;
+  transform: none;
+  box-shadow: none;
+}
+
+.sc-form-save-btn:disabled,
+.sc-form-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Forma kengligi cheklanadi.
+ *
+ * Ilgari 12 ustunli tarmoq kartochkaning butun kengligiga cho'zilardi: katta
+ * ekranda «Shahar» yoki «Familya» kabi maydonlar bir necha yuz piksel bo'lib
+ * ketib, shablondagi mutanosiblik yo'qolardi. Endi tarmoq shablondagi
+ * o'lchamda qoladi, ustunlar esa o'sha kenglikka nisbatan bo'linadi. */
+.sc-form-grid.cols-12 {
+  max-width: 900px;
+}
+
+/* Qatorli formalarda ham maydon haddan tashqari cho'zilmasin. */
+.sc-form-row {
+  max-width: 900px;
+}
+
+/* ---- Ixcham ko'rinish (shablondagi zichlik) ----
+ * Avvalgi o'lchamlar shablonga nisbatan yirik edi: maydonlar baland,
+ * yorliqlar katta, qatorlar orasi keng. Shu sababli forma cho'zilib,
+ * bo'sh joy ko'p bo'lib ko'rinardi. */
+.sc-form-grid.cols-12,
+.sc-form-row {
+  max-width: 800px;
+}
+
+.sc-form-label {
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.sc-form-group,
+.sc-form-col {
+  gap: 4px;
+}
+
+.sc-form-input,
+.sc-form-select,
+.sc-passport-series,
+.sc-passport-number {
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.sc-form-select {
+  background-position: right 10px center;
+}
+
+.sc-form-row textarea.sc-form-input,
+.sc-form-grid textarea.sc-form-input {
+  min-height: 64px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.sc-form-actions {
+  margin-top: 20px;
+  gap: 12px;
+}
+
+.sc-form-cancel-btn,
+.sc-form-save-btn,
+.sc-form-submit-btn {
+  height: 36px;
+  min-width: 130px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+/* ---- Kartochka forma o'lchamida ----
+ * Ilgari oq kartochka butun ekran kengligiga cho'zilardi, forma esa 800px
+ * bo'lgani uchun o'ng tomonda katta bo'sh joy qolardi. Endi kartochka
+ * formaga yopishadi va sahifada markazda turadi — shablondagidek. */
+.sc-section-card {
+  max-width: 856px; /* 800px forma + 2×28px ichki bo'shliq */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sc-section-card-body {
+  padding: 20px 28px;
+}
+
+/* Bosqich sarlavhasi ingichkaroq — shablonda u katta joy egallamaydi. */
+.sc-section-card-header {
+  padding: 10px 20px;
+}
+
+/* Tugmalar forma ostida, markazda. */
+.sc-form-actions {
+  max-width: 856px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  padding-right: 0 !important;
+}
+
+/* ---- Forma konteyner kengligiga to'liq moslashadi ----
+ * Yuqoridagi `max-width` cheklovlari bekor qilinadi: kartochka o'z tabiiy
+ * kengligida qoladi, 12 ustunli tarmoq esa o'sha kenglikka bo'linadi.
+ * Maydonlar nisbati saqlanadi (`sc-col-*`), shuning uchun ular cho'zilib
+ * ketmaydi — shunchaki mavjud joyni mutanosib egallaydi. */
+.sc-section-card {
+  max-width: none;
+}
+
+.sc-form-grid.cols-12,
+.sc-form-row {
+  max-width: none;
+}
+
+.sc-form-actions {
+  max-width: none;
+  justify-content: flex-end;
+}
+
+/* ---- Qatorli formalarni tartibga solish (vakil, yuridik shaxs, voyaga yetmagan) ----
+ *
+ * Muammolar:
+ *   1) `select` matni kesilib qolardi — 34px balandlikda satr balandligi
+ *      hisobga olinmagan edi;
+ *   2) qatorda bitta maydon qolsa, u butun kenglikka cho'zilardi (JSHSHR,
+ *      Familiya kabi) — yuqoridagi uch ustunli ritmdan chiqib ketardi;
+ *   3) manzil maydonlari bitta ingichka qator bo'lib qolgan edi.
+ */
+
+/* Maydon eng ko'pi bilan uchdan bir kenglikda — qatordagi bitta maydon ham
+   yuqoridagilar bilan bir xil o'lchamda turadi. */
+.sc-form-row > .sc-form-col {
+  flex: 1 1 240px;
+  max-width: calc(33.333% - 11px);
+}
+
+/* Select matni to'liq ko'rinishi uchun.
+   DIQQAT: bu yerga `line-height` YOZMANG — `select` da u matnni quti
+   ichida siljitib, ko'rinmay qolishiga olib keladi. Yetarli balandlik va
+   `normal` satr balandligi kifoya. */
+.sc-form-select {
+  line-height: normal;
+  height: 36px;
+  padding-right: 30px;
+}
+
+/* Telefon maydoni biroz kengroq — yonida «qo'shish» tugmasi turadi. */
+.sc-form-row > .sc-form-col:has(.sc-phone-add),
+.sc-form-row > .sc-form-col:has(input[type='tel']) {
+  max-width: calc(50% - 8px);
+}
+
+/* Manzil maydonlari kattaroq: ikkitasi bir qatorga sig'adi. */
+.sc-form-row > .sc-form-col:has(textarea) {
+  max-width: calc(50% - 8px);
+}
+
+.sc-form-row textarea.sc-form-input {
+  min-height: 76px;
+}
+
+@media (max-width: 1024px) {
+  .sc-form-row > .sc-form-col,
+  .sc-form-row > .sc-form-col:has(textarea),
+  .sc-form-row > .sc-form-col:has(input[type='tel']) {
+    max-width: calc(50% - 9px);
+  }
+}
+
+@media (max-width: 640px) {
+  /* Telefonda qator ustun bo'lib teriladi (`flex-direction: column`). Yuqoridagi `flex: 1 1 240px` bu yo'nalishda
+     BALANDLIK bo'lib qolardi (maydonlar orasida ~200px bo'shliq), `align-items: start` esa maydonlarni matn
+     kengligiga siqardi — voyaga yetmagan/yuridik shaxs formalari telefonda buzilib ko'rinardi. */
+  .sc-form-row {
+    align-items: stretch;
+  }
+
+  .sc-form-row > .sc-form-col,
+  .sc-form-row > .sc-form-col:has(textarea),
+  .sc-form-row > .sc-form-col:has(input[type='tel']),
+  .sc-form-row > div {
+    flex: 0 0 auto !important;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Ichma-ich qatorlar (inline `display:flex` o'ramlar) ham ustun bo'lib teriladi. */
+  .sc-form-row > div:not(.sc-form-col) {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 18px !important;
+  }
+
+  .sc-form-row .sc-form-input,
+  .sc-form-row .sc-form-select {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* ---- Telefon raqamlari ----
+ * Har bir raqam alohida maydon: qolgan maydonlar bilan bir xil o'lchamda,
+ * qatorda uchtadan turadi. Ilgari hammasi bitta maydon ichida, qotirilgan
+ * 200px kenglikda edi va qator oxirigacha yetmasdi. */
+.sc-phone-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.sc-phone-item .sc-form-input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sc-phone-remove {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 6px;
+  background: #ff4d4f;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.sc-phone-remove:hover {
+  background: #e64345;
+}
+
+.sc-phone-add {
+  height: 34px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: #fff;
+  font-family: noto-sb, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.sc-phone-add:hover {
+  background: #e88300;
+}
+
+/* «Telefon qo'shish» tugmasi o'z tabiiy o'lchamida — ustun kengligiga
+   cho'zilmaydi (guruh `align-items: stretch` bo'lgani uchun cho'zilardi). */
+.sc-phone-add {
+  align-self: flex-start;
+  width: auto;
+}
+
+/* ---- Saqlash / Bekor qilish ----
+ * Tugmalar endi JSX'da kartochka ichida turadi, shuning uchun bu yerda
+ * alohida fon yoki chekka kerak emas — aks holda kartochka ichida ikkinchi
+ * quti bo'lib ko'rinardi. */
+.sc-form-actions {
+  padding-top: 4px;
+}
+
+/* ================================================================
+ * Maydonlar «Shartnomalar» bo'limi bilan bir xil ko'rinishda
+ *
+ * Bu fayl bir necha marta qayta yozilgani uchun maydon balandligi bir necha
+ * joyda belgilanib ketgan edi (43.69px → 42px → 34px), ustiga JSX'dagi inline
+ * `padding` / `border` / `borderRadius` lar qo'shilib, har bir formada har xil
+ * o'lcham chiqardi. Inline uslublar olib tashlandi, o'lcham esa shu yerda —
+ * `contracts.css` dagi `.form-group input` bilan bir xil: balandlik 49px.
+ *
+ * Fayl oxirida turadi va yuqoridagi barcha qiymatlarni bila turib bekor qiladi.
+ * ================================================================ */
+.sc-form-input,
+.sc-form-select,
+.sc-form-textarea,
+.sc-passport-series,
+.sc-passport-number {
+  height: 49px;
+  padding: 12px 16px;
+  border: 1.5px solid #7a7473;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 15px;
+  color: #000000;
+  background-color: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.sc-form-input,
+.sc-form-select,
+.sc-form-textarea {
+  width: 100%;
+}
+
+.sc-form-input::placeholder,
+.sc-form-textarea::placeholder,
+.sc-passport-series::placeholder,
+.sc-passport-number::placeholder {
+  color: #7a7473;
+  opacity: 0.6;
+}
+
+.sc-form-input:hover:not(:disabled):not([readonly]),
+.sc-form-select:hover:not(:disabled),
+.sc-form-textarea:hover:not(:disabled),
+.sc-passport-series:hover,
+.sc-passport-number:hover {
+  border-color: var(--color-primary);
+}
+
+.sc-form-input:focus,
+.sc-form-select:focus,
+.sc-form-textarea:focus,
+.sc-passport-series:focus,
+.sc-passport-number:focus {
+  border-color: var(--color-primary);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+
+.sc-form-input:disabled,
+.sc-form-input[readonly],
+.sc-form-select:disabled,
+.sc-form-textarea:disabled {
+  background-color: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+/* Ochiluvchi ro'yxat: strelka uchun o'ng tomonda joy.
+   DIQQAT: `line-height` `normal` bo'lib qolishi kerak — aks holda `select`
+   matni quti ichida siljib, ko'rinmay qoladi. */
+.sc-form-select {
+  line-height: normal;
+  padding-right: 38px;
+  background-position: right 16px center;
+}
+
+/* Manzil kabi ko'p qatorli maydonlar balandligi matnga qarab o'sadi. */
+.sc-form-textarea,
+textarea.sc-form-input,
+.sc-form-row textarea.sc-form-input,
+.sc-form-grid textarea.sc-form-input {
+  height: auto;
+  min-height: 88px;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+/* Telefon qatoridagi tugmalar maydon bilan bir chiziqda tursin. */
+.sc-phone-remove {
+  width: 44px;
+  height: 49px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+}
+
+.sc-phone-add {
+  height: 49px;
+  border-radius: var(--radius-md);
+  padding: 0 18px;
+  font-size: 14px;
+}
+
+/* ================================================================
+ * TELEFON: "Saqlash / Bekor" tugmalari to'liq enli va kattaroq —
+ * barmoq bilan bosish qulay. Fayl oxirida — yuqoridagi barcha
+ * `.sc-form-actions` qoidalarini yengadi.
+ * ================================================================ */
+@media (max-width: 768px) {
+  .sc-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: stretch;
+  }
+
+  .sc-form-actions .sc-form-submit-btn,
+  .sc-form-actions .sc-form-save-btn,
+  .sc-form-actions .sc-form-cancel-btn {
+    flex: 1 1 140px;
+    min-height: 46px !important;
+    margin: 0;
+  }
+}
+
+/* ---- STIR maydoni + «reyestrdan tekshirish» havolasi ----
+ * Havola maydon ichida (o'ngda) turadi; telefonda joy yetmaydi — maydon ostiga tushadi (ilgari matn ustiga chiqardi). */
+.sc-stir-wrap {
+  position: relative;
+}
+
+.sc-stir-wrap .sc-stir-input {
+  padding-right: 178px !important;
+}
+
+.sc-stir-link {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #003366;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sc-stir-link i {
+  font-size: 11px;
+}
+
+.sc-stir-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .sc-stir-wrap .sc-stir-input {
+    padding-right: 14px !important;
+  }
+
+  .sc-stir-link {
+    position: static;
+    transform: none;
+    margin-top: 6px;
+  }
+}
+
+/* Guvohnoma/pasport seriya + raqam: raqam maydoni qolgan joyni egallaydi va kartadan chiqib ketmaydi. */
+.sc-passport-group {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.sc-passport-group .sc-passport-number {
+  min-width: 0;
+}

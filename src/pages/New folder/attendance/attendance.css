@@ -1,0 +1,789 @@
+.attendance-page {
+  width: 100%;
+}
+
+/* Chop-hujjat sarlavhasi — ekranda yashirin, faqat `@media print`da chiqadi. */
+.attendance-print-head {
+  display: none;
+}
+
+/* Ekranda to'liq ism; chop uchun qisqartirilgan variant yashirin. */
+.col-name__print {
+  display: none;
+}
+
+/* DIQQAT: `studentsAttendance.css` ham global `.attendance-header`, `.attendance-controls`
+   va `.legend-item` e'lon qiladi va u `GroupCard` orqali bundle'ga tushadi. U yerdagi
+   `gap: 100px` bu sahifada row-gap sifatida ishlab, sarlavhani juda baland qilib
+   yuborardi. Shuning uchun bu sahifaning qoidalari `.attendance-page` bilan skoplangan —
+   spetsifiklik yuqori bo'lgani uchun bundle tartibiga bog'liq emas. */
+.attendance-page .attendance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--color-primary) !important;
+}
+
+.attendance-page .attendance-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .attendance-page .attendance-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .attendance-page .attendance-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .attendance-page .attendance-controls .month-picker {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 14px;
+  }
+
+  /* Telefon: ID + F.I.Sh ustunlari gorizontal scroll paytida qotib turadi */
+  .attendance-table thead th:nth-child(1),
+  .attendance-table tbody td:nth-child(1),
+  .attendance-table thead th:nth-child(2),
+  .attendance-table tbody td:nth-child(2) {
+    position: sticky;
+    z-index: 2;
+    background: #fff;
+  }
+  .attendance-table thead th:nth-child(1),
+  .attendance-table tbody td:nth-child(1) {
+    left: 0;
+  }
+  .attendance-table thead th:nth-child(2),
+  .attendance-table tbody td:nth-child(2) {
+    left: 25px;
+    box-shadow: 6px 0 8px -6px rgba(15, 23, 42, 0.18);
+  }
+  .col-name {
+    min-width: 180px !important;
+  }
+}
+
+.month-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8f9fa;
+  padding: 6px 16px;
+  border-radius: 25px;
+  border: 1px solid #dee2e6;
+  font-family: noto-m, sans-serif;
+  font-size: 16px;
+  min-width: 160px;
+  justify-content: space-between;
+}
+
+.month-picker span {
+  cursor: pointer;
+  user-select: none;
+}
+
+.month-picker-label {
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.15s;
+}
+
+.month-picker-label:hover {
+  opacity: 0.7;
+}
+
+.month-picker-container {
+  position: relative;
+}
+
+.date-picker-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 200;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  padding: 14px;
+  min-width: 240px;
+}
+
+.date-picker-year-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.dp-nav-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.dp-nav-btn:hover {
+  opacity: 0.75;
+}
+
+.dp-year-select {
+  flex: 1;
+  border: 1px solid #dee2e6;
+  border-radius: var(--radius-md);
+  padding: 4px 8px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  background: #fff;
+}
+
+.date-picker-months {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.dp-month-btn {
+  height: 34px;
+  border: 1px solid #dee2e6;
+  border-radius: var(--radius-md);
+  background: #fff;
+  cursor: pointer;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.dp-month-btn:hover {
+  background: #f1f3f5;
+}
+
+.dp-month-btn.dp-month-active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.dp-clear-btn {
+  width: 100%;
+  height: 34px;
+  border: 1px solid #dee2e6;
+  border-radius: var(--radius-md);
+  background: #fff;
+  cursor: pointer;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #dc3545;
+  transition: background 0.15s;
+}
+
+.dp-clear-btn:hover {
+  background: #fff0f0;
+}
+
+.nav-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.nav-btn:hover {
+  opacity: 0.8;
+}
+
+.action-btns {
+  display: flex;
+  gap: 10px;
+}
+
+/* Sarlavha ixchamroq bo'lishi uchun tugma va oy tanlagich kichraytirildi. */
+.attendance-page .icon-btn {
+  width: 34px;
+  height: 34px;
+  font-size: 13px;
+}
+
+.attendance-page .month-picker {
+  padding: 4px 12px;
+  font-size: 14px;
+  min-width: 150px;
+}
+
+/* Filial bo'yicha filtr — sarlavhaning to'q fonida. */
+.attendance-branch-filter {
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: #fff;
+  color: #03213f;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  max-width: 220px;
+}
+
+.attendance-branch-filter:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 1px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.icon-btn.edit-mode {
+  background: var(--color-accent);
+}
+
+.attendance-page .legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+
+.attendance-page .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-family: noto-m, sans-serif;
+  color: #fff;
+}
+
+.legend-item b {
+  font-family: noto-b, sans-serif;
+}
+
+.status-plus {
+  color: #fff;
+}
+/* `.status-plus` oq rang legend uchun mo'ljallangan (u to'q ko'k panelda —
+   pastda, `.legend-item { color: #fff }`). Jadval katakchalari esa oq fonda,
+   shu bitta klassni baham ko'rgani uchun "+" belgisi jadvalda deyarli
+   ko'rinmasdi (oq fonda oq matn). Faqat jadval ichida (`.cell-status`)
+   qora rangga almashtiriladi — legenddagi ko'rinishga tegilmaydi. */
+.cell-status .status-plus {
+  color: #000;
+}
+.status-nb {
+  color: #ff6b6b;
+}
+/* Avval var(--color-primary) edi — sarlavha foni ham aynan shu rang, ya'ni "S" harfi ko'rinmasdi. */
+.status-s {
+  color: #8ec5ff;
+}
+.status-f {
+  color: var(--color-accent);
+}
+.status-k {
+  color: #ff8c42;
+}
+
+/* Table Section */
+.attendance-table-container {
+  overflow-x: auto;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+/* Ma'lumot yo'q oy — bo'sh jadval o'rniga xabar. */
+.attendance-empty {
+  padding: 44px 16px;
+  text-align: center;
+  color: #64748b;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: noto-m, sans-serif;
+}
+
+.attendance-table th,
+.attendance-table td {
+  border: 1px solid #dee2e6;
+  height: 40px;
+  padding: 0;
+  text-align: center;
+  font-size: 13px;
+}
+
+.attendance-table th:last-child,
+.attendance-table td:last-child {
+  width: 25px !important;
+}
+
+.attendance-table th:nth-child(2),
+.attendance-table td:nth-child(2) {
+  width: 150px !important;
+}
+
+.attendance-table th {
+  color: #000;
+  padding: 4px;
+  font-family: noto-m, sans-serif;
+}
+
+.attendance-table .day-name {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.col-id {
+  width: 25px !important;
+}
+.col-name {
+  min-width: 280px !important;
+  text-align: left !important;
+  padding-left: 10px !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+}
+.col-position {
+  width: 80px !important;
+  text-align: left !important;
+  padding-left: 10px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 80px !important;
+}
+.col-day {
+  width: 25px !important;
+}
+
+.day-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.day-name {
+  font-size: 11px;
+  color: #666;
+}
+.day-num {
+  font-size: 13px;
+  font-family: noto-b, sans-serif;
+}
+
+.attendance-cell {
+  cursor: default;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.attendance-cell.editable:hover {
+  background: #f1f3f5;
+  cursor: pointer;
+}
+
+.cell-status {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  font-family: noto-b, sans-serif;
+}
+
+/* Modal / Card stylings */
+.attendance-popover {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 15px;
+  width: 240px;
+  margin-top: 5px;
+}
+
+.popover-btns {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.status-btn {
+  flex: 1;
+  height: 36px;
+  border: 1px solid #dee2e6;
+  border-radius: var(--radius-md);
+  background: #fff;
+  cursor: pointer;
+  font-family: noto-b, sans-serif;
+}
+
+.status-btn.selected {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border-color: var(--color-primary) !important;
+}
+
+.status-btn.f-btn.selected {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border-color: var(--color-primary) !important;
+}
+
+.status-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.comment-area {
+  width: 100%;
+  border: 1px solid #dee2e6;
+  border-radius: var(--radius-md);
+  padding: 8px;
+  font-size: 13px;
+  resize: none;
+  margin-bottom: 12px;
+  font-family: noto-r, sans-serif;
+}
+
+.popover-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.popover-actions button {
+  flex: 1;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+}
+
+.popover-save {
+  background: var(--color-primary);
+  color: #fff;
+}
+.popover-cancel {
+  background: #dc3545;
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   CHOP ETISH (PDF) — rasmiy hujjat ko'rinishi
+   ───────────────────────────────────────────────────────────────────────
+   Muhim nuqtalar:
+   • `.attendance-table-container`da `.attendance-desktop` sinfi ham bor
+     (`attendanceTime.css`), u `@media (max-width: 768px)`da `display:none`.
+     Chop preview tor kenglikda hisoblansa jadval butunlay yo'qolardi —
+     shuning uchun bu yerda MAJBURAN ko'rsatiladi.
+   • `chek.css`ning chop bloki `cssCodeSplit: false` tufayli shu sahifaga
+     ham tushadi va `body *`ni yashiradi — shuning uchun davomat kontenti
+     `visibility: visible` bilan qaytariladi.
+   • To'r chiziqlari: `border-collapse: collapse` + HAR KATAKKA to'liq
+     `border`. Katakka `overflow: hidden` BERILMAYDI — u birlashgan
+     chegarani chizdirmay qo'yadi; matn ichki `.col-cell-inner` da
+     qirqiladi.
+   ═══════════════════════════════════════════════════════════════════════ */
+@media print {
+  /* ── Sahifa: to'liq albom + muqova ("tikilish") chekkalari ──
+     Toq sahifa (1, 3, …): chapdan 2sm, o'ngdan 1sm.
+     Juft sahifa (2, 4, …): aksincha. Tepa/past — 1.2sm. */
+  @page {
+    size: A4 landscape;
+    margin: 1.2cm 1cm 1.2cm 2cm;
+  }
+  @page :right {
+    margin: 1.2cm 1cm 1.2cm 2cm;
+  }
+  @page :left {
+    margin: 1.2cm 2cm 1.2cm 1cm;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  /* Davomat kontenti — boshqa sahifalarning chop qoidalari yashirib
+     qo'ymasin (masalan `chek.css`dagi `body * { visibility: hidden }`). */
+  .attendance-page,
+  .attendance-page * {
+    visibility: visible !important;
+  }
+
+  /* Ilova "chrome"i, takroriy ko'rinishlar va dev vositalari — chopda yo'q. */
+  header,
+  aside,
+  .mobile-tabbar,
+  .ipt-modal-overlay,
+  .ipt-floating-widget,
+  .ipt-minimized-bar,
+  .attendance-tabs,
+  .attendance-header,
+  .attendance-cards,
+  .tsqd-open-btn-container,
+  .tsqd-parent-container,
+  [class*='tsqd-'],
+  [id*='ReactQueryDevtools'] {
+    display: none !important;
+  }
+
+  /* Konteyner zanjiri — 100vh balandlik va overflow qirqishlari olib
+     tashlanadi, aks holda jadval birinchi sahifadan keyin kesilardi. */
+  .layout,
+  .layout-main,
+  main.page,
+  .attendance-wrapper {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: static !important;
+  }
+  /* `relative` — chop sanasi shu blokning chap yuqori burchagiga tayanadi. */
+  .attendance-page {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    font-family: Cambria, Georgia, 'Times New Roman', serif !important;
+    color: #000 !important;
+  }
+
+  /* Jadval har doim ko'rinadi (kenglikdan qat'i nazar). */
+  .attendance-table-container,
+  .attendance-desktop {
+    display: block !important;
+    overflow: visible !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* ══ Hujjat sarlavhasi ══ */
+  .attendance-print-head {
+    display: block !important;
+    width: 100% !important;
+    position: relative !important;
+    /* Chekkalar nomutanosib (chap 2sm / o'ng 1sm) — matn HAQIQIY sahifa
+       markazida tursin uchun blok 0.5sm chapga suriladi. */
+    left: -0.5cm !important;
+    margin: 0 0 5mm !important;
+    padding: 0 !important;
+    text-align: center !important;
+  }
+
+  .attendance-print-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-weight: 700 !important;
+    font-size: 14pt !important;
+    line-height: 1.2 !important;
+    color: #000 !important;
+  }
+
+  .attendance-print-period {
+    margin: 1.5mm 0 0 !important;
+    font-size: 10pt !important;
+    line-height: 1.2 !important;
+    color: #000 !important;
+  }
+
+  .attendance-print-legend {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 1.5mm 7mm !important;
+    margin: 3mm 0 0 !important;
+    font-size: 8pt !important;
+    line-height: 1.2 !important;
+    color: #000 !important;
+  }
+  .attendance-print-legend b {
+    font-weight: 700 !important;
+  }
+
+  /* ══ Jadval ══ */
+  .attendance-table {
+    table-layout: fixed !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-family: Cambria, Georgia, 'Times New Roman', serif !important;
+    font-size: 8pt !important;
+    color: #000 !important;
+  }
+
+  /* Bitta og'irlikdagi toza to'r. Katakka `overflow: hidden` BERILMAYDI. */
+  .attendance-table th,
+  .attendance-table td {
+    border: 0.25mm solid #000 !important;
+    height: auto !important;
+    padding: 1.6pt 2pt !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    color: #000 !important;
+    background: #fff !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Sarlavha qatori — har bosma sahifada takrorlanadi. */
+  .attendance-table thead {
+    display: table-header-group !important;
+  }
+  .attendance-table thead th {
+    background: #e8e8e8 !important;
+    font-weight: 700 !important;
+    font-size: 7.5pt !important;
+    padding: 2pt !important;
+  }
+  .attendance-table tr {
+    page-break-inside: avoid !important;
+  }
+
+  /* ── Ustunlar ──
+     Faqat chap uchtasiga qat'iy o'lcham; kun ustunlari qolgan joyni
+     TENG bo'lib oladi, shuning uchun jadval sahifaga aniq sig'adi. */
+  .attendance-table th.col-id,
+  .attendance-table td.col-id {
+    width: 8mm !important;
+  }
+  .attendance-table th.col-name,
+  .attendance-table td.col-name {
+    width: 40mm !important;
+    text-align: left !important;
+    padding-left: 2mm !important;
+    font-size: 8pt !important;
+  }
+  .attendance-table th.col-position,
+  .attendance-table td.col-position {
+    width: 22mm !important;
+    text-align: left !important;
+    padding-left: 2mm !important;
+    font-size: 7.5pt !important;
+  }
+  .attendance-table th.col-day,
+  .attendance-table td.col-day {
+    width: auto !important;
+    padding: 1.6pt 0 !important;
+  }
+
+  /* Matn KATAKDA emas, ichki qobiqda qirqiladi — chegara buzilmaydi. */
+  .col-name .col-cell-inner,
+  .col-position .col-cell-inner {
+    display: block !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .col-name__full {
+    display: none !important;
+  }
+  .col-name__print {
+    display: inline !important;
+  }
+
+  /* Kun sarlavhasi: hafta kuni (kichik) + sana (qalin). */
+  .day-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0 !important;
+  }
+  .day-name {
+    font-size: 6pt !important;
+    line-height: 1 !important;
+    color: #000 !important;
+  }
+  .day-num {
+    font-size: 8pt !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+  }
+
+  /* Belgilar katagi. */
+  .attendance-table td.attendance-cell {
+    padding: 1.6pt 0 !important;
+    position: static !important;
+  }
+  .attendance-cell .tooltip-wrapper {
+    display: block !important;
+    width: 100% !important;
+  }
+  .cell-status {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1pt !important;
+    height: auto !important;
+  }
+  .status-plus,
+  .status-nb,
+  .status-s,
+  .status-f,
+  .status-k {
+    color: #000 !important;
+    font-family: inherit !important;
+    font-weight: 700 !important;
+    font-size: 8.5pt !important;
+  }
+}

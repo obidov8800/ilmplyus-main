@@ -1,0 +1,1019 @@
+/* ===== PAYMENTS PAGE ===== */
+.payments-page {
+  width: 100%;
+  margin-top: 50px !important;
+  margin-left: 140px !important;
+}
+
+/* ===== HEADER ROW: title | search | buttons ===== */
+.payments-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.payments-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.payments-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 420px;
+}
+
+.payments-search-icon {
+  position: absolute;
+  left: 14px;
+  color: #aaa;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.payments-search-input {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius-md);
+  padding: 0 16px 0 38px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  outline: none;
+  background: white;
+  color: #333;
+  transition: border-color 0.2s;
+}
+
+.payments-search-input:focus {
+  border-color: var(--color-primary);
+}
+
+.payments-search-input::placeholder {
+  color: #aaa;
+}
+
+.payments-create-btn {
+  height: 42px;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0 22px;
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.payments-create-btn:hover {
+  background: #e07f00;
+}
+
+/* ===== CARD ===== */
+.payments-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+}
+
+.payments-card-header {
+  padding: 14px 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* ===== TABLE =====
+   Bazaviy th/td ko'rinishi endi `primitives.css`dagi umumiy `.data-table`dan
+   keladi (barcha sahifalarda bir xil) — bu yerda faqat to'lovlarga xos
+   qo'shimchalar: minimal kenglik (torroq ekranda gorizontal scroll) va
+   ba'zi kataklarni chapga tekislash. */
+.payments-table-wrap {
+  overflow-x: auto;
+}
+
+/* Sichqoncha bilan "ushlab surish" (jadval keng bo'lganda) — `useDragScroll`. */
+.drag-scroll.is-scrollable {
+  cursor: grab;
+}
+
+.drag-scroll.is-drag-scrolling {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.drag-scroll.is-drag-scrolling a,
+.drag-scroll.is-drag-scrolling button {
+  pointer-events: none;
+}
+
+.payments-table {
+  min-width: 900px;
+}
+
+/* Chapga tekislanadigan katak — ustun tartibiga emas, klassga bog'lanadi,
+   shunda jadval boshqa sahifada boshqa ustunlar bilan ham to'g'ri ko'rinadi. */
+.payments-table td.cell-left {
+  text-align: left !important;
+}
+
+/* ===== STUDENT CELL ===== */
+.student-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.student-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffe0b7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.student-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.student-info h4 {
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  color: #000000;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.student-info span {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #888;
+}
+
+/* ===== ID CELL ===== */
+.payment-id-cell {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #888;
+  white-space: nowrap;
+}
+
+/* ===== AMOUNT CELL ===== */
+/* ===== FILTER BAR (jadval sarlavhasi o'rnida) ===== */
+.pf-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+/* Selectlar qatorda teng bo'linadi, tugmalar o'z kengligida qoladi. */
+.pf-field {
+  flex: 1 1 160px;
+  min-width: 0;
+}
+
+.pf-label {
+  display: block;
+  margin-bottom: 6px;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.pf-select,
+.pf-bar .date-input__field {
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid #d1d5db;
+  border-radius: var(--radius-md);
+  background: #fff;
+  font-size: 13px;
+  color: #111827;
+  cursor: pointer;
+}
+
+.pf-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.pf-close-btn {
+  height: 38px;
+  padding: 0 10px;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.pf-close-btn:hover {
+  color: #111827;
+}
+
+.pf-reset-btn {
+  height: 38px;
+  padding: 0 18px;
+  border: 1px solid #fdba74;
+  border-radius: var(--radius-md);
+  background: #fff7ed;
+  color: #ea580c;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pf-reset-btn:hover:not(:disabled) {
+  background: #ffedd5;
+}
+
+.pf-reset-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.amount-cell {
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.amount-cell .amount-value {
+  margin-right: 7px;
+}
+
+.payment-method-badge {
+  display: inline-block;
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  border-radius: 4px;
+  padding: 1px 6px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* Naqd — yashil, naqdsiz (karta, click, o'tkazma...) — ko'k. */
+.payment-method-badge.cash {
+  color: #15803d;
+  background: #dcfce7;
+}
+
+.payment-method-badge.cashless {
+  color: #1d4ed8;
+  background: #dbeafe;
+}
+
+/* ===== GROUP CELL (guruh + yo'nalish ustma-ust) ===== */
+.group-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.group-cell__name {
+  font-family: noto-sb, sans-serif;
+  font-size: 14px;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.group-cell__direction {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+}
+
+/* ===== DIRECTION CELL ===== */
+.direction-cell {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.level-badge {
+  font-size: 11px;
+  font-family: noto-m, sans-serif;
+  color: #6b7280;
+  background: #f3f4f6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+
+.direction-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Qator amallari (tahrirlash/chop etish) endi umumiy `.row-actions`/
+   `.row-action--*` (`primitives.css`) — bu yerdagi eski shaffof/kulrang
+   `.actions-cell`/`.action-btn` olib tashlandi. */
+
+/* ===== EMPTY / LOADING ===== */
+.table-empty-row td {
+  text-align: center;
+  padding: 50px 16px;
+  color: #aaa;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+}
+
+/* ===== MODAL OVERLAY ===== */
+.payment-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  /* Past ekranda (1366×768) oyna sig'masa — pardaning o'zi aylanadi, oyna yuqoridan kesilib qolmaydi */
+  overflow-y: auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* overflow: hidden yo'q — SearchSelect paneli modal ichida ochiladi, kesilmasligi kerak.
+   `margin: auto` — sig'ganda markazda, sig'masa tepadan boshlanib aylanadi. */
+.payment-modal {
+  background: white;
+  border-radius: 12px;
+  width: 560px;
+  max-width: 100%;
+  margin: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== MODAL HEADER ===== */
+.payment-modal-header {
+  background: var(--color-primary);
+  border-radius: 12px 12px 0 0;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payment-modal-title {
+  font-family: noto-b, sans-serif;
+  font-size: 18px;
+  color: white;
+}
+
+.payment-modal-close {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  line-height: 1;
+  transition: background 0.2s;
+}
+
+.payment-modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ===== MODAL BODY ===== */
+.payment-modal-body {
+  padding: 22px 24px 20px;
+}
+
+.payment-form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.form-group {
+  flex: 1 1 calc(50% - 8px);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group-full {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+.form-label {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #444;
+}
+
+.form-input {
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: var(--radius-md);
+  padding: 0 12px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  background: white;
+  color: #333;
+}
+
+.form-input:focus {
+  border-color: var(--color-primary);
+}
+
+/* Shaxsiy hisob maydoni: filial kodi (tor) + hisob raqami (qolgan joy). */
+.account-field {
+  display: flex;
+  gap: 8px;
+}
+
+/* Filial kodi — kichik, qat'iy kenglikdagi katak. */
+.account-field__branch {
+  flex: 0 0 auto;
+  width: 76px;
+  min-width: 76px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+/* Faqat o'qish uchun: kod o'quvchidan avtomatik olinadi. */
+input.account-field__branch {
+  text-align: center;
+  background: #f6f7f9;
+  color: #555;
+  font-family: noto-b, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Hisob raqami: o'quvchi topilsa yashil, topilmasa qizil chegara (faqat raqam katagi). */
+.account-field--found .account-field__code {
+  border-color: var(--color-success);
+}
+
+.account-field--missing .account-field__code {
+  border-color: var(--color-danger);
+}
+
+/* Maydon nomi qatori: chapda nom, o'ngda "ixtiyoriy" belgisi yoki kiritilgan summa. */
+.payment-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.payment-optional {
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #6b7686;
+  background: #eef2f7;
+  border-radius: 999px;
+  padding: 0 8px;
+}
+
+.payment-account-hint {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #8b97a7;
+}
+
+.payment-account-hint--found {
+  font-family: noto-m, sans-serif;
+  color: var(--color-success);
+}
+
+.payment-account-hint--missing {
+  color: var(--color-danger);
+}
+
+/* Tanlangan o'quvchi kartasi */
+.payment-student-card {
+  flex: 1 1 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  padding: 10px 14px;
+  border: 1px solid #e3e9f1;
+  border-radius: var(--radius-md);
+  background: #f7f9fc;
+}
+
+.payment-student-avatar {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+}
+
+.payment-student-main {
+  flex: 1 1 160px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.payment-student-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  color: #1f2a37;
+}
+
+.payment-student-account {
+  font-size: 12px;
+  color: #6b7686;
+}
+
+.payment-student-account b {
+  font-family: noto-b, sans-serif;
+  letter-spacing: 0.4px;
+  color: var(--color-primary);
+}
+
+.payment-student-stats {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+/* Summa: ichida "so'm" yozuvi, brauzerning raqam o'qchalari yo'q */
+.payment-amount-wrap {
+  position: relative;
+  display: flex;
+}
+
+.payment-amount-wrap .form-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-right: 52px;
+}
+
+.payment-amount-suffix {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #8b97a7;
+  pointer-events: none;
+}
+
+.payment-modal input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.payment-modal input[type='number']::-webkit-outer-spin-button,
+.payment-modal input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.payment-amount-readout {
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  color: var(--color-primary);
+}
+
+/* Selectda o'q uchun joy kerak, shuning uchun sal kengroq. */
+select.account-field__branch {
+  width: 88px;
+  min-width: 88px;
+  padding-right: 22px;
+  padding-left: 8px;
+  background-position: right 7px center;
+}
+
+/* `flex-basis: 0` — hisob raqami inputning tabiiy kengligiga qaramay,
+   qolgan bo'sh joyning hammasini egallaydi. */
+.account-field__code {
+  flex: 1 1 0%;
+  width: auto;
+  min-width: 0;
+}
+
+.form-select-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.form-select {
+  width: 100%;
+  height: 40px;
+  line-height: 1;
+  border: 1px solid #ddd;
+  border-radius: var(--radius-md);
+  padding: 0 36px 0 12px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  color: #333;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  background-color: white;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 10px 6px;
+}
+
+.form-select:focus {
+  border-color: var(--color-primary);
+}
+
+/* ===== PAYMENT TYPE ===== */
+.payment-type-row {
+  margin-bottom: 14px;
+}
+
+.payment-type-label {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #444;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.payment-type-tabs {
+  display: flex;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.payment-type-tab {
+  flex: 1;
+  height: 38px;
+  border: none;
+  border-right: 1px solid var(--color-primary);
+  background: white;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--color-primary);
+}
+
+.payment-type-tab:last-child {
+  border-right: none;
+}
+
+.payment-type-tab.active {
+  background: var(--color-primary);
+  color: white;
+  font-family: noto-b, sans-serif;
+}
+
+.payment-type-tab:hover:not(.active) {
+  background: #f0f4fa;
+}
+
+.payment-type-percent {
+  margin-left: 5px;
+  font-size: 11px;
+  opacity: 0.75;
+}
+
+.payment-type-commission {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #666;
+}
+
+.payment-type-empty {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #c3cede;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #8a94a6;
+}
+
+/* ===== O'QUVCHI KARTASI: balans va oxirgi to'lov ===== */
+.payment-info-item {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.payment-info-item .info-label {
+  font-family: noto-m, sans-serif;
+  color: #666;
+}
+
+.payment-info-item .info-value {
+  font-family: noto-b, sans-serif;
+  color: #333;
+}
+
+.payment-info-item .info-value.green {
+  color: var(--color-success);
+}
+
+.payment-info-item .info-value.red {
+  color: var(--color-danger);
+}
+
+/* ===== MODAL FOOTER ===== */
+.payment-modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.modal-btn-cancel {
+  height: 42px;
+  padding: 0 30px;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  color: #444;
+  transition: background 0.2s;
+}
+
+.modal-btn-cancel:hover {
+  background: #f5f5f5;
+}
+
+.modal-btn-save {
+  height: 42px;
+  padding: 0 30px;
+  border: none;
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-md);
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modal-btn-save:hover {
+  background: #002244;
+}
+
+.modal-btn-save:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1600px) {
+  .payments-page {
+    margin-left: 100px !important;
+  }
+}
+
+@media (max-width: 1400px) {
+  .payments-page {
+    margin-left: 80px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .payments-page {
+    margin-left: 60px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .payments-header-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .payments-search-wrap {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .payments-header-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 768px) {
+  .payments-header-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .payments-header-actions {
+    justify-content: space-between;
+  }
+
+  .payment-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-modal {
+    width: 95vw;
+  }
+}
+
+@media (max-width: 560px) {
+  /* Telefon: maydonlar ustma-ust (ikki ustunda juda tor bo'lib qoladi) */
+  .payment-modal .form-group {
+    flex-basis: 100%;
+  }
+
+  .payment-student-stats {
+    flex: 1 1 100%;
+    margin-left: 0;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Telefon: qidiruv to'liq enli, filtr + "yaratish" tugmalari yonma-yon */
+  .payments-header-actions {
+    flex-wrap: wrap;
+  }
+
+  .payments-search-wrap {
+    flex: 1 1 100%;
+  }
+
+  .payments-header-actions > .payments-create-btn {
+    flex: 1 1 auto;
+  }
+
+  /* To'lov turi: 5 ta yorliq bitta qatorga sig'maydi ("Bank o'tkazmasi"
+     kesilib qolardi) — telefonda alohida pill lar bo'lib 3 tadan o'raladi. */
+  .payment-type-tabs {
+    flex-wrap: wrap;
+    gap: 6px;
+    border: none;
+    overflow: visible;
+  }
+  .payment-type-tab,
+  .payment-type-tab:last-child {
+    flex: 1 1 calc(33.333% - 4px);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    padding: 0 6px;
+    font-size: 12px;
+  }
+}
+
+/* To'lov oyi (maktabga tayyorlov filial guruhi) */
+.payment-period-field {
+  margin: 12px 0 0;
+}
+
+.payment-period-hint {
+  font-size: 12px;
+  color: #8b97a7;
+}
+
+/* ===== MAKTABGA TAYYORLOV: oylik to'lov paneli va summa chegarasi ===== */
+.payment-amount-hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px 8px;
+  white-space: nowrap;
+  font-size: 12px;
+  color: #8b97a7;
+}
+
+.payment-amount-fill {
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: var(--color-primary);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.form-input.payment-amount-invalid {
+  border-color: var(--color-danger);
+}
+
+.payment-amount-error {
+  font-size: 12px;
+  color: var(--color-danger);
+}
+
+.payment-month-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 14px 0 16px;
+  padding: 12px 14px;
+  border: 1px solid #e3e9f1;
+  border-radius: var(--radius-md);
+  background: #f7f9fc;
+  font-size: 13px;
+}
+
+.payment-month-panel--muted {
+  color: #8b97a7;
+}
+
+.payment-month-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.payment-month-row .info-label {
+  font-family: noto-m, sans-serif;
+  color: #666;
+}
+
+.payment-month-row .info-value {
+  font-family: noto-b, sans-serif;
+  color: #333;
+  text-align: right;
+}
+
+.payment-month-row .info-value.green {
+  color: var(--color-success);
+}
+
+.payment-month-row .info-value.red {
+  color: var(--color-danger);
+}
+
+.payment-month-row--total {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px dashed #d7dfea;
+}
+
+.payment-month-note {
+  font-size: 12px;
+  color: #8b97a7;
+}
+
+.payment-month-note--ok {
+  color: var(--color-success);
+}

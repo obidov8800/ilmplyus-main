@@ -1,0 +1,31 @@
+.sortable-th {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.sortable-th:hover .sortable-th__icon,
+.sortable-th:focus-visible .sortable-th__icon {
+  opacity: 0.75;
+}
+
+.sortable-th:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+}
+
+.sortable-th__inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sortable-th__icon {
+  font-size: 11px;
+  opacity: 0.3;
+  transition: opacity 0.15s ease;
+}
+
+.sortable-th.is-active .sortable-th__icon {
+  opacity: 1;
+}

@@ -1,0 +1,228 @@
+/*
+ * Maktabga tayyorlov shartnomasi: yaratish formasidagi qo'shimchalar, ro'yxat belgilari va ko'rish oynasi (`psc-` prefiksi).
+ * Admin va User ilovalarida bir xil fayl. Klass nomlari faqat `psc-` bilan boshlanadi — prod'da barcha CSS bitta
+ * faylda bo'lgani uchun boshqa sahifalarning (`pa-`, `pp-`, `sc-` …) qoidalari bilan to'qnashmaydi.
+ * Formaning asosiy ko'rinishi kurs shartnomasidagi `sc-*` klasslaridan keladi (`pages/students-contract/studentsContracts.css`).
+ */
+
+/* ── Forma qo'shimchalari ── */
+.psc-card-title {
+  margin: 0 0 18px;
+  font-family: noto-b, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-primary, #003366);
+}
+
+.psc-rep-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: var(--color-primary, #003366);
+  font-size: 15px;
+}
+
+/* To'ldirilmagan majburiy maydon (Keyingisi / Saqlash bosilgach) */
+.psc-invalid {
+  border-color: #d93025 !important;
+}
+
+/* ── Ro'yxat: holat belgisi, amal tugmalari ── */
+.psc-status {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #eef1f5;
+  color: #475569;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.psc-status--active {
+  background: #eaf7ee;
+  color: #14733f;
+}
+
+.psc-status--in_progress {
+  background: #fff4e0;
+  color: #a35f00;
+}
+
+.psc-status--cancelled,
+.psc-status--expired {
+  background: #fdeceb;
+  color: #a12018;
+}
+
+.psc-row-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.psc-icon-btn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #d9dee5;
+  border-radius: 9px;
+  background: #fff;
+  color: var(--color-primary, #003366);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.psc-icon-btn:hover {
+  background: #f1f4f8;
+}
+
+/* Amallar tugmalari — rangli yumshoq fon (Xodim shartnomalari jadvali dizayni) */
+.psc-icon-btn--view,
+.psc-icon-btn--edit,
+.psc-icon-btn--sms,
+.psc-icon-btn--pdf,
+.psc-icon-btn--print {
+  border-color: transparent;
+  border-radius: 10px;
+}
+.psc-icon-btn--view { background: #dff5e3; color: #1aa538; }
+.psc-icon-btn--view:hover { background: #c9edd0; }
+.psc-icon-btn--edit { background: #e0f2fd; color: #1c9be3; }
+.psc-icon-btn--edit:hover { background: #cbe8fa; }
+.psc-icon-btn--sms { background: #fdeedd; color: #e0821a; }
+.psc-icon-btn--sms:hover { background: #fbe1c4; }
+.psc-icon-btn--pdf,
+.psc-icon-btn--print { background: #e8edf3; color: #0b2a55; }
+.psc-icon-btn--pdf:hover,
+.psc-icon-btn--print:hover { background: #d8e0ea; }
+.psc-icon-btn:disabled { opacity: 0.6; cursor: default; }
+.psc-row-actions { flex-wrap: wrap; }
+
+.psc-icon-btn--danger {
+  border-color: #f1b9b4;
+  color: #d93025;
+}
+
+.psc-icon-btn--danger:hover {
+  background: #fdeceb;
+}
+
+/* Admin qidiruv maydoni: `.users-filters input` ning 200px minimumi uzun yozuvni kesib qo'yardi */
+.users-filters input.psc-search {
+  min-width: 300px;
+}
+
+/* Admin jadvali: `.users-table` kataklari bir qatorga cho'zilib, «Holati» ustuni o'ramdan chiqib ketardi — uzun matn o'raladi */
+.users-table.psc-table th,
+.users-table.psc-table td {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* ── Ko'rish oynasi ── */
+.psc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.psc-modal {
+  width: 100%;
+  max-width: 780px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 26px 30px 28px;
+  background: #fff;
+  border: 1px solid var(--color-primary, #003366);
+  border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+  color: var(--color-primary, #003366);
+}
+
+.psc-modal__title {
+  margin: 0 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #eef0f3;
+  text-align: center;
+  font-family: noto-b, sans-serif;
+  font-size: 20px;
+}
+
+.psc-view-section {
+  margin: 18px 0 10px;
+  font-family: noto-b, sans-serif;
+  font-size: 15px;
+}
+
+.psc-view-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 24px;
+  margin: 0;
+}
+
+.psc-view-grid div {
+  min-width: 0;
+}
+
+.psc-view-grid dt {
+  font-size: 12px;
+  color: #8b97a7;
+}
+
+.psc-view-grid dd {
+  margin: 2px 0 0;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.psc-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.psc-btn {
+  min-width: 160px;
+  height: 42px;
+  padding: 0 22px;
+  border-radius: 10px;
+  border: 1px solid var(--color-primary, #003366);
+  background: #fff;
+  color: var(--color-primary, #003366);
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.psc-btn:hover {
+  background: #f1f4f8;
+}
+
+@media (max-width: 640px) {
+  .psc-view-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .psc-modal {
+    padding: 20px 16px 22px;
+  }
+
+  .psc-actions .psc-btn {
+    width: 100%;
+  }
+}

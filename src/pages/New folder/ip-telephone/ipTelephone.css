@@ -1,0 +1,2096 @@
+.ipt-page {
+  width: 100%;
+  margin-top: 50px !important;
+  margin-left: 140px !important;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ipt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ipt-title {
+  font-family: noto-b, sans-serif;
+  font-size: 24px;
+  color: #03213f;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ipt-title-icon {
+  width: 42px;
+  height: 42px;
+  background: #ffefdb;
+  color: var(--color-accent);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+/* ── Header right group ── */
+.ipt-header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ── SIP status badge ── */
+.ipt-sip-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: var(--radius-lg);
+  border: 1px solid;
+}
+
+.ipt-sip-status.registered {
+  color: #16a34a;
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.ipt-sip-status.unregistered {
+  color: #dc2626;
+  background: #fff1f2;
+  border-color: #fecaca;
+}
+
+.ipt-sip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.ipt-sip-status.registered .ipt-sip-dot {
+  animation: ipt-pulse 2s ease-in-out infinite;
+}
+
+.ipt-call-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: noto-b, sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(254, 145, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.ipt-call-btn:hover {
+  background: #e68200;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(254, 145, 0, 0.4);
+}
+
+/* ── Main card ── */
+.ipt-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+/* Undov popover ochiq bo'lganda `.ipt-card`ning `overflow: hidden`i
+   popoverni kesib qo'ymasin — jadval qisqa (yoki bo'sh) bo'lganda bu
+   real muammo edi. */
+.ipt-card:has(.ipt-legend) {
+  overflow: visible;
+}
+
+/* ── Toolbar: tabs + search ── */
+.ipt-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0f4f8;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ipt-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.ipt-tab {
+  padding: 8px 18px;
+  border: none;
+  background: transparent;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #64748b;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.ipt-tab:hover {
+  background: #f1f5f9;
+  color: #03213f;
+}
+
+.ipt-tab.active {
+  background: var(--color-accent);
+  color: #fff;
+  font-family: noto-b, sans-serif;
+}
+
+.ipt-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ipt-search-icon {
+  position: absolute;
+  left: 12px;
+  color: #aab4c0;
+  font-size: 14px;
+}
+
+.ipt-search {
+  padding: 9px 14px 9px 36px;
+  border: 1px solid #dde3ec;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  width: 230px;
+  outline: none;
+  background: #f8fafc;
+  color: #03213f;
+  transition: all 0.2s ease;
+}
+
+.ipt-search:focus {
+  border-color: var(--color-accent);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(254, 145, 0, 0.08);
+}
+
+.ipt-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Table ──
+   Bazaviy th/td ko'rinishi endi `.data-table` (`primitives.css`) — bu
+   yerda faqat qatorlar kesim (`table-layout: fixed`, ustunlarga mos
+   kenglik saqlanishi uchun). */
+.ipt-table {
+  table-layout: fixed;
+}
+
+/* Sarlavhalar va kataklar BIR XIL — markazda. Ilgari kataklar faqat prod'da
+   markazda edi (boshqa sahifa CSS'idagi global `td { text-align: center }`
+   oqishi tufayli), sarlavhalar esa `.data-table th` dan chapda qolardi — dev'da
+   esa ikkalasi ham chapda. Endi aniq belgilangan, shu sabab dev va prod bir xil. */
+.ipt-table.data-table th,
+.ipt-table.data-table td {
+  text-align: center;
+}
+
+.ipt-loading-cell,
+.ipt-empty-cell {
+  text-align: center;
+  padding: 48px !important;
+  color: #94a3b8;
+  font-family: noto-m, sans-serif;
+  font-size: 15px;
+}
+
+/* ── Qo'ng'iroq holati (belgi) ──
+   Ilgari holat faqat ikonka bilan ko'rsatilardi va PBX yuboradigan `BUSY`
+   hech qaysi shoxga tushmay, rangsiz (qora) telefon belgisi bo'lib chiqardi.
+   Endi har bir holat rangli "tabletka": ikonka + matn. Matn har qatorda
+   turadi, shuning uchun ma'no faqat rangga bog'liq emas.                    */
+.ipt-outcome {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+  padding: 5px 10px 5px 7px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: noto-m, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.ipt-outcome__icon,
+.ipt-outcome-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+}
+
+.ipt-outcome__icon svg,
+.ipt-outcome-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ipt-outcome__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Ranglar — tabletka (fon + matn) va yakka ikonka uchun bir manbadan. */
+.ipt-outcome--green,
+.ipt-outcome-icon.ipt-outcome--green {
+  background: #edfbf0;
+  border-color: #bbf7d0;
+  color: #15803d;
+}
+
+.ipt-outcome--blue,
+.ipt-outcome-icon.ipt-outcome--blue {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.ipt-outcome--red,
+.ipt-outcome-icon.ipt-outcome--red {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #be123c;
+}
+
+.ipt-outcome--amber,
+.ipt-outcome-icon.ipt-outcome--amber {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #b45309;
+}
+
+.ipt-outcome--violet,
+.ipt-outcome-icon.ipt-outcome--violet {
+  background: #f5f3ff;
+  border-color: #ddd6fe;
+  color: #6d28d9;
+}
+
+.ipt-outcome--slate,
+.ipt-outcome-icon.ipt-outcome--slate {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+
+/* Yakka ikonka (legendada) — doira ichida. */
+.ipt-outcome-icon {
+  width: 26px;
+  height: 26px;
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+
+/* Hozirgina tugagan, PBX yozuvi hali kelmagan qator. */
+.ipt-outcome--pending {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+/* ── Belgilar izohi (legenda) ──
+   "Rad etilgan" filtridan keyingi undov (ℹ) tugmasini bosganda ochiladigan
+   popover. Ilgari jadval TEPASIDA doim ochiq turardi — endi faqat kerak
+   bo'lganda, joy egallamasdan.                                              */
+.ipt-legend-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ipt-legend-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-left: 2px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.ipt-legend-trigger:hover {
+  background: #f1f5f9;
+  color: #3b82f6;
+}
+
+.ipt-legend-trigger--active {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+.ipt-legend {
+  position: absolute;
+  top: calc(100% + 8px);
+  /* Tugma odatda filtr qatorining O'NG chetiga yaqin turadi (Rad
+     etilgandan keyin) — `left: 0` popoverni ekran chetidan tashqariga
+     chiqarib yuborardi. O'ng chetdan tekislash chapga ochiladi, bu esa
+     odatda ekran ichida qoladi. */
+  right: 0;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px 22px;
+  width: max-content;
+  max-width: min(560px, 90vw);
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid #e6edf5;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
+}
+
+.ipt-legend__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  color: #03213f;
+  white-space: nowrap;
+}
+
+.ipt-legend__title i {
+  color: #3b82f6;
+}
+
+.ipt-legend__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  flex: 1 1 auto;
+}
+
+.ipt-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ipt-legend__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.ipt-legend__text b {
+  font-family: noto-m, sans-serif;
+  font-size: 12.5px;
+  color: #1e293b;
+}
+
+.ipt-legend__text span {
+  font-family: noto-r, sans-serif;
+  font-size: 11.5px;
+  color: #7c8ba1;
+}
+
+/* ── Jadval ustunlari ──
+   `table-layout: fixed` bilan birga ishlaydi: uzun mijoz ismi endi
+   "Sana va vaqt"ni siqib, ikki qatorga bo'lib yubormaydi.                   */
+.ipt-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.ipt-table-scroll > .ipt-table {
+  min-width: 1080px;
+}
+
+.ipt-col--status { width: 148px; }
+.ipt-col--client { width: 22%; }
+.ipt-col--branch { width: 14%; }
+.ipt-col--operator { width: 17%; }
+.ipt-col--duration { width: 96px; }
+.ipt-col--datetime { width: 158px; }
+.ipt-col--actions { width: 150px; }
+
+.ipt-branch-cell,
+.ipt-operator-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ipt-duration-cell {
+  font-family: noto-m, sans-serif !important;
+  color: #475569 !important;
+  font-size: 13px !important;
+  white-space: nowrap;
+}
+
+/* Hozirgina tugagan qator — yangi kelgani ko'rinib tursin. */
+.ipt-table tbody tr.ipt-row-pending td {
+  background: #f8fbff;
+}
+
+.ipt-pending-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-family: noto-m, sans-serif;
+  font-size: 10.5px;
+  vertical-align: middle;
+}
+
+/* ── Table cell helpers ── */
+.ipt-phone-cell {
+  font-family: noto-m, sans-serif !important;
+  color: #03213f !important;
+}
+
+.ipt-operator-cell {
+  color: #374151 !important;
+}
+
+.ipt-date-cell {
+  color: #64748b !important;
+  font-size: 13px !important;
+}
+
+/* ── Actions cell ── */
+.ipt-actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ipt-actions-cell--centered {
+  justify-content: center;
+}
+
+/* Tugma (va pleyer) sarlavha ostida markazda; joy yetmasa chapdan boshlanadi —
+   bo'sh joyni chetki avtomatik margin'lar oladi, ortiqcha bo'lsa 0 bo'ladi. */
+.ipt-actions-cell > :first-child {
+  margin-left: auto;
+}
+
+.ipt-actions-cell > :last-child {
+  margin-right: auto;
+}
+
+.ipt-client-link {
+  cursor: pointer;
+}
+
+.ipt-client-link:hover span:first-child {
+  text-decoration: underline;
+}
+
+.ipt-no-record {
+  display: inline-block;
+  width: 60px;
+}
+
+/* ── Row call button ── */
+.ipt-row-call-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: #edfbf0;
+  color: #16a34a;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.ipt-row-call-btn:hover {
+  background: #16a34a;
+  color: #fff;
+  transform: scale(1.08);
+}
+
+.ipt-row-call-btn.calling {
+  background: #16a34a;
+  color: #fff;
+  animation: ipt-pulse-btn 1.2s ease-in-out infinite;
+}
+
+.ipt-row-call-btn:disabled:not(.calling) {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@keyframes ipt-pulse-btn {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(22, 163, 74, 0);
+  }
+}
+
+/* ── Active row highlight ── */
+.ipt-table tbody tr.ipt-row-active td {
+  background: #f0fdf4;
+}
+
+/* ── Audio Player ── */
+.ipt-audio-player {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ipt-play-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #03213f;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.ipt-play-btn:hover:not(:disabled) {
+  background: var(--color-accent);
+}
+
+.ipt-play-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.ipt-progress {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100px;
+  height: 4px;
+  border-radius: 4px;
+  background: #e2e8f0;
+  outline: none;
+  cursor: pointer;
+}
+
+.ipt-progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #03213f;
+  cursor: pointer;
+}
+
+.ipt-progress::-webkit-slider-thumb:hover {
+  background: var(--color-accent);
+}
+
+.ipt-duration {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+/* ── Pagination footer ── */
+.ipt-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-top: 1px solid #f0f4f8;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ipt-total-info {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.ipt-pagination {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.ipt-page-btn {
+  min-width: 34px;
+  height: 34px;
+  border: 1px solid #dde3ec;
+  background: #fff;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #03213f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s ease;
+}
+
+.ipt-page-btn:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.ipt-page-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.ipt-page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ipt-ellipsis {
+  color: #94a3b8;
+  font-size: 13px;
+  padding: 0 4px;
+}
+
+/* ══════════════════════════════════════════════════════
+   MODALS — Dark navy overlay, NO close on overlay click
+══════════════════════════════════════════════════════ */
+
+/* Small popup, but centered on screen by default — not pinned off to a
+   corner. It can still be dragged anywhere afterwards (CallModal's header
+   drag handle). */
+.ipt-floating-widget {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1100;
+}
+
+.ipt-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 21, 40, 0.65);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Highest z-index in the app on purpose: an incoming call (GlobalCallWidget)
+     can now pop up on any page, including ones already showing a modal at
+     z-index 99999 (faq/profile/students-attendance), so this must always win. */
+  z-index: 100000;
+  /* Block clicks from passing through to background table */
+  pointer-events: auto;
+}
+
+/* The modal itself re-enables pointer events */
+.ipt-call-modal,
+.ipt-dialpad-modal {
+  pointer-events: all;
+}
+
+/* ── Active Call Modal (Image 2) ── */
+.ipt-call-modal {
+  background: linear-gradient(170deg, #0d2137 0%, var(--color-primary-deep) 60%, #062a52 100%);
+  border-radius: 24px;
+  padding: 36px 30px 28px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  animation: ipt-modal-in 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes ipt-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.82) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Avatar */
+.ipt-avatar-wrap {
+  margin-bottom: 4px;
+}
+
+.ipt-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #1e3a5c;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* Phone number */
+.ipt-call-phone {
+  font-family: noto-m, sans-serif;
+  font-size: 18px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+/* ── UNIFIED CALL MODAL (TELEGRAM STYLE) ── */
+.ipt-modal-wrapper {
+  display: flex;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--color-primary);
+}
+
+.ipt-unified-modal {
+  /* Without border-box, 380px + 24px padding each side rendered at 428px —
+     48px wider than `.ipt-modal-wrapper`'s fixed 380px, and silently
+     clipped by its `overflow: hidden`. Every child inside (dialpad grid,
+     action grid, …) was laid out for the full 380px and had its right
+     edge cut off, which is exactly what read as "everything's shoved
+     to the left". */
+  box-sizing: border-box;
+  width: 380px;
+  max-width: 92vw;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+  min-height: 480px;
+}
+
+/* Header Buttons */
+/* Spans the full top edge (not just the buttons' own width) so there's
+   somewhere to actually grab and drag the popup — the buttons stay
+   right-aligned inside it exactly as before. */
+.ipt-tg-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  padding: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  align-items: center;
+  cursor: grab;
+  touch-action: none;
+}
+
+.ipt-tg-header--dragging {
+  cursor: grabbing;
+}
+
+.ipt-tg-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ipt-tg-btn:hover {
+  color: #fff;
+}
+
+/* Avatar & Info */
+.ipt-avatar-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(200, 215, 230, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 0 0 8px rgba(200, 215, 230, 0.25);
+}
+
+.ipt-avatar-circle i {
+  font-size: 56px;
+  color: var(--color-primary);
+}
+
+.ipt-call-number {
+  color: #fff;
+  font-size: 24px;
+  font-family: 'noto-b';
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.ipt-call-timer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.ipt-timer-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  display: inline-block;
+  box-shadow: 0 0 8px var(--color-accent);
+}
+
+.ipt-timer-text {
+  color: #fff;
+  font-family: 'noto-b';
+  font-size: 18px;
+}
+
+/* Dialpad Area */
+.ipt-dial-input-area {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
+}
+
+.ipt-dial-display {
+  color: #fff;
+  font-size: 32px;
+  font-family: 'noto-b';
+  height: 42px;
+  display: flex;
+  align-items: center;
+}
+
+/* Compact — this row sits above the in-call keypad, sharing the modal with
+   the avatar/number/timer/conference strip above and the action grid below. */
+.ipt-dial-input-area--incall {
+  margin: 12px 0 4px;
+  padding-bottom: 6px;
+}
+
+.ipt-dial-display--incall {
+  font-size: 20px;
+  height: 28px;
+  opacity: 0.9;
+}
+
+.ipt-backspace-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 24px;
+  transition: all 0.2s;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+}
+
+.ipt-backspace-btn:active,
+.ipt-backspace-btn.active {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(0.9);
+}
+
+.ipt-dial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  gap: 12px 28px;
+  width: 240px;
+  margin: 15px auto;
+}
+
+/* Tighter — shares the modal with the avatar/number/timer/conference strip
+   above it and the action grid below, unlike the roomy pre-call dialpad. */
+.ipt-dial-grid--incall {
+  gap: 6px 22px;
+  margin: 10px 0 0;
+}
+
+.ipt-dial-grid--incall .ipt-dial-key {
+  font-size: 22px;
+  padding: 4px 0;
+}
+
+.ipt-dial-key {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 30px;
+  font-family: 'noto-m';
+  cursor: pointer;
+  padding: 10px 0;
+  transition: all 0.1s;
+  border-radius: var(--radius-md);
+}
+
+.ipt-dial-key:active,
+.ipt-dial-key.active {
+  transform: scale(0.9);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Action Buttons — mobile-app style: icon circle + label underneath, laid
+   out in a 3-column grid so the usual 6 actions (Hold, Mute, Transfer,
+   Hangup, Call/Answer, Dialpad) settle into 2 rows instead of one cramped
+   icon-only strip. */
+.ipt-action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  gap: 30px 14px;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 22px;
+}
+
+.ipt-action-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  transition: opacity 0.2s;
+}
+
+.ipt-action-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.ipt-action-btn:hover .ipt-action-icon {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.ipt-action-label {
+  font-family: noto-m, sans-serif;
+  font-size: 11.5px;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.ipt-btn-hold {
+  background: var(--color-accent);
+}
+.ipt-btn-mute {
+  background: #6d7a9f;
+}
+.ipt-btn-share {
+  background: #7c4dff;
+}
+.ipt-btn-hangup {
+  background: var(--color-danger);
+}
+
+/* The universal "hang up" glyph every phone app uses — a receiver tilted
+   as if slammed down — instead of the phone-with-a-slash mute-style icon. */
+.ipt-icon-hangup {
+  display: inline-block;
+  transform: rotate(135deg);
+}
+.ipt-btn-answer {
+  background: var(--color-success);
+}
+.ipt-btn-dialpad {
+  background: #1565c0;
+}
+
+/* Toggled on (hold/mute engaged, drawer or dialpad open) — a bright ring
+   makes the state readable at a glance without reading the icon closely. */
+.ipt-action-btn--on .ipt-action-icon {
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.55),
+    0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.ipt-action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.ipt-action-btn:disabled .ipt-action-icon {
+  box-shadow: none;
+}
+
+/* Minimized Bar — sits in normal flow between <Header> and <main> (see
+   Layout.tsx), so it needs the same sidebar offset as `header` itself
+   (mirrors its single breakpoint at 900px — the icon rail's hover-expand
+   never reflows this offset, see index.css) or it renders half-hidden
+   under the fixed sidebar. */
+.ipt-minimized-bar {
+  margin: 0 0 0 80px;
+  width: calc(100% - 80px);
+  height: 50px;
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  animation: slideDown 0.3s ease-out;
+}
+
+@media (max-width: 900px) {
+  .ipt-minimized-bar {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Exit — plays for MINIMIZED_CLOSE_ANIMATION_MS (GlobalCallWidget.tsx) while
+   the call has already ended, then the bar is unmounted. Retracts the same
+   way it arrived: back up under the header. */
+.ipt-minimized-bar--closing {
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+.ipt-min-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.ipt-min-number {
+  font-family: 'noto-b';
+  font-size: 16px;
+  color: #fff;
+}
+
+.ipt-min-timer {
+  font-family: 'noto-m';
+  font-size: 14px;
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Minimized bar's "Yakunlash" (hang up) — a pill instead of a plain flat-red
+   rectangle, so it reads as the one deliberate action in an otherwise icon-only bar. */
+.ipt-minimized-hangup-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 18px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, #ff3b3b, var(--color-danger));
+  color: #fff;
+  font-family: noto-b, sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(231, 10, 10, 0.4);
+  transition: all 0.18s ease;
+}
+
+.ipt-minimized-hangup-btn i {
+  font-size: 12px;
+}
+
+.ipt-minimized-hangup-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(231, 10, 10, 0.55);
+  filter: brightness(1.06);
+}
+
+.ipt-minimized-hangup-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(231, 10, 10, 0.4);
+}
+
+/* Drawer & Operator List */
+.ipt-right-drawer {
+  width: 300px;
+  background: #f4f6fa;
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.ipt-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 0;
+}
+
+.ipt-drawer-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  color: var(--color-primary);
+}
+
+.ipt-drawer-title i {
+  color: #7c4dff;
+  font-size: 13px;
+}
+
+.ipt-drawer-close {
+  color: #94a3b8 !important;
+}
+.ipt-drawer-close:hover {
+  color: var(--color-primary) !important;
+}
+
+/* ── Transfer status — replaces the old inline-styled badge with the app's
+   navy/orange system: an info/success/danger tinted pill, plus the three
+   in-flight actions (merge into a conference, complete the hand-off, or
+   cancel and bring the customer back). ── */
+.ipt-transfer-status {
+  padding: 14px 16px;
+}
+
+.ipt-transfer-badge {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.ipt-transfer-badge i {
+  margin-top: 1px;
+}
+
+.ipt-transfer-badge--info {
+  background: rgba(0, 51, 102, 0.07);
+  border: 1px solid rgba(0, 51, 102, 0.18);
+  color: var(--color-primary);
+}
+.ipt-transfer-badge--success {
+  background: rgba(27, 158, 75, 0.08);
+  border: 1px solid rgba(27, 158, 75, 0.25);
+  color: #1b9e4b;
+}
+.ipt-transfer-badge--danger {
+  background: rgba(231, 10, 10, 0.08);
+  border: 1px solid rgba(231, 10, 10, 0.25);
+  color: var(--color-danger);
+}
+
+.ipt-transfer-hint {
+  display: block;
+  font-weight: 400;
+  opacity: 0.75;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.ipt-transfer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ipt-transfer-actions-row {
+  display: flex;
+  gap: 8px;
+}
+
+.ipt-transfer-action {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-family: noto-sb, sans-serif;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.ipt-transfer-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ipt-transfer-action--merge {
+  border: none;
+  background: linear-gradient(135deg, #8a5cff, #7c4dff);
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(124, 77, 255, 0.35);
+}
+.ipt-transfer-action--merge:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+
+.ipt-transfer-action--complete {
+  border: none;
+  background: #1b9e4b;
+  color: #fff;
+}
+
+.ipt-transfer-action--cancel {
+  border: 1px solid #d0d5dd;
+  background: #fff;
+  color: #344054;
+}
+
+/* ── Toolbardagi "Kontaktlar" tugmasi + ochiladigan panel (Saralashdan oldin) ── */
+.ipt-contacts-panel-wrap {
+  position: relative;
+}
+
+.ipt-contacts-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 20;
+  width: 460px;
+  max-width: 92vw;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.18);
+  overflow: hidden;
+}
+
+.ipt-contacts-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 4px;
+}
+
+.ipt-contacts-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: noto-b, sans-serif;
+  font-size: 15px;
+  color: #1a1a1a;
+}
+
+.ipt-contacts-panel-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #f1f5f9;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.ipt-contacts-panel-close:hover {
+  background: #e2e8f0;
+  color: #1a1a1a;
+}
+
+/* Shu panel ichida tab qatoriga yuqoridan bo'shliq — sarlavha bilan orasi
+   ochilib qolmasligi uchun (drawer'dagi ishlatilishiga ta'sir qilmaydi). */
+.ipt-contacts-panel .ipt-mode-tabs {
+  padding-top: 4px;
+}
+
+.ipt-contacts-panel .ipt-contact-form {
+  margin: 0 18px 12px;
+}
+
+/* ── Operatorlar / Kontaktlar tab-almashtirgich ── */
+.ipt-mode-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px 10px;
+}
+
+.ipt-mode-btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 20px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 12px;
+  font-family: noto-m, sans-serif;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.ipt-mode-btn:hover {
+  background: rgba(0, 51, 102, 0.08);
+  color: var(--color-primary);
+}
+
+.ipt-mode-btn.active {
+  background: var(--color-primary);
+  color: #fff;
+  font-family: noto-sb, sans-serif;
+}
+
+/* Kontaktlar tabidagi "+ Kontakt qo'shish" — tab qatorining o'ng chetida */
+.ipt-mode-tabs-add-btn {
+  margin-left: auto;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 12px;
+  flex-shrink: 0;
+  border-radius: 13px;
+  font-family: noto-b, sans-serif;
+  font-size: 12px;
+  white-space: nowrap;
+  border: none;
+  background: rgba(254, 145, 0, 0.14);
+  color: var(--color-accent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.ipt-mode-tabs-add-btn:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.ipt-mode-tabs-add-btn--close {
+  padding: 0;
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.ipt-mode-tabs-add-btn--close:hover {
+  background: #cbd5e1;
+  color: #1a1a1a;
+}
+
+/* ── Manual number ── for anyone not in the operator list. */
+.ipt-manual-dial {
+  padding: 0 16px 14px;
+}
+
+.ipt-manual-dial-label {
+  display: block;
+  font-size: 11px;
+  font-family: noto-m, sans-serif;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.ipt-manual-dial-row {
+  display: flex;
+  gap: 6px;
+}
+
+.ipt-manual-dial-input {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1.5px solid #e2e8f0;
+  font-size: 12.5px;
+  font-family: noto-m, sans-serif;
+  color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.ipt-manual-dial-input:focus {
+  border-color: var(--color-primary);
+}
+
+.ipt-manual-dial-input:disabled {
+  background: #f4f6fa;
+  cursor: not-allowed;
+}
+
+.ipt-manual-dial-row .ipt-op-action {
+  width: 32px;
+  height: 32px;
+}
+
+/* ── Operator list ── (previously unstyled — bare divs with no CSS at all) */
+.ipt-operator-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ipt-operator-empty {
+  padding: 28px 12px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.ipt-operator-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+
+.ipt-operator-item:hover {
+  background: rgba(0, 51, 102, 0.06);
+}
+
+.ipt-operator-item--selected {
+  background: var(--color-accent);
+}
+
+.ipt-operator-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 51, 102, 0.1);
+  color: var(--color-primary);
+  font-family: noto-b, sans-serif;
+  font-size: 12px;
+}
+
+.ipt-operator-item--selected .ipt-operator-avatar {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.ipt-operator-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ipt-op-name {
+  font-family: noto-sb, sans-serif;
+  font-size: 12.5px;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ipt-operator-item--selected .ipt-op-name {
+  color: #fff;
+}
+
+.ipt-op-branch {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ipt-operator-item--selected .ipt-op-branch {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Per-row transfer actions — replaced the plain extension-number badge that
+   used to sit here; the number itself moved into the branch subtitle. */
+.ipt-op-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ipt-op-action {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.ipt-op-action:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ipt-op-action--direct {
+  background: rgba(0, 51, 102, 0.1);
+  color: var(--color-primary);
+}
+.ipt-op-action--direct:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.ipt-op-action--hold {
+  background: rgba(124, 77, 255, 0.12);
+  color: #7c4dff;
+}
+.ipt-op-action--hold:hover:not(:disabled) {
+  background: #7c4dff;
+  color: #fff;
+}
+
+.ipt-operator-item--selected .ipt-op-action--direct {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+.ipt-operator-item--selected .ipt-op-action--hold {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.ipt-op-action--save {
+  background: rgba(254, 145, 0, 0.14);
+  color: var(--color-accent);
+}
+.ipt-op-action--save:hover:not(:disabled) {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.ipt-op-action--delete {
+  background: rgba(231, 10, 10, 0.08);
+  color: var(--color-danger);
+}
+.ipt-op-action--delete:hover:not(:disabled) {
+  background: var(--color-danger);
+  color: #fff;
+}
+
+/* ── Saved contacts — "hozircha" per-operator list (this browser only). ── */
+.ipt-contacts {
+  padding: 0 16px 14px;
+}
+
+.ipt-contacts-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.ipt-contacts-add-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 51, 102, 0.1);
+  color: var(--color-primary);
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.ipt-contacts-add-btn:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.ipt-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  margin-bottom: 8px;
+  background: #f4f6fa;
+  border-radius: 10px;
+}
+
+.ipt-contact-save-btn {
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: noto-sb, sans-serif;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.ipt-contact-save-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ipt-contact-save-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.ipt-contacts-list {
+  flex: none;
+  overflow: visible;
+  padding: 0;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+/* ── Conference strip — who else is bridged into the call alongside the
+   primary, shown in the active-call view with a one-click remove per
+   participant. ── */
+.ipt-conf-strip {
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.ipt-conf-strip-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-family: noto-m, sans-serif;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 8px;
+}
+
+.ipt-conf-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ipt-conf-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 6px 5px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+}
+
+.ipt-conf-chip button {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ipt-conf-chip button:hover {
+  background: var(--color-danger);
+}
+
+.ipt-dot-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ef4444;
+  display: inline-block;
+  animation: ipt-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes ipt-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+/* ── Dialpad Modal (Image 3) ── */
+.ipt-dialpad-modal {
+  background: linear-gradient(170deg, #0d2137 0%, var(--color-primary-deep) 60%, #062a52 100%);
+  border-radius: 24px;
+  padding: 28px 24px 28px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  animation: ipt-modal-in 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Dialpad header ── */
+.ipt-dialpad-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 2px;
+}
+
+.ipt-dialpad-phone {
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ipt-dialpad-timer {
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  color: var(--color-accent);
+}
+
+.ipt-dialpad-input {
+  width: 100%;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.18);
+  padding-bottom: 10px;
+  text-align: center;
+  min-height: 32px;
+}
+
+.ipt-dialpad-input span {
+  font-family: noto-m, sans-serif;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+/* Dialpad grid */
+.ipt-dialpad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 20px;
+  width: 100%;
+}
+
+.ipt-dialpad-key {
+  height: 54px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 22px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ipt-dialpad-key:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+.ipt-dialpad-key:active {
+  background: rgba(254, 145, 0, 0.2);
+  transform: scale(0.95);
+}
+
+/* ── Shared action buttons row ── */
+.ipt-call-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.ipt-action-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.2s ease;
+}
+
+/* Pause — orange */
+.ipt-btn-pause {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.ipt-btn-pause:hover {
+  background: #e07f00;
+  transform: scale(1.08);
+}
+
+.ipt-btn-pause.active-pause {
+  background: #fff;
+  color: var(--color-accent);
+}
+
+/* Mute — white */
+.ipt-btn-mute {
+  background: #fff;
+  color: #1e293b;
+}
+
+.ipt-btn-mute:hover {
+  background: #e8edf3;
+  transform: scale(1.08);
+}
+
+.ipt-btn-mute.active-mute {
+  background: #ef4444;
+  color: #fff;
+}
+
+/* Hangup — red */
+.ipt-btn-hangup {
+  background: #ef4444;
+  color: #fff;
+}
+
+.ipt-btn-hangup:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+/* Call — green */
+.ipt-btn-call {
+  background: #22c55e;
+  color: #fff;
+}
+
+.ipt-btn-call:hover {
+  background: #16a34a;
+  transform: scale(1.08);
+}
+
+/* Dialpad — slate */
+.ipt-btn-dialpad {
+  background: #334155;
+  color: #fff;
+}
+
+.ipt-btn-dialpad:hover {
+  background: #475569;
+  transform: scale(1.08);
+}
+
+.ipt-btn-dialpad--active {
+  background: var(--color-accent);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .ipt-tabs {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .ipt-page {
+    margin-left: 100px !important;
+    width: calc(100% - 100px);
+  }
+
+  .ipt-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ipt-search {
+    width: 100%;
+  }
+
+  .ipt-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ipt-table th,
+  .ipt-table td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+/* ── Sahifalash ──
+   Qo'ng'iroqlar tarixi butunligicha yuklanadi, sahifalash mahalliy.       */
+.ipt-pager {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ipt-pager__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  color: #475569;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.ipt-pager__btn:hover:not(:disabled) {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.ipt-pager__btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.ipt-pager__info {
+  padding: 0 6px;
+  font-size: 13.5px;
+  color: #475569;
+  white-space: nowrap;
+}
+
+/* ── Operator yozuvlaridagi takrorlanish ogohlantirishi ──
+   Bir xil PINFL bilan bir nechta operator yozuvi yoki bir xil ichki raqam
+   ikki yozuvda bo'lsa, SIP ro'yxatdan o'tadi ("ulangan" ko'rinadi), lekin
+   qo'ng'iroq uzilib qoladi. Sababi ma'lumotlar bazasida — shu sabab bu
+   yerda faqat ko'rsatiladi.                                                 */
+.ipt-warnings {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ipt-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid #fde68a;
+  border-left: 4px solid #f59e0b;
+  border-radius: 10px;
+  background: #fffbeb;
+  color: #92400e;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.ipt-warning i {
+  margin-top: 2px;
+  color: #f59e0b;
+}

@@ -1,0 +1,805 @@
+/* Rejalar (Moliyaviy rejalashtirish) sahifasi.
+   Palitra: primary #2563EB, success #16A34A, danger #DC2626,
+   border #E2E6EB, matn #111827, ikkilamchi matn #6B7280. */
+
+.fp-container {
+  width: calc(100% - 140px);
+  margin-top: 50px !important;
+  margin-left: 140px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: calc(100vh - 50px);
+  padding-bottom: 34px;
+}
+
+.fp-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.fp-title {
+  font-family: noto-b, sans-serif;
+  font-size: 22px;
+  color: #111827;
+  margin: 0;
+}
+
+.fp-subtitle {
+  margin: 4px 0 0;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ---------- Jadval ----------
+   Ko'rinish (o'ram, sarlavha, katak) — umumiy `.list-table` (styles/consistency.css).
+   `.fp-table-scroll` — oynalardagi (PlanFormModal / PlanDetailModal) jadval o'rami. */
+.fp-table-scroll {
+  overflow-x: auto;
+}
+
+.fp-num {
+  white-space: nowrap;
+}
+
+.fp-strong {
+  font-family: noto-b, sans-serif;
+}
+
+.fp-doc {
+  font-family: noto-b, sans-serif;
+  color: var(--color-primary);
+}
+
+.fp-empty {
+  padding: 24px 0;
+  text-align: center;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ---------- Status badge ---------- */
+.fp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.fp-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.fp-status--done {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.fp-status--sent {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.fp-status--rejected {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.fp-status--cancelled {
+  background: #f1f5f9;
+  color: #6b7280;
+}
+
+.fp-status--draft {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+/* ---------- Tugmalar ---------- */
+.fp-btn {
+  height: 38px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.fp-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fp-btn--sm {
+  height: 30px;
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+.fp-btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.fp-btn--success {
+  background: #16a34a;
+  color: #fff;
+}
+
+.fp-btn--danger {
+  background: #dc2626;
+  color: #fff;
+}
+
+.fp-btn--ghost {
+  background: #fff;
+  border-color: #cbd5e1;
+  color: #374151;
+}
+
+.fp-forbidden {
+  padding: 40px 0;
+  text-align: center;
+  font-family: noto-m, sans-serif;
+  color: #6b7280;
+}
+
+/* ---------- Modal ---------- */
+.fp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.fp-modal {
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.fp-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #e2e6eb;
+}
+
+.fp-modal-head h2 {
+  margin: 0;
+  font-family: noto-b, sans-serif;
+  font-size: 16px;
+  color: #111827;
+}
+
+.fp-modal-close {
+  border: none;
+  background: #f1f5f9;
+  border-radius: var(--radius-sm);
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  line-height: 1;
+  color: #475569;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.fp-modal-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fp-modal-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid #e2e6eb;
+  background: #f8fafc;
+}
+
+.fp-modal-foot-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.fp-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+}
+
+.fp-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fp-form-field label {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.fp-form-field select,
+.fp-form-field input {
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  font-family: noto-r, sans-serif;
+  font-size: 14px;
+  color: #111827;
+  background: #fff;
+  outline: none;
+}
+
+.fp-form-field select:disabled,
+.fp-form-field input:disabled {
+  background: #f8fafc;
+  color: #6b7280;
+}
+
+.fp-prefill-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ---------- Rejalar jadvali (items) ---------- */
+.fp-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: noto-r, sans-serif;
+  font-size: 13px;
+}
+
+.fp-items-table th {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e2e6eb;
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #6b7280;
+}
+
+.fp-items-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.fp-items-table td.fp-items-empty {
+  padding: 28px 10px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.fp-items-table input {
+  width: 100%;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  font-family: noto-r, sans-serif;
+  font-size: 13px;
+}
+
+.fp-type-toggle {
+  display: inline-flex;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.fp-type-toggle button {
+  border: none;
+  background: #fff;
+  padding: 5px 10px;
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.fp-type-toggle button.fp-type-toggle--active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.fp-items-row--over td {
+  background: #fef2f2;
+}
+
+.fp-items-cell--over input {
+  border-color: #dc2626;
+  color: #b91c1c;
+}
+
+/* ---------- «Yangi oy rejasi» oynasi (PlanFormModal) ----------
+   DIQQAT: hamma qoida `.fp-modal--form` ostida. Production'da (`cssCodeSplit: false`) `priceListPage.css`dagi
+   global `table/thead/td` qoidalari (ko'k sarlavha, har katakka chegara, markazlangan matn) shu jadvalga ham
+   oqib o'tadi — shuning uchun fon/chegara/tekislash bu yerda aniq qayta belgilanadi.
+
+   Ranglar Excel'dagi «Zararsiz ishlash nuqtasi hisobi» bilan bir xil: zararsiz nuqta — ko'k, marjinal daromad —
+   binafsha, muvofiqlashtirilgan daromad (MD) — yashil. Bo'lim rangi `--sec-*` o'zgaruvchilari orqali tab, jadval
+   sarlavhasi va har bir jamg'arma qatoriga beriladi (`.fp-sec--<bo'lim>`). */
+.fp-modal--form {
+  max-width: 780px;
+  --sec-accent: var(--color-primary);
+  --sec-bg: #f1f5f9;
+  --sec-row: #fff;
+  --sec-line: #e2e8f0;
+  --sec-ink: #475569;
+}
+
+.fp-sec--harmless_point {
+  --sec-accent: #3f6fb0;
+  --sec-bg: #dce8f6;
+  --sec-row: #f1f6fc;
+  --sec-line: #b9cfe9;
+  --sec-ink: #1c3d6b;
+}
+
+.fp-sec--marginal_income {
+  --sec-accent: #7459a0;
+  --sec-bg: #e6def0;
+  --sec-row: #f5f2f9;
+  --sec-line: #cdbfe0;
+  --sec-ink: #3f2d62;
+}
+
+.fp-sec--adjusted_income {
+  --sec-accent: #5f7d2a;
+  --sec-bg: #e3edcf;
+  --sec-row: #f3f7ea;
+  --sec-line: #c4d6a0;
+  --sec-ink: #34491a;
+}
+
+.fp-sec--other {
+  --sec-accent: #64748b;
+  --sec-bg: #e2e8f0;
+  --sec-row: #f8fafc;
+  --sec-line: #cbd5e1;
+  --sec-ink: #334155;
+}
+
+.fp-modal--form .fp-table-scroll {
+  /* `flex-shrink: 0`: oyna balandligi kichik bo'lganda (telefon) jadval siqilib yo'qolmasin — oynaning o'zi scroll bo'ladi. */
+  flex-shrink: 0;
+  min-height: 220px;
+  max-height: min(52vh, 440px);
+  overflow: auto;
+  border: 1px solid var(--sec-line);
+  border-radius: 12px;
+}
+
+.fp-modal--form .fp-items-table {
+  width: 100%;
+  min-width: 560px;
+  margin: 0;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.fp-modal--form .fp-items-table .fp-col-type {
+  width: 138px;
+}
+
+.fp-modal--form .fp-items-table .fp-col-num {
+  width: 112px;
+}
+
+.fp-modal--form .fp-items-table .fp-col-sum {
+  width: 150px;
+}
+
+.fp-modal--form .fp-items-table thead {
+  background: transparent;
+  color: inherit;
+}
+
+.fp-modal--form .fp-items-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 10px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--sec-line);
+  background: var(--sec-bg);
+  color: var(--sec-ink);
+  font-size: 11px;
+  text-align: left;
+}
+
+/* Har bir jamg'arma qatori o'z bo'limining rangida: och fon + chapda to'q rangli chiziq. */
+.fp-modal--form .fp-items-table td {
+  padding: 9px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--sec-line);
+  background: var(--sec-row);
+  text-align: left;
+}
+
+.fp-modal--form .fp-items-table td.fp-item-name {
+  box-shadow: inset 4px 0 0 var(--sec-accent);
+  padding-left: 18px;
+}
+
+.fp-modal--form .fp-items-table tbody tr:hover td {
+  background: var(--sec-bg);
+}
+
+.fp-modal--form .fp-items-table .fp-items-row--over td {
+  background: #fef2f2;
+}
+
+.fp-modal--form .fp-items-table .fp-item-name {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--sec-ink);
+  overflow-wrap: anywhere;
+}
+
+.fp-modal--form .fp-items-table input {
+  height: 34px;
+  background: #fff;
+  border-color: var(--sec-line);
+  text-align: right;
+}
+
+.fp-modal--form .fp-items-table input:disabled {
+  background: rgba(255, 255, 255, 0.55);
+  color: #94a3b8;
+}
+
+.fp-modal--form .fp-type-toggle {
+  border-color: var(--sec-accent);
+}
+
+.fp-modal--form .fp-type-toggle button.fp-type-toggle--active {
+  background: var(--sec-accent);
+}
+
+/* Bo'limlar tabi: har tab o'z rangida — faol tab to'liq to'ldiriladi. */
+.fp-modal--form .fp-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.fp-modal--form .fp-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--sec-line);
+  border-top: 3px solid var(--sec-accent);
+  border-radius: 12px;
+  background: var(--sec-row);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.fp-modal--form .fp-tab:hover {
+  background: var(--sec-bg);
+}
+
+.fp-modal--form .fp-tab--active,
+.fp-modal--form .fp-tab--active:hover {
+  border-color: var(--sec-accent);
+  background: var(--sec-accent);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16);
+}
+
+.fp-modal--form .fp-tab-title {
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  line-height: 1.25;
+  color: var(--sec-ink);
+}
+
+.fp-modal--form .fp-tab--active .fp-tab-title {
+  color: #fff;
+}
+
+.fp-modal--form .fp-tab-meta {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.fp-modal--form .fp-tab-chip {
+  padding: 2px 9px;
+  border-radius: var(--radius-pill, 999px);
+  border: 1px solid var(--sec-line);
+  background: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  color: var(--sec-ink);
+}
+
+.fp-modal--form .fp-tab--active .fp-tab-chip {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.fp-modal--form .fp-tab--active .fp-tab-chip--percent {
+  border-color: #fff;
+  background: #fff;
+  color: var(--sec-accent);
+}
+
+/* Jami foiz / zararsiz ishlash nuqtasi — ikkita alohida ko'rsatkich. */
+.fp-modal--form .fp-totals-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.fp-modal--form .fp-totals-row > span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.fp-modal--form .fp-totals-row > span strong {
+  font-size: 16px;
+}
+
+@media (max-width: 520px) {
+  .fp-modal--form .fp-totals-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Jami qator (tfoot) ---------- */
+.fp-items-total-row td {
+  border-top: 2px solid #e2e6eb;
+  border-bottom: none;
+  font-family: noto-b, sans-serif;
+  color: #111827;
+}
+
+/* ---------- Taqsimlash progressi ---------- */
+.fp-progress {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: #e2e6eb;
+  overflow: hidden;
+}
+
+.fp-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, #2563eb, #14b8a6);
+  transition: width 0.2s ease;
+}
+
+.fp-progress-hint {
+  margin: 8px 0 0;
+  font-family: noto-r, sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ---------- Tarix accordion ---------- */
+.fp-accordion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: none;
+  padding: 6px 0;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+}
+
+.fp-accordion-chevron {
+  display: inline-block;
+  font-size: 10px;
+  transition: transform 0.15s ease;
+}
+
+.fp-accordion-chevron--open {
+  transform: rotate(90deg);
+}
+
+.fp-totals-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #f8fafc;
+  border: 1px solid #e2e6eb;
+  flex-wrap: wrap;
+}
+
+.fp-totals-row span {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #374151;
+}
+
+.fp-totals-row strong {
+  font-family: noto-b, sans-serif;
+  color: #111827;
+}
+
+.fp-totals-row .fp-total-percent--over,
+.fp-total-percent--over {
+  color: #dc2626;
+}
+
+.fp-alert {
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-family: noto-r, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.fp-alert--danger {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.fp-alert--success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+}
+
+/* ---------- Detail modal ---------- */
+.fp-info-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.fp-info-row dt {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.fp-info-row dd {
+  margin: 0;
+  font-family: noto-r, sans-serif;
+  font-size: 13px;
+  color: #111827;
+  text-align: right;
+}
+
+.fp-info-row--strong dd,
+.fp-info-row--strong dt {
+  font-family: noto-b, sans-serif;
+  color: #111827;
+}
+
+/* ---------- Tarix (timeline) ---------- */
+.fp-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 6px;
+}
+
+.fp-timeline-item {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  padding: 0 0 22px 14px;
+  border-left: 2px solid #e2e6eb;
+}
+
+.fp-timeline-item:last-child {
+  border-left-color: transparent;
+  padding-bottom: 0;
+}
+
+.fp-timeline-dot {
+  position: absolute;
+  left: -7px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.fp-timeline-action {
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  color: #111827;
+}
+
+.fp-timeline-meta {
+  margin-top: 2px;
+  font-family: noto-r, sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.fp-timeline-diff {
+  margin-top: 2px;
+  font-family: noto-r, sans-serif;
+  font-size: 12px;
+  color: #374151;
+}
+
+.fp-timeline-old {
+  color: #b91c1c;
+  text-decoration: line-through;
+}
+
+.fp-timeline-new {
+  color: #15803d;
+}
+
+@media (max-width: 1024px) {
+  .fp-container {
+    width: calc(100% - 90px);
+    margin-left: 90px !important;
+  }
+}

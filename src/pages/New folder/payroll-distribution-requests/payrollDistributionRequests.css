@@ -1,0 +1,268 @@
+/* Oylik taqsimlash so'rovlari — direktor va bosh admin tasdig'i.
+   Palitra: primary #2563EB, success #16A34A, danger #DC2626, warning #D97706,
+   border #E2E6EB, matn #111827, ikkilamchi matn #6B7280. */
+
+.pdr-container {
+  width: calc(100% - 140px);
+  margin-top: 50px !important;
+  margin-left: 140px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: calc(100vh - 50px);
+  padding-bottom: 34px;
+}
+
+.pdr-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pdr-title {
+  margin: 0;
+  font-family: noto-b, sans-serif;
+  font-size: 22px;
+  color: #111827;
+}
+
+.pdr-subtitle {
+  margin: 0;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ---------- Jadval ----------
+   Ko'rinish (o'ram, sarlavha, katak) — umumiy `.list-table` (styles/consistency.css).
+   Bu jadval zich (summalar + bosqichlar), shu sabab kengligi kattaroq. */
+main.page .list-table.pdr-table {
+  min-width: 1000px;
+}
+
+.pdr-name {
+  display: block;
+  font-family: noto-b, sans-serif;
+  color: #111827;
+}
+
+.pdr-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.pdr-badge {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: 11px;
+}
+
+.pdr-empty {
+  padding: 28px 0 !important;
+  text-align: center;
+  font-family: noto-m, sans-serif;
+  color: #6b7280;
+}
+
+/* ---------- Summalar ---------- */
+.pdr-amounts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 190px;
+}
+
+.pdr-amounts li {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.pdr-amounts b {
+  font-family: noto-b, sans-serif;
+  color: #111827;
+  white-space: nowrap;
+}
+
+/* ---------- Status belgisi ---------- */
+.pdr-status {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.pdr-status--draft {
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.pdr-status--approved {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+/* ---------- Tugmalar ---------- */
+.pdr-actions,
+.pdr-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pdr-modal-actions {
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+
+.pdr-btn {
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pdr-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pdr-btn--ghost {
+  background: #fff;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+
+.pdr-btn--success {
+  background: #16a34a;
+  color: #fff;
+}
+
+/* «Tasdiqdan qaytarish» — qaytariladigan, lekin ehtiyot talab qiladigan amal. */
+.pdr-btn--warning {
+  background: #f97316;
+  color: #fff;
+}
+
+/* «O'chirish» — qoralamani olib tashlash: to'ldirilmagan qizil, tasdiqdan past darajada. */
+.pdr-btn--ghost-danger {
+  background: #fff;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+/* ---------- Modal ---------- */
+.pdr-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.pdr-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.pdr-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #e2e6eb;
+}
+
+.pdr-modal-head h2 {
+  margin: 0;
+  font-family: noto-b, sans-serif;
+  font-size: 16px;
+  color: #111827;
+}
+
+.pdr-modal-close {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  background: #f1f5f9;
+  font-size: 18px;
+  line-height: 1;
+  color: #475569;
+  cursor: pointer;
+}
+
+.pdr-modal-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+}
+
+.pdr-info {
+  margin: 0;
+}
+
+.pdr-info-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.pdr-info-row dt {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.pdr-info-row dd {
+  margin: 0;
+  font-size: 13px;
+  color: #111827;
+  text-align: right;
+}
+
+.pdr-info-heading {
+  margin: 18px 0 10px;
+  font-family: noto-b, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+/* Telefon/planshet: tegish uchun qulay balandlik (karta ichidagi amal tugmalari). */
+@media (max-width: 900px) {
+  .pdr-btn {
+    min-height: 40px;
+  }
+}

@@ -1,0 +1,258 @@
+/* «Guruh tafsilotlari» oynasi (DetailModal) — Admin va User'da BIR XIL. Prefiks `gdm-`. */
+
+.gdm-modal {
+  overflow: hidden;
+}
+
+.gdm-modal-body {
+  padding: 0 !important;
+}
+
+.gdm {
+  --gdm-navy: #0d3768;
+  --gdm-accent: #f08c1a;
+  --gdm-line: #e7ecf3;
+  --gdm-muted: #6b7a90;
+  background: #fff;
+}
+
+/* ---------- sarlavha */
+.gdm .gdm-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px 20px;
+  background: linear-gradient(135deg, #0d3768 0%, #1c5a9c 100%);
+  color: #fff;
+}
+
+.gdm .gdm-head__text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.gdm .gdm-eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.gdm .gdm-name {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #fff;
+  font-family: noto-b, sans-serif;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.gdm .gdm-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.gdm .gdm-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+.gdm .gdm-chip--course {
+  background: var(--gdm-accent);
+}
+
+.gdm button.gdm-close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: 17px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.gdm button.gdm-close:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+/* ---------- tana */
+.gdm .gdm-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px 24px 24px;
+}
+
+.gdm .gdm-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #f7f9fc;
+}
+
+.gdm .gdm-schedule__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.gdm .gdm-days {
+  display: flex;
+  gap: 6px;
+}
+
+.gdm .gdm-day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: #fff;
+  color: #a3afbf;
+  font-family: noto-m, sans-serif;
+  font-size: 12.5px;
+  box-shadow: inset 0 0 0 1px var(--gdm-line);
+}
+
+.gdm .gdm-day.is-on {
+  background: var(--gdm-accent);
+  color: #fff;
+  box-shadow: 0 3px 8px rgba(240, 140, 26, 0.3);
+}
+
+.gdm .gdm-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gdm-navy);
+  font-family: noto-b, sans-serif;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+.gdm .gdm-time svg {
+  color: var(--gdm-accent);
+  font-size: 16px;
+}
+
+.gdm .gdm-days-text {
+  color: var(--gdm-muted);
+  font-size: 13px;
+}
+
+.gdm .gdm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.gdm .gdm-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--gdm-line);
+  border-radius: 12px;
+}
+
+.gdm .gdm-info--wide {
+  grid-column: 1 / -1;
+}
+
+.gdm .gdm-info__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #eef3fa;
+  color: var(--gdm-navy);
+  font-size: 14px;
+}
+
+.gdm .gdm-info__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.gdm .gdm-info__label {
+  color: var(--gdm-muted);
+  font-size: 12px;
+}
+
+.gdm .gdm-info__value {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-wrap: anywhere;
+  color: #1c2b40;
+  font-family: noto-m, sans-serif;
+  font-size: 14.5px;
+  line-height: 1.3;
+}
+
+.gdm .gdm-bar {
+  display: block;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #edf1f6;
+}
+
+.gdm .gdm-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gdm-accent);
+}
+
+@media (max-width: 520px) {
+  .gdm .gdm-head {
+    padding: 18px 16px 16px;
+  }
+
+  .gdm .gdm-body {
+    padding: 16px;
+  }
+
+  .gdm .gdm-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gdm .gdm-day {
+    width: 28px;
+    height: 28px;
+  }
+}

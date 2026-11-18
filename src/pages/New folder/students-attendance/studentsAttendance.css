@@ -1,0 +1,999 @@
+:root {
+  /* `--primary-color`/`--weekdays-text-color` endi `index.css`dagi umumiy
+     tokenlarga bog'langan — qiymat bitta joyda, nom shu sahifaga xos qoladi.
+     Qolganlari (davomat holati ranglari) shu taqvim vidjetiga xos bo'lgani
+     uchun mahalliyligicha qoladi. */
+  --primary-color: var(--color-accent);
+  --current-month-color: #3f88c9;
+  --present-color: var(--color-success);
+  --absent-color: var(--color-danger);
+  --late-color: #f1ff2c;
+  --reason-absence-color: #3f88c9;
+  --weekdays-text-color: var(--color-primary);
+  --text-color: #000000;
+  --bg-color: #f8f9fa;
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --border-color: #e2e8f0;
+}
+
+/* ===== CONTAINER ===== */
+.attendance-container {
+  width: 100%;
+  margin-left: 140px !important;
+  margin-top: 50px !important;
+}
+
+/* Pastdagi "Darsni boshlash / Bugun dars yo'q ..." tugmasi `position: fixed`.
+   Oxirgi o'quvchi qatorlari uning ortiga kirib qolmasligi uchun joy qoldiramiz.
+   (Faqat tugma ko'ringanda — ko'rib chiquvchi admin·menejerda bo'sh joy shart emas.) */
+.attendance-container.has-lesson-controls {
+  padding-bottom: 110px;
+}
+
+/* ===== HEADER ===== */
+/* Guruh nomi — davomat jadvali qaysi guruhga tegishli ekanini ko'rsatadi.
+   Bosilganda guruh tanlash ro'yxatiga qaytaradi. */
+.attendance-group-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-family: noto-b, sans-serif;
+  font-size: 15px;
+  color: var(--primary-color);
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+}
+
+.attendance-group-bar:hover {
+  background: #f4f6fb;
+}
+
+.attendance-group-bar__back {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.attendance-group-bar__count {
+  font-family: noto-r, sans-serif;
+  opacity: 0.7;
+}
+
+.attendance-header {
+  background: var(--primary-color);
+  border-radius: 16px 16px 0 0;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  /* flex-direction: column; */
+  gap: 100px;
+}
+
+.attendance-controls {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: nowrap;
+}
+
+.year-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  padding: 6px 12px;
+  border-radius: 50px;
+  border: none;
+  box-shadow: var(--card-shadow);
+  flex-shrink: 0;
+}
+
+.year-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: noto-b, sans-serif;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.year-display {
+  font-family: noto-sb, sans-serif;
+  font-size: 16px;
+  min-width: 50px;
+  text-align: center;
+}
+
+.month-pills {
+  max-width: 550px;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  flex: 1;
+  padding-bottom: 2px;
+}
+
+.month-pills::-webkit-scrollbar {
+  height: 3px;
+}
+
+.month-pills::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+}
+
+.month-pill {
+  padding: 5px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: noto-m, sans-serif;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.month-pill:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.month-pill.active {
+  background: white;
+  color: var(--primary-color);
+  border-color: white;
+  font-family: noto-b, sans-serif;
+}
+
+/* ===== LEGEND ===== */
+.attendance-legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 17px;
+  font-family: noto-b, sans-serif;
+  color: white;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.dot-present {
+  background: var(--present-color);
+}
+.dot-absent {
+  background: var(--absent-color);
+}
+.dot-late {
+  background: var(--late-color);
+}
+.dot-reason {
+  background: var(--reason-absence-color);
+}
+.dot-empty {
+  background: #d0d0d0;
+}
+
+/* ===== DESKTOP TABLE ===== */
+.desktop-table-container {
+  background: white;
+  border-radius: 0 0 12px 12px;
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+  box-shadow: var(--card-shadow);
+}
+
+/* Sichqoncha bilan "ushlab surish" (jadval keng bo'lganda) — `useDragScroll`. */
+.desktop-table-container.is-scrollable {
+  cursor: grab;
+}
+
+.desktop-table-container.is-drag-scrolling {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  /* MUHIM: table display ni hech qachon o'zgartirma */
+  display: table;
+}
+
+.attendance-table thead {
+  display: table-header-group;
+}
+
+.attendance-table tbody {
+  display: table-row-group;
+}
+
+.attendance-table thead tr,
+.attendance-table tbody tr {
+  /* MUHIM: tr doim table-row bo'lishi kerak */
+  display: table-row;
+}
+
+.attendance-table thead tr {
+  background: #fff;
+}
+
+/* ===== HEADER CELLS ===== */
+.student-col-header {
+  display: table-cell;
+  padding: 12px 16px;
+  text-align: left;
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  min-width: 280px;
+  border-bottom: 2px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.attendance-col-header {
+  display: table-cell;
+  padding: 8px 4px;
+  text-align: center;
+  border-bottom: 2px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  min-width: 44px;
+  vertical-align: middle;
+}
+
+.balance-col-header {
+  display: table-cell;
+  padding: 12px 16px;
+  text-align: right;
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  min-width: 140px;
+  border-bottom: 2px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.weekday-header {
+  color: var(--weekdays-text-color);
+  font-family: noto-b, sans-serif;
+  font-size: 11px;
+  text-align: center;
+  display: block;
+}
+
+.date-header {
+  font-family: noto-sb, sans-serif;
+  font-size: 13px;
+  text-align: center;
+  display: block;
+}
+
+/* ===== BODY ROWS ===== */
+.attendance-table tbody tr {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.attendance-table tbody tr:hover {
+  background: #fafafa;
+}
+
+/* ===== BODY CELLS ===== */
+.student-info-cell {
+  display: table-cell;
+  padding: 10px 16px;
+  min-width: 280px;
+  vertical-align: middle;
+  /* MUHIM: flexbox ishlatma, table-cell bo'lishi kerak */
+}
+
+.student-info-inner {
+  display: flex;
+  flex-direction: row; /* MUHIM: row bo'lishi kerak */
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+  flex-shrink: 0;
+  display: block;
+}
+
+.student-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.student-name {
+  font-family: noto-sb, sans-serif;
+  font-size: 15px;
+  color: var(--text-color);
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  word-break: break-word;
+  line-height: 1.25;
+  display: block;
+}
+
+.student-phone {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: var(--weekdays-text-color);
+  display: block;
+}
+
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 5px;
+  border: 1px solid;
+  font-size: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.status-aktiv {
+  border-color: var(--present-color);
+  color: var(--present-color);
+  background: #f0fff0;
+}
+
+.status-noaktiv {
+  border-color: var(--absent-color);
+  color: var(--absent-color);
+  background: #fffafa;
+}
+
+.status-frozen {
+  border-color: #3f88c9;
+  color: #3f88c9;
+  background: #f0f7ff;
+}
+
+.status-dropped {
+  border-color: var(--absent-color);
+  color: var(--absent-color);
+  background: #fffafa;
+}
+
+.status-graduated {
+  border-color: #8b5cf6;
+  color: #8b5cf6;
+  background: #f7f5ff;
+}
+
+/* ===== ATTENDANCE CELL - MUHIM ===== */
+.attendance-cell {
+  display: table-cell; /* MUHIM: table-cell bo'lishi kerak */
+  padding: 8px 4px;
+  text-align: center;
+  vertical-align: middle;
+  /* width va height ni cheklamaslik kerak */
+}
+
+/* ===== BALANCE CELL ===== */
+.balance-info {
+  display: table-cell; /* MUHIM: table-cell bo'lishi kerak */
+  padding: 10px 16px;
+  text-align: right;
+  min-width: 140px;
+  vertical-align: middle;
+}
+
+/* ===== ATTENDANCE DOT ===== */
+.attendance-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: transform 0.1s;
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  color: white;
+  /* MUHIM: block yoki inline-block emas, flex */
+  flex-shrink: 0;
+}
+
+.attendance-dot:hover {
+  transform: scale(1.12);
+}
+
+/* dot-late text rangi qora */
+.attendance-dot.dot-late {
+  color: #000;
+}
+
+.grade-value {
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+}
+
+.id-text {
+  color: var(--present-color);
+  font-family: noto-sb, sans-serif;
+  font-size: 13px;
+}
+
+.last-payment {
+  color: #666;
+  font-size: 12px;
+}
+
+.balance-text {
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+}
+
+.balance-red {
+  color: var(--absent-color);
+}
+.balance-green {
+  color: var(--present-color);
+}
+
+/* ===== MOBILE CARDS ===== */
+.mobile-cards {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 80px;
+}
+
+.student-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+.card-header {
+  background: var(--primary-color);
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  color: white;
+}
+
+.card-header .student-name {
+  color: white;
+}
+.card-header .student-phone {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card-body {
+  padding: 12px;
+}
+
+.card-attendance-grid {
+  display: flex;
+  flex-direction: row; /* MUHIM: row bo'lishi kerak */
+  overflow-x: auto;
+  gap: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.card-day-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 32px;
+  /* Bugungi kun foni (`.is-today`) uchun — hamma ustunda bir xil, kataklar siljimasin. */
+  padding: 4px 3px 5px;
+  border-radius: 10px;
+}
+
+.card-weekday {
+  font-size: 10px;
+  font-family: noto-b, sans-serif;
+  color: var(--weekdays-text-color);
+  display: block;
+  text-align: center;
+}
+
+.card-date {
+  font-size: 11px;
+  font-family: noto-sb, sans-serif;
+  display: block;
+  text-align: center;
+}
+
+.card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 13px;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* ===== DAVOMAT VA BAHO OYNASI (`FormModal` ichida, `sam-`) ===== */
+.sam-statuses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.sam-status {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  font-family: noto-m, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.2;
+  color: #1a202c;
+  text-align: left;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.sam-status .legend-dot {
+  width: 14px;
+  height: 14px;
+}
+
+.sam-status:hover:not(:disabled) {
+  background: #f6f8fb;
+  border-color: #cbd5e1;
+}
+
+.sam-status:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sam-status.is-active {
+  font-family: noto-b, sans-serif;
+}
+.sam-status--present.is-active {
+  border-color: var(--present-color);
+  background: rgba(27, 178, 0, 0.08);
+}
+.sam-status--absent.is-active {
+  border-color: var(--absent-color);
+  background: rgba(231, 10, 10, 0.07);
+}
+.sam-status--late.is-active {
+  border-color: #d4b800;
+  background: rgba(241, 255, 44, 0.22);
+}
+.sam-status--reason.is-active {
+  border-color: var(--reason-absence-color);
+  background: rgba(63, 136, 201, 0.1);
+}
+
+/* Baho: 1–5 tugmalari + «Bahosiz» */
+.sam-grades {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sam-grade {
+  min-width: 44px;
+  height: 44px;
+  padding: 0 4px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--color-primary);
+  font-family: noto-b, sans-serif;
+  font-size: 17px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.sam-grade:hover:not(:disabled) {
+  border-color: #cbd5e1;
+  background: #f6f8fb;
+}
+
+.sam-grade:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sam-grade.is-active {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.sam-grade--none {
+  padding: 0 14px;
+  font-family: noto-m, sans-serif;
+  font-size: 13.5px;
+  color: #475569;
+}
+
+.sam-grade--none.is-active {
+  border-color: #94a3b8;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.sam-reason {
+  min-height: 72px;
+}
+
+/* ===== DARSNI BOSHLASH OYNASI: mavjud dars mavzusi ===== */
+.sa-start__topic {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(254, 145, 0, 0.08);
+  border: 1px solid rgba(254, 145, 0, 0.28);
+}
+
+.sa-start__topic-label {
+  font-family: noto-sb, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.sa-start__topic-value {
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  color: var(--color-primary);
+  overflow-wrap: anywhere;
+}
+
+/* ===== LESSON CONTROL ===== */
+.lesson-control-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 12px 20px;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 16px;
+  z-index: 90;
+}
+
+.lesson-btn {
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  border: none;
+  font-family: noto-b, sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  min-width: 220px;
+  justify-content: space-between;
+}
+
+.btn-start {
+  background: var(--primary-color);
+  color: white;
+}
+.btn-end {
+  background: var(--absent-color);
+  color: white;
+}
+.btn-disabled {
+  background: #d5dae0;
+  color: #6b7280;
+  cursor: not-allowed;
+  justify-content: center;
+}
+
+/* Dars boshlanmagan bo'lsa kataklar bosilmasligini bildiradi */
+.attendance-cell.cell-locked .attendance-dot,
+.card-day-col.cell-locked .attendance-dot {
+  cursor: not-allowed;
+}
+.attendance-cell.cell-locked .attendance-dot:hover,
+.card-day-col.cell-locked .attendance-dot:hover {
+  transform: none;
+}
+
+/* Bugungi dars kuni — ustun ajratib ko'rsatiladi (o'qituvchi qaysi katakni bosishini darhol ko'radi). */
+.attendance-col-header.is-today,
+.attendance-cell.is-today {
+  background: rgba(254, 145, 0, 0.1);
+}
+.attendance-col-header.is-today {
+  box-shadow: inset 0 3px 0 var(--primary-color);
+}
+.attendance-col-header.is-today .weekday-header,
+.attendance-col-header.is-today .date-header {
+  color: var(--primary-color);
+}
+.attendance-table tbody tr:hover .attendance-cell.is-today {
+  background: rgba(254, 145, 0, 0.16);
+}
+
+.card-day-col.is-today {
+  background: rgba(254, 145, 0, 0.14);
+}
+.card-day-col.is-today .card-weekday,
+.card-day-col.is-today .card-date {
+  color: var(--primary-color);
+}
+
+/* ===== GROUP SELECTOR ===== */
+.group-selector-wrapper {
+  margin-bottom: 20px;
+}
+
+.group-selector-title {
+  font-family: noto-b, sans-serif;
+  font-size: 20px;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.group-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+/* ===== GROUP CARD ===== */
+.group-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1.5px solid #e2eaf4;
+  box-shadow: 0 2px 12px 0 rgba(63, 136, 201, 0.07);
+  padding: 18px 20px 14px 20px;
+  max-width: 520px;
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s,
+    transform 0.15s;
+  outline: none;
+  position: relative;
+}
+
+.group-card:hover,
+.group-card:focus {
+  box-shadow: 0 6px 24px 0 rgba(63, 136, 201, 0.15);
+  border-color: #3f88c9;
+  transform: translateY(-2px);
+}
+
+.group-card__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.group-card__title {
+  font-size: 17px;
+  font-family: noto-b, sans-serif;
+  color: var(--color-primary);
+  letter-spacing: 0.01em;
+}
+
+.group-card__date-badge {
+  background: #f0f7ff;
+  color: #3f88c9;
+  border: 1.5px solid #c8e0f7;
+  border-radius: var(--radius-sm);
+  padding: 3px 12px;
+  font-size: 13px;
+  font-family: noto-sb, sans-serif;
+  white-space: nowrap;
+}
+
+.group-card__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 12px;
+}
+
+.group-card__item {
+  background: #fff8f0;
+  border-radius: 10px;
+  padding: 9px 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 54px;
+}
+
+.group-card__item-icon {
+  width: 30px;
+  height: 30px;
+  background: #ffe5c2;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-accent);
+  font-size: 14px;
+  margin-top: 1px;
+}
+
+.group-card__item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.group-card__item-label {
+  font-size: 10px;
+  font-family: noto-b, sans-serif;
+  color: #a0aec0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  display: block;
+}
+
+.group-card__item-value {
+  font-size: 13px;
+  font-family: noto-b, sans-serif;
+  color: #1a202c;
+  line-height: 1.3;
+  display: block;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Pastki suzuvchi `MobileTabBar` (≤900px, pastdan 12px + ~64px balandlik)
+   tufayli fikslangan dars-boshqaruv paneli uning USTIDA turishi kerak. */
+@media (max-width: 900px) {
+  .lesson-control-fixed {
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (max-width: 768px) {
+  .attendance-container {
+    margin-left: 0 !important;
+    padding: 0 0 24px 0;
+  }
+
+  /* dars-boshqaruv paneli bo'lsa: pastda suzuvchi tab bar (~88) + panel (~64) uchun joy */
+  .attendance-container.has-lesson-controls {
+    padding-bottom: 164px;
+  }
+
+  /* To'q sariq panel telefonda: 100px gap va 50px yon padding o'rniga ixcham,
+     ustma-ust joylashuv. */
+  .attendance-header {
+    flex-direction: column;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 0;
+    margin-bottom: 16px;
+  }
+
+  .attendance-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .year-selector {
+    align-self: center;
+  }
+
+  /* Oylar bitta gorizontal scroll qatoriga (ustunga tushmasin) */
+  .month-pills {
+    flex-wrap: nowrap;
+    max-width: 100%;
+    gap: 6px;
+  }
+
+  .attendance-legend {
+    gap: 8px 14px;
+  }
+
+  .legend-item {
+    font-size: 13px;
+  }
+
+  .desktop-table-container {
+    display: none;
+  }
+
+  .mobile-cards {
+    display: flex;
+    padding: 0 12px;
+    margin-bottom: 12px;
+  }
+
+  .card-day-col {
+    min-width: 36px;
+  }
+
+  .lesson-control-fixed {
+    flex-direction: column;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .lesson-btn {
+    width: 100%;
+    min-width: unset;
+    border-radius: var(--radius-md);
+  }
+}

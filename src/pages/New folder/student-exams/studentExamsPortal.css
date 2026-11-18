@@ -1,0 +1,175 @@
+.sep-page {
+  width: auto;
+  margin-top: 50px !important;
+  margin-left: 140px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Stats row */
+.sep-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.sep-stat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+}
+
+.sep-stat-label {
+  font-size: 13px;
+  color: #555;
+  font-family: noto-m, sans-serif;
+  margin-bottom: 8px;
+}
+
+.sep-stat-value {
+  font-size: 22px;
+  font-family: noto-b, sans-serif;
+  color: var(--color-primary);
+}
+
+/* Section card */
+.sep-section {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+}
+
+.sep-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px;
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  color: var(--color-primary);
+  border-bottom: 1px solid #f0f0f0;
+  letter-spacing: 0.3px;
+}
+
+.sep-info-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #228be6;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-style: italic;
+  font-family: Georgia, serif;
+  font-family: noto-b, sans-serif;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Table */
+/* Bazaviy th/td ko'rinishi endi `.data-table` (`primitives.css`). */
+
+.sep-empty {
+  text-align: center;
+  padding: 28px;
+  color: #aaa;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+}
+
+/* Action buttons */
+.sep-btn {
+  padding: 7px 18px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.sep-btn-active {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.sep-btn-active:hover {
+  opacity: 0.88;
+}
+
+.sep-btn-done {
+  background: #aaa;
+  color: #fff;
+  cursor: default;
+}
+
+/* Result badges */
+.sep-badge {
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: var(--radius-lg);
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+}
+
+.sep-badge-pass {
+  background: #e6f9ec;
+  color: var(--color-success);
+}
+
+.sep-badge-fail {
+  background: #fff0f0;
+  color: #e03131;
+}
+
+/* Responsive: 1920px -> 768px */
+@media (max-width: 1600px) {
+  .sep-page {
+    margin-left: 110px !important;
+  }
+}
+
+@media (max-width: 1400px) {
+  .sep-page {
+    margin-left: 100px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .sep-page {
+    margin-left: 92px !important;
+  }
+  .sep-section {
+    overflow-x: auto;
+  }
+  .sep-table {
+    min-width: 640px;
+  }
+}
+
+@media (max-width: 992px) {
+  .sep-page {
+    margin-left: 90px !important;
+    margin-right: 16px !important;
+  }
+  .sep-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sep-page {
+    margin-left: 88px !important;
+    margin-right: 12px !important;
+    margin-top: 24px !important;
+  }
+  .sep-stats {
+    grid-template-columns: 1fr;
+  }
+}

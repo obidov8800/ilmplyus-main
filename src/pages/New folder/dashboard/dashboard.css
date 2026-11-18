@@ -1,0 +1,2655 @@
+/* ── Layout ─────────────────────────────────────────────────────────────── */
+.dashboard {
+  margin-left: 140px !important;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 0 40px;
+  font-family: noto-m, sans-serif;
+}
+
+.dashboard p,
+.dashboard span,
+.dashboard td,
+.dashboard th,
+.dashboard li,
+.dashboard label,
+.dashboard button {
+  font-family: noto-m, sans-serif;
+}
+
+.dashboard h1,
+.dashboard h2,
+.dashboard h3 {
+  font-family: noto-sb, sans-serif;
+}
+
+/* ── Tab navigation ─────────────────────────────────────────────────────── */
+.dash-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #e8edf2;
+  margin-bottom: 28px;
+  scrollbar-width: none;
+}
+.dash-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.dash-tabs__list {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+}
+.dash-tabs__list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tab strip o'ng tomonidagi tugmalar (PDF eksport + sozlamalar) */
+.dash-tabs__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+/* Settings gear button */
+.dash-settings-btn,
+.dash-export-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: -2px;
+  background: none;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  color: #64748b;
+  cursor: pointer;
+  font-size: 15px;
+  flex-shrink: 0;
+  transition:
+    color 0.18s,
+    border-color 0.18s,
+    background 0.18s;
+}
+.dash-settings-btn:hover,
+.dash-export-btn:hover:not(:disabled) {
+  color: #6366f1;
+  border-color: #6366f1;
+  background: #f5f3ff;
+}
+.dash-export-btn:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+.dash-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px;
+  background: none;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  margin-bottom: -2px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #64748b;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color 0.18s,
+    border-color 0.18s;
+}
+.dash-tab:hover {
+  color: #1e293b;
+}
+.dash-tab--active {
+  color: #1e293b;
+  font-family: noto-b, sans-serif;
+  border-bottom-color: var(--tab-color, #3b82f6);
+}
+
+.dash-tab__dot {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Tab content wrapper ─────────────────────────────────────────────────── */
+.dash-tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Stat cards row ──────────────────────────────────────────────────────── */
+.dash-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.dash-stat-card {
+  position: relative;
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px 20px 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dash-stat-card__bg {
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  opacity: 0.12;
+}
+.dash-stat-card__bg--blue {
+  background: #3b82f6;
+}
+.dash-stat-card__bg--green {
+  background: #22c55e;
+}
+.dash-stat-card__bg--indigo {
+  background: #6366f1;
+}
+.dash-stat-card__bg--red {
+  background: #ef4444;
+}
+
+.dash-stat-card__label {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.dash-stat-card__value {
+  font-size: 32px;
+  font-family: noto-b, sans-serif;
+  color: #1e293b;
+  margin: 0;
+  line-height: 1.1;
+}
+.dash-stat-card__value--green {
+  color: #16a34a;
+}
+.dash-stat-card__value--red {
+  color: #dc2626;
+}
+
+.dash-stat-card__sub {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
+.dash-stat-card__sub--green {
+  color: #16a34a;
+}
+
+/* ── Generic card ────────────────────────────────────────────────────────── */
+.dash-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  /* Ba'zi kartalar ichida jadval bor (`.oqit-table`, `.oquv-table`...) —
+     torroq ekranda ustunlar sig'masa butun sahifa emas, shu karta o'zi
+     gorizontal scroll qilsin. */
+  overflow-x: auto;
+}
+
+.dash-card__title {
+  font-size: 17px;
+  font-family: noto-b, sans-serif;
+  color: #1e293b;
+  margin: 0 0 16px;
+}
+
+/* ── Mid row (chart + goals) ─────────────────────────────────────────────── */
+.dash-mid-row {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 20px;
+  /* Ikkala karta bir xil balandlikda bo'lsin — biri bo'sh (ma'lumotsiz) bo'lsa
+     ham qatordagi baland kartaga tenglashadi. */
+  align-items: stretch;
+}
+.dash-mid-row > .dash-card {
+  height: 100%;
+}
+/* "Ma'lumot yo'q" holati — cho'zilgan kartani to'liq egallaydi, shunda matn
+   karta markazida turadi va yonidagi baland karta bilan tenglashganda pastda
+   bo'sh oq joy qolmaydi. Ma'lumot bo'lganda (grafik/jadval) bu qoida
+   umuman qo'llanmaydi. */
+.dash-mid-row > .dash-card:has(> .dash-empty) {
+  display: flex;
+  flex-direction: column;
+}
+.dash-mid-row > .dash-card > .dash-empty {
+  flex: 1;
+}
+.dash-mid-row__chart {
+  min-height: 360px;
+}
+
+/* ── Goals ───────────────────────────────────────────────────────────────── */
+.dash-goals {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dash-goal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.dash-goal__name {
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #334155;
+}
+.dash-goal__pct {
+  font-size: 15px;
+  font-family: noto-b, sans-serif;
+}
+.dash-goal__track {
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.dash-goal__fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dash-goal__meta {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* ── Alert cards ─────────────────────────────────────────────────────────── */
+.dash-alerts {
+  display: grid;
+  /* Ogohlantirishlar soni o'zgaruvchan (0..7) — ustunlar joyga qarab
+     moslashadi, kartalar bir qatorda bir xil balandlikda cho'ziladi. */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+.dash-alert {
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.dash-alert--red {
+  background: #fff0f0;
+}
+.dash-alert--green {
+  background: #f0fdf4;
+}
+.dash-alert--blue {
+  background: #eff6ff;
+}
+
+.dash-alert__icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 14px;
+}
+.dash-alert--red .dash-alert__icon {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.dash-alert--green .dash-alert__icon {
+  background: #dcfce7;
+  color: #16a34a;
+}
+.dash-alert--blue .dash-alert__icon {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.dash-alert__title {
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  color: #1e293b;
+  margin: 0 0 4px;
+}
+.dash-alert__body {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Tooltip ─────────────────────────────────────────────────────────────── */
+.dash-tooltip {
+  background: #1e293b;
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+.dash-tooltip__label {
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.dash-tooltip__row {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dash-tooltip__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Sotuv tab ───────────────────────────────────────────────────────────── */
+.dash-mid-row--sotuv {
+  grid-template-columns: 1fr 320px;
+}
+.dash-mid-row__voronka {
+  overflow: visible;
+}
+.dash-sotuv-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+/* O'ng ustun (demografiya + shartnoma) chapdagi baland voronka kartasiga
+   to'liq tenglashadi: `align-items: stretch` konteynerni allaqachon cho'zadi,
+   birinchi karta esa qolgan bo'sh joyni egallab, ikkala ustun bir sathda
+   tugaydi. */
+.dash-mid-row--sotuv > .dash-sotuv-right {
+  height: 100%;
+}
+.dash-sotuv-right > .dash-card:first-child {
+  flex: 1;
+}
+
+/* Voronka controls */
+.voronka-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.voronka-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 4px;
+  flex-wrap: wrap;
+}
+.voronka-tab {
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #64748b;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.voronka-tab:hover {
+  color: #1e293b;
+}
+.voronka-tab--active {
+  background: #fff;
+  color: #1e293b;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+.voronka-tab--rad.voronka-tab--active {
+  color: #e11d48;
+}
+.voronka-tab--rad {
+  color: #e11d48;
+}
+
+/* Toggle switch */
+.voronka-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.voronka-toggle__label {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #94a3b8;
+  transition: color 0.15s;
+}
+.voronka-toggle__label--active {
+  color: #1e293b;
+  font-family: noto-m, sans-serif;
+}
+.voronka-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: #e2e8f0;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background 0.2s;
+  padding: 0;
+  flex-shrink: 0;
+}
+.voronka-switch--on {
+  background: #3b82f6;
+}
+.voronka-switch__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  transition: left 0.2s;
+}
+.voronka-switch--on .voronka-switch__knob {
+  left: 23px;
+}
+
+/* ── Demographics ─────────────────────────────────────────────────────────── */
+.demo-gender {
+  margin-bottom: 16px;
+}
+.demo-gender__labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.demo-gender__male,
+.demo-gender__female {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.demo-gender__male {
+  color: #3b82f6;
+}
+.demo-gender__female {
+  color: #ec4899;
+}
+
+.demo-gender__track {
+  height: 10px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  display: flex;
+}
+.demo-gender__fill--male {
+  background: #3b82f6;
+  transition: width 0.5s;
+}
+.demo-gender__fill--female {
+  background: #f9a8d4;
+  transition: width 0.5s;
+}
+
+.demo-gender__counts {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.demo-subtitle {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #475569;
+  margin: 0 0 8px;
+}
+.demo-donut-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.demo-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.demo-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #475569;
+}
+.demo-legend__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ── Contracts card ──────────────────────────────────────────────────────── */
+.dash-contracts-card {
+  padding: 20px 24px;
+}
+.dash-contracts-card__label {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #64748b;
+  margin: 0 0 4px;
+}
+.dash-contracts-card__value {
+  font-family: noto-b, sans-serif;
+  font-size: 26px;
+  color: #16a34a;
+  margin: 0 0 12px;
+}
+.dash-contracts-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #64748b;
+}
+.dash-contracts-card__cac {
+  font-family: noto-m, sans-serif;
+  color: #334155;
+}
+
+/* ── IP Telephony ────────────────────────────────────────────────────────── */
+
+.telefon-body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.telefon-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.telefon-stat {
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.telefon-stat--blue {
+  background: #eff6ff;
+}
+.telefon-stat--green {
+  background: #f0fdf4;
+}
+.telefon-stat--yellow {
+  background: #fffbeb;
+}
+.telefon-stat--red {
+  background: #fff0f0;
+}
+
+.telefon-stat__label {
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  margin: 0 0 4px;
+}
+.telefon-stat--blue .telefon-stat__label {
+  color: #2563eb;
+}
+.telefon-stat--green .telefon-stat__label {
+  color: #16a34a;
+}
+.telefon-stat--yellow .telefon-stat__label {
+  color: #d97706;
+}
+.telefon-stat--red .telefon-stat__label {
+  color: #dc2626;
+}
+
+.telefon-stat__value {
+  font-family: noto-b, sans-serif;
+  font-size: 24px;
+  margin: 0;
+  color: #1e293b;
+}
+
+.telefon-legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.telefon-legend__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+.telefon-legend__btn--active-blue {
+  border-color: #3b82f6;
+  color: #2563eb;
+}
+.telefon-legend__btn--active-green {
+  border-color: #22c55e;
+  color: #16a34a;
+}
+
+.telefon-legend__box {
+  width: 14px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.telefon-legend__box--blue {
+  background: #3b82f6;
+}
+.telefon-legend__box--green {
+  background: #22c55e;
+}
+
+/* ── Generic helpers ─────────────────────────────────────────────────────── */
+.dash-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #94a3b8;
+}
+.dash-loading {
+  padding: 60px;
+  text-align: center;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #94a3b8;
+}
+.dash-card__sub {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  margin: -8px 0 12px;
+}
+
+/* ── O'quvchilar tab ─────────────────────────────────────────────────────── */
+.oquv-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.oquv-chart-legend {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.oquv-chart-legend__item {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+}
+.oquv-chart-legend__item--green {
+  color: #16a34a;
+}
+.oquv-chart-legend__item--red {
+  color: #dc2626;
+}
+
+.oquv-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  font-family: noto-sb, sans-serif;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.oquv-medal {
+  margin-right: 6px;
+  font-size: 16px;
+}
+.oquv-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.oquv-table thead th {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #f1f5f9;
+}
+.oquv-table tbody tr {
+  border-bottom: 1px solid #f8fafc;
+  transition: background 0.15s;
+}
+.oquv-table tbody tr:last-child {
+  border-bottom: none;
+}
+.oquv-table tbody tr:hover {
+  background: #f8fafc;
+}
+.oquv-table tbody td {
+  padding: 12px 12px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #334155;
+  vertical-align: middle;
+}
+.oquv-table__group {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #64748b;
+}
+.oquv-table__score {
+  font-family: noto-b, sans-serif;
+  font-size: 15px;
+  color: #1e293b;
+}
+
+/* ── O'qituvchilar tab ───────────────────────────────────────────────────── */
+/* Matritsa endi BARCHA xodimni ko'rsatadi — ro'yxat uzun bo'lsa jadval o'zi
+   vertikal scroll qilsin, karta cho'zilib ketmasin. Sarlavha yopishib turadi. */
+.oqit-table-wrap {
+  max-height: 420px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  border-radius: 10px;
+}
+.oqit-table-wrap .oqit-table {
+  margin-bottom: 0;
+}
+.oqit-table-wrap .oqit-table thead th {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
+}
+.oqit-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+}
+.oqit-table thead th {
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #f1f5f9;
+}
+.oqit-table tbody tr {
+  border-bottom: 1px solid #f8fafc;
+  transition: background 0.15s;
+}
+.oqit-table tbody tr:last-child {
+  border-bottom: none;
+}
+.oqit-table tbody tr:hover {
+  background: #f8fafc;
+}
+.oqit-table tbody td {
+  padding: 12px 12px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #334155;
+  vertical-align: middle;
+}
+.oqit-table__sub {
+  font-size: 13px;
+  color: #64748b;
+}
+.oqit-emp-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.oqit-emp-cell__avatar {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: noto-b, sans-serif;
+  font-size: 12px;
+}
+.oqit-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.oqit-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.oqit-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 8px;
+  border-top: 1px solid #f1f5f9;
+  flex-wrap: wrap;
+}
+.oqit-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Rooms section */
+.rooms-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.rooms-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.rooms-day-btns,
+.rooms-filter-btns {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 4px;
+  gap: 2px;
+}
+.rooms-day-btn,
+.rooms-filter-btn {
+  padding: 7px 14px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #64748b;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  white-space: nowrap;
+}
+.rooms-day-btn:hover,
+.rooms-filter-btn:hover {
+  color: #1e293b;
+}
+.rooms-day-btn--active {
+  background: #ff8c00;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255, 140, 0, 0.3);
+}
+.rooms-filter-btn--active {
+  background: #fff;
+  color: #1e293b;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.room-card {
+  border: 1.5px solid #e8edf2;
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.room-card:hover {
+  border-color: #c7d2fe;
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.08);
+}
+.room-card--band {
+  border-color: #fca5a5;
+}
+.room-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.room-card__name {
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.room-card__badge {
+  font-family: noto-sb, sans-serif;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+}
+.room-card__badge--bosh {
+  background: #dcfce7;
+  color: #16a34a;
+}
+.room-card__badge--band {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.room-card__course {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #334155;
+  margin: 0;
+}
+.room-card__teacher {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.room-card__free {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #16a34a;
+  margin: 0;
+}
+.room-card__prog-track {
+  height: 4px;
+  background: #f1f5f9;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin: 4px 0;
+}
+.room-card__prog-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width 0.4s;
+}
+.room-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  color: #94a3b8;
+  gap: 4px;
+}
+.room-card__footer i {
+  margin-right: 3px;
+}
+
+/* ── Moliya tab ───────────────────────────────────────────────────────────── */
+.moliya-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.moliya-table thead th {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #f1f5f9;
+}
+.moliya-table tbody tr {
+  border-bottom: 1px solid #f8fafc;
+}
+.moliya-table tbody tr:last-child {
+  border-bottom: none;
+}
+.moliya-table tbody td {
+  padding: 13px 12px;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #334155;
+  vertical-align: middle;
+}
+.moliya-badge {
+  display: inline-flex;
+  padding: 3px 10px;
+  border-radius: 7px;
+  font-family: noto-sb, sans-serif;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.shlyuz-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.shlyuz-card {
+  border: 1.5px solid #e8edf2;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.shlyuz-card__label {
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  margin: 0;
+  text-transform: uppercase;
+}
+.shlyuz-card__pct {
+  font-family: noto-b, sans-serif;
+  font-size: 24px;
+  margin: 0;
+}
+
+/* ── Coming soon ─────────────────────────────────────────────────────────── */
+.dash-coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 300px;
+  color: #cbd5e1;
+  font-family: noto-m, sans-serif;
+  font-size: 16px;
+}
+.dash-coming-soon i {
+  font-size: 48px;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 1280px) {
+  .dash-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dash-mid-row {
+    grid-template-columns: 1fr;
+  }
+  .dash-mid-row--sotuv {
+    grid-template-columns: 1fr;
+  }
+  .dash-sotuv-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard {
+    margin-left: 0 !important;
+    padding: 0 0 32px;
+  }
+  .dash-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .dash-alerts {
+    grid-template-columns: 1fr;
+  }
+  .telefon-body {
+    grid-template-columns: 1fr;
+  }
+  .telefon-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .telefon-stat {
+    flex: 1 1 calc(50% - 5px);
+  }
+}
+
+@media (max-width: 900px) {
+  .rooms-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .dash-stats-row {
+    grid-template-columns: 1fr;
+  }
+  .dash-tab {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+  .dash-sotuv-right {
+    grid-template-columns: 1fr;
+  }
+  .voronka-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .rooms-grid {
+    grid-template-columns: 1fr;
+  }
+  .shlyuz-grid {
+    grid-template-columns: 1fr;
+  }
+  .oquv-chart-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .rooms-header {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Tab strip'ni yanada ixchamlashtiramiz — gorizontal scroll bilan
+     ko'proq tab ko'rinsin. */
+  .dash-tab {
+    padding: 11px 9px;
+    font-size: 12.5px;
+    gap: 5px;
+  }
+  .dash-tabs {
+    margin-bottom: 18px;
+  }
+  .dash-tabs__actions {
+    gap: 6px;
+    margin-left: 4px;
+  }
+  .dash-settings-btn,
+  .dash-export-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+}
+
+/* ── Dashboard Settings Modal (DSM) ─────────────────────────────────────── */
+.dsm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.dsm-modal {
+  background: #fff;
+  border-radius: var(--radius-md);
+  width: 100%;
+  max-width: 740px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+  overflow: hidden;
+}
+
+/* Header */
+.dsm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1.5px solid #f1f5f9;
+}
+.dsm-title {
+  font-family: noto-sb, sans-serif;
+  font-size: 17px;
+  color: #1e293b;
+  margin: 0;
+}
+.dsm-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #f1f5f9;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #64748b;
+  cursor: pointer;
+  font-size: 14px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.dsm-close:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+/* Section tabs */
+.dsm-sections {
+  display: flex;
+  gap: 4px;
+  padding: 12px 24px 0;
+  border-bottom: 1.5px solid #f1f5f9;
+}
+.dsm-section-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 18px;
+  background: none;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  margin-bottom: -1.5px;
+  font-family: noto-m, sans-serif;
+  font-size: 13.5px;
+  color: #64748b;
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+.dsm-section-tab:hover {
+  color: #6366f1;
+}
+.dsm-section-tab--active {
+  color: #6366f1;
+  border-bottom-color: #6366f1;
+}
+
+/* Body */
+.dsm-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+.dsm-hint {
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* Table */
+.dsm-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.dsm-table th {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1.5px solid #f1f5f9;
+}
+.dsm-table td {
+  padding: 10px 10px;
+  border-bottom: 1px solid #f8fafc;
+  vertical-align: middle;
+}
+.dsm-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Tab dot indicator */
+.dsm-tab-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 7px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.dsm-default-label {
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #334155;
+  display: flex;
+  align-items: center;
+}
+
+/* Name input */
+.dsm-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 13.5px;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+.dsm-input:focus {
+  border-color: #6366f1;
+}
+.dsm-input::placeholder {
+  color: #cbd5e1;
+}
+
+/* Reset button */
+.dsm-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 7px;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 13px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.dsm-reset-btn:hover {
+  background: #fef9c3;
+  color: #ca8a04;
+}
+
+/* Visibility table */
+.dsm-vis-wrap {
+  overflow-x: visible;
+}
+.dsm-vis-table {
+  width: 100%;
+  table-layout: fixed;
+}
+.dsm-vis-th {
+  text-align: center !important;
+  white-space: normal;
+  word-break: break-word;
+  font-size: 11px;
+  padding: 8px 4px;
+}
+.dsm-vis-row {
+  transition: background 0.12s;
+}
+.dsm-vis-row:hover td {
+  background: #f8fafc;
+}
+.dsm-vis-row--admin td {
+  background: #f8fafc;
+}
+
+.dsm-role-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 110px;
+}
+.dsm-role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: #f1f5f9;
+  border-radius: var(--radius-lg);
+  font-family: noto-m, sans-serif;
+  font-size: 12.5px;
+  color: #475569;
+}
+.dsm-role-badge--admin {
+  background: #ede9fe;
+  color: #6366f1;
+}
+.dsm-locked-note {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.dsm-check-cell {
+  text-align: center;
+  vertical-align: middle;
+}
+.dsm-check--locked {
+  color: #22c55e;
+  font-size: 15px;
+}
+.dsm-checkbox {
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+  accent-color: #6366f1;
+}
+
+.dsm-empty {
+  text-align: center;
+  color: #94a3b8;
+  font-family: noto-m, sans-serif;
+  padding: 24px;
+}
+
+/* Footer */
+.dsm-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px;
+  border-top: 1.5px solid #f1f5f9;
+}
+.dsm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.dsm-btn--cancel {
+  background: #f1f5f9;
+  color: #64748b;
+}
+.dsm-btn--cancel:hover {
+  background: #e2e8f0;
+}
+.dsm-btn--save {
+  background: #6366f1;
+  color: #fff;
+}
+.dsm-btn--save:hover {
+  background: #4f46e5;
+}
+
+/* ── Global filtr paneli (davr + filial) ────────────────────────────────── */
+.dash-tabs:has(+ .dash-filter) {
+  margin-bottom: 14px;
+}
+.dash-filter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-bottom: 24px;
+}
+.dash-filter__periods {
+  display: inline-flex;
+  gap: 3px;
+  padding: 4px;
+  background: #f1f5f9;
+  border-radius: 11px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.dash-filter__periods::-webkit-scrollbar {
+  display: none;
+}
+.dash-filter__chip {
+  padding: 7px 13px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #64748b;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.dash-filter__chip:hover {
+  color: #1e293b;
+}
+.dash-filter__chip--active {
+  background: #fff;
+  color: #1e293b;
+  font-family: noto-b, sans-serif;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+}
+.dash-filter__range {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.dash-filter__range .date-input {
+  width: 160px;
+}
+/* `DateInput` o'zi chegara/fon bermaydi (chaqiruvchi `className`/`.date-input__field`
+   orqali beradi) — panel filtrida uni `.dash-filter__select` bilan bir xil qilamiz. */
+.dash-filter__range .date-input__field {
+  width: 100%;
+  padding: 7px 34px 7px 10px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #334155;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+.dash-filter__range .date-input__field:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+.dash-filter__range .date-input__toggle {
+  color: #94a3b8;
+}
+.dash-filter__range-sep {
+  color: #94a3b8;
+}
+.dash-filter__right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-left: auto;
+}
+.dash-filter__branch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.dash-filter__branch-label {
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+.dash-filter__select {
+  padding: 7px 10px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  max-width: 220px;
+}
+.dash-filter__select:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+.dash-filter__hint {
+  font-family: noto-m, sans-serif;
+  font-size: 12.5px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+/* O'sish/pasayish badge — oldingi davrga nisbatan (`GrowthBadge`). */
+.dash-growth {
+  font-family: noto-sb, sans-serif;
+  font-size: 11px;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+.dash-growth--good {
+  color: #16a34a;
+}
+.dash-growth--bad {
+  color: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .dash-filter {
+    align-items: stretch;
+  }
+  .dash-filter__periods {
+    order: 1;
+  }
+  .dash-filter__range {
+    order: 2;
+    width: 100%;
+  }
+  .dash-filter__range .date-input {
+    flex: 1 1 auto;
+    width: auto;
+  }
+  .dash-filter__right {
+    order: 3;
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .dash-filter__branch {
+    flex: 1 1 auto;
+  }
+  .dash-filter__select {
+    flex: 1 1 auto;
+    max-width: none;
+  }
+  .dash-filter__hint {
+    width: 100%;
+  }
+}
+
+/* ── "Batafsil / Hammasini ko'rish" drill-down oynasi (DDM) ─────────────── */
+.dash-card__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.dash-detail-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 12.5px;
+  color: #475569;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    background 0.15s;
+}
+.dash-detail-btn:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+  background: #f5f3ff;
+}
+
+.ddm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+.ddm-modal {
+  background: #fff;
+  border-radius: var(--radius-md);
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+  overflow: hidden;
+}
+.ddm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px 14px;
+  border-bottom: 1.5px solid #f1f5f9;
+}
+.ddm-title {
+  margin: 0;
+  font-family: noto-sb, sans-serif;
+  font-size: 16px;
+  color: #1e293b;
+}
+.ddm-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  color: #64748b;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.ddm-close:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+.ddm-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.ddm-search {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.ddm-search i {
+  position: absolute;
+  left: 12px;
+  color: #94a3b8;
+  font-size: 13px;
+  pointer-events: none;
+}
+.ddm-search input {
+  width: 100%;
+  padding: 9px 12px 9px 34px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 9px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: #334155;
+}
+.ddm-search input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+.ddm-export {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 9px;
+  background: #6366f1;
+  color: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+}
+.ddm-export:hover {
+  background: #4f46e5;
+}
+.ddm-export:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ddm-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 22px 16px;
+}
+.ddm-table-wrap {
+  overflow-x: auto;
+}
+.ddm-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ddm-table thead th {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  padding: 10px 12px;
+  border-bottom: 1.5px solid #f1f5f9;
+  white-space: nowrap;
+}
+.ddm-th--sortable {
+  cursor: pointer;
+  user-select: none;
+}
+.ddm-th--sortable:hover {
+  color: #475569;
+}
+.ddm-sort-arrow {
+  color: #6366f1;
+}
+.ddm-table tbody td {
+  padding: 11px 12px;
+  font-family: noto-m, sans-serif;
+  font-size: 13.5px;
+  color: #334155;
+  border-bottom: 1px solid #f8fafc;
+  vertical-align: middle;
+}
+.ddm-table tbody tr:hover {
+  background: #f8fafc;
+}
+.ddm-cards {
+  display: none;
+}
+.ddm-footer {
+  border-top: 1.5px solid #f1f5f9;
+  padding: 10px 16px;
+}
+
+@media (max-width: 768px) {
+  .ddm-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .ddm-modal {
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 18px 18px 0 0;
+  }
+  .ddm-toolbar {
+    flex-wrap: wrap;
+  }
+  .ddm-export {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  .ddm-table-wrap {
+    display: none;
+  }
+  .ddm-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 8px;
+  }
+}
+
+/* ── IP telefon statistikasi (Sotuv tab) ───────────────────────────────── */
+.tel-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 4px 0 14px;
+}
+.tel-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+.tel-tile__value {
+  font-family: noto-b, sans-serif;
+  font-size: 20px;
+  color: #1e293b;
+}
+.tel-tile__label {
+  font-family: noto-m, sans-serif;
+  font-size: 11.5px;
+  color: #64748b;
+}
+.tel-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tel-bar__head {
+  display: flex;
+  justify-content: space-between;
+  font-family: noto-m, sans-serif;
+  font-size: 12.5px;
+  color: #475569;
+  margin-bottom: 3px;
+}
+.tel-bar__num {
+  color: #94a3b8;
+}
+.tel-bar__track {
+  height: 8px;
+  border-radius: 6px;
+  background: #eef2f7;
+  overflow: hidden;
+}
+.tel-bar__fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s;
+}
+
+@media (max-width: 768px) {
+  .tel-tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 460px) {
+  .tel-tiles {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ══ Vidjetlar gridi ═══════════════════════════════════════════════════════
+   Dashboard bo'limlari qat'iy joylashuv o'rniga vidjetlardan yig'iladi:
+   har bir foydalanuvchi kenglik, balandlik va tartibni o'zi belgilaydi
+   (holat `localStorage` da — `useWidgetLayout`, foydalanuvchi ID si bo'yicha).
+   Boshlang'ich joylashuv eski dizaynni takrorlaydi: 4 ta statistika kartasi bir
+   qatorda (3+3+3+3 ustun), "diagramma + yon karta" qatori 8+4, to'liq qator 12.
+   Oraliqlar ham eskisidek: kartalar orasi 20px, qatorlar orasi 24px.        */
+
+.dash-widgets {
+  display: grid;
+  /* 12 ustun — foydalanuvchi chetidan cho'zganda o'lcham mayin o'zgarsin. */
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px 20px;
+  align-items: stretch;
+}
+
+.dash-widget {
+  /* `minmax(0,1fr)` + `min-width:0` — ichidagi keng jadval yoki diagramma
+     ustunni cho'zib yubormasligi uchun (aks holda 1fr "auto" bo'lib qoladi
+     va butun grid siljiydi). */
+  grid-column: span var(--widget-span, 6);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+}
+
+.dash-widget__body {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  /* Karta soyasi (box-shadow) kesilmasin — eski dizayndagidek ko'rinsin. */
+  overflow: visible;
+  display: flex;
+}
+
+/* Balandlik qo'lda belgilanganda mazmun sig'masa — karta ichida scroll. */
+.dash-widget--sized .dash-widget__body {
+  overflow: auto;
+}
+
+/* "Ma'lumot yo'q" holati — karta cho'zilgan balandlikni to'liq egallasin, matn markazda turadi
+   (eski `.dash-mid-row` qoidasining vidjet varianti). */
+.dash-widget__body > .dash-card:has(> .dash-empty) {
+  display: flex;
+  flex-direction: column;
+}
+.dash-widget__body > .dash-card > .dash-empty {
+  flex: 1;
+}
+
+.dash-widget__body > * {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Diagrammali karta `ResponsiveContainer height="100%"` ishlatadi — kartaning
+   o'zi ham cho'zilishi kerak, aks holda konteyner balandligi 0 bo'ladi. */
+.dash-card--fill {
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+}
+
+.dash-card--fill > .recharts-responsive-container {
+  flex: 1;
+}
+
+/* ── Joylashtirish rejimi ── */
+.dash-widget--editing {
+  outline: 1.5px dashed #c7d2fe;
+  outline-offset: 4px;
+  border-radius: 18px;
+}
+
+/* Tahrir rejimida karta ichidagi tugma/havolalar bosilmasin — sudrash va
+   o'lcham tugmalari bilan chalkashmasligi uchun. */
+.dash-widget--editing .dash-widget__body {
+  pointer-events: none;
+}
+
+.dash-widget--dragging {
+  opacity: 0.45;
+}
+
+.dash-widget__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+  padding: 4px 6px;
+}
+
+.dash-widget__grip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-family: noto-m;
+  color: #475569;
+  cursor: grab;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dash-widget__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.dash-widget__size {
+  font-size: 11px;
+  font-family: noto-m;
+  color: #94a3b8;
+  width: 26px;
+  text-align: center;
+}
+
+.dash-widget__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  background: #fff;
+  color: #64748b;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.dash-widget__btn:hover:not(:disabled) {
+  color: #6366f1;
+  border-color: #6366f1;
+}
+
+.dash-widget__btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.dash-widget__btn--on {
+  color: #6366f1;
+  border-color: #6366f1;
+  background: #eef2ff;
+}
+
+.dash-widget__btn--danger:hover:not(:disabled) {
+  color: #dc2626;
+  border-color: #dc2626;
+}
+
+/* ── Boshqaruv paneli ── */
+.dash-settings-btn--on {
+  color: #6366f1;
+  border-color: #6366f1;
+  background: #eef2ff;
+}
+
+.dash-edit-hint {
+  margin: -12px 0 16px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.dash-widgets__toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.dash-widgets__add-btn,
+.dash-widgets__reset-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  background: #fff;
+  color: #475569;
+  font-size: 13px;
+  font-family: noto-m;
+  cursor: pointer;
+}
+
+.dash-widgets__reset-btn:hover {
+  color: #6366f1;
+  border-color: #6366f1;
+}
+
+.dash-widgets__add-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.dash-widgets__picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+}
+
+.dash-widgets__picker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  border: 1px solid #dbe3ec;
+  background: #fff;
+  color: #334155;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.dash-widgets__picker-item:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.dash-widgets__empty {
+  padding: 40px 0;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* ── Moslashuvchan ustunlar ──
+   Tor ekranda foydalanuvchi qo'ygan kenglik saqlanmaydi (eski dizayndagidek):
+   ≤1280px — statistika kartalari (3 ustun) 2 tadan, qolgan kartalar (≥4 ustun) butun qatorda;
+   ≤600px — hammasi butun qator. Aks holda mazmun (jadval, diagramma) sig'maydi. */
+@media (max-width: 1280px) {
+  .dash-widget {
+    grid-column: span 6;
+  }
+  .dash-widget--wide {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .dash-widget {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ── "Vidjet qo'shish" ro'yxati — kategoriya bo'yicha guruhlangan ── */
+.dash-widgets__picker {
+  display: block;
+}
+
+.dash-widgets__picker-group + .dash-widgets__picker-group {
+  margin-top: 14px;
+}
+
+.dash-widgets__picker-title {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-family: noto-m;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #94a3b8;
+}
+
+.dash-widgets__picker-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ══ Vidjet ichidagi umumiy qismlar (`widgets/ui.tsx`) ═══════════════
+   Panel 45 ta mayda plitkadan 20 ta to'liq blokka o'tdi — endi raqamlar
+   alohida karta emas, karta ICHIDAGI qator bo'lib turadi.              */
+
+.wg-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 14px 18px;
+  margin-bottom: 4px;
+}
+
+.wg-stat__label {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-family: noto-m;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #94a3b8;
+  line-height: 1.3;
+}
+
+.wg-stat__value {
+  margin: 0;
+  font-size: 22px;
+  font-family: noto-b;
+  color: #1e293b;
+  line-height: 1.15;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.wg-stat__sub {
+  margin: 3px 0 0;
+  font-size: 11.5px;
+  color: #94a3b8;
+}
+
+.wg-divider {
+  height: 1px;
+  background: #eef2f7;
+  margin: 16px 0 14px;
+}
+
+/* ── Ulush qatorlari (to'lov usullari, xarajat kategoriyalari...) ── */
+.wg-breakdown {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wg-breakdown__row {
+  display: grid;
+  grid-template-columns: minmax(90px, 1.1fr) minmax(50px, 2fr) auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+}
+
+.wg-breakdown__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #475569;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wg-breakdown__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.wg-breakdown__track {
+  height: 7px;
+  border-radius: 4px;
+  background: #f1f5f9;
+  overflow: hidden;
+}
+
+.wg-breakdown__fill {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.wg-breakdown__value {
+  color: #64748b;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.wg-breakdown__value b {
+  color: #334155;
+  font-family: noto-m;
+  margin-left: 3px;
+}
+
+.wg-breakdown__row--clickable {
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  padding: 4px 6px;
+  margin: 0 -6px;
+  transition: background 0.15s ease;
+}
+.wg-breakdown__row--clickable:hover {
+  background: #f8fafc;
+}
+.wg-breakdown__row--active {
+  background: #f1f5f9;
+}
+.wg-breakdown__row--active .wg-breakdown__name {
+  color: #1e293b;
+  font-family: noto-sb, sans-serif;
+}
+
+/* ── LeadSourcesWidget ("Lidlar kesimi") — chap: tanlangan kesim ustunlari,
+   o'ng: bosilgan segmentning jins doirasi ───────────────────────────────── */
+.lsw-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.lsw-left {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+.lsw-right {
+  flex: 0 0 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+}
+.lsw-right__title {
+  width: 100%;
+  text-align: center;
+  font-family: noto-sb, sans-serif;
+  font-size: 12px;
+  color: #475569;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lsw-gender-legend {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.lsw-gender-legend__row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: noto-m, sans-serif;
+  font-size: 11.5px;
+  color: #64748b;
+}
+.lsw-gender-legend__row b {
+  margin-left: auto;
+  color: #334155;
+  font-family: noto-sb, sans-serif;
+  white-space: nowrap;
+}
+.lsw-gender-legend__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+@media (max-width: 640px) {
+  .lsw-right {
+    flex-basis: 100%;
+  }
+}
+
+/* ── Admin: vidjet ruxsatlari bo'limi ──
+   Rol tanlanadi, so'ng 20 ta vidjet kategoriya bo'yicha belgilanadi.   */
+.dsm-role-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.dsm-role-chip {
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1.5px solid #e2e8f0;
+  background: #fff;
+  color: #475569;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.dsm-role-chip:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.dsm-role-chip--active {
+  background: #eef2ff;
+  border-color: #6366f1;
+  color: #4f46e5;
+  font-family: noto-m;
+}
+
+.dsm-wg-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0 10px;
+}
+
+.dsm-wg-btn {
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1.5px solid #e2e8f0;
+  background: #fff;
+  color: #475569;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.dsm-wg-btn:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.dsm-wg-count {
+  margin-left: auto;
+  font-size: 12.5px;
+  font-family: noto-m;
+  color: #94a3b8;
+}
+
+.dsm-wg-group + .dsm-wg-group {
+  margin-top: 16px;
+}
+
+.dsm-wg-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  font-family: noto-m;
+  color: #64748b;
+}
+
+.dsm-wg-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 8px 14px;
+}
+
+.dsm-wg-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  line-height: 1.35;
+}
+
+/* ── Cho'zish tutqichlari ──
+   Vidjetning o'ng cheti kenglikni, pastki cheti balandlikni, burchak
+   ikkalasini o'zgartiradi. Faqat joylashtirish rejimida ko'rinadi.     */
+.dash-resize {
+  position: absolute;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.15s;
+  touch-action: none;
+}
+
+.dash-widget--editing:hover .dash-resize,
+.dash-widget--resizing .dash-resize {
+  opacity: 1;
+}
+
+.dash-resize--e {
+  top: 8px;
+  right: 0;
+  width: 8px;
+  height: calc(100% - 24px);
+  border-radius: 4px;
+  background: #c7d2fe;
+  cursor: ew-resize;
+}
+
+.dash-resize--s {
+  left: 8px;
+  bottom: 0;
+  height: 8px;
+  width: calc(100% - 24px);
+  border-radius: 4px;
+  background: #c7d2fe;
+  cursor: ns-resize;
+}
+
+.dash-resize--se {
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  background: #6366f1;
+  cursor: nwse-resize;
+}
+
+.dash-resize:hover {
+  background: #6366f1;
+}
+
+/* Cho'zilayotgan vidjet ajralib tursin. */
+.dash-widget--resizing {
+  outline: 2px solid #6366f1;
+  outline-offset: 4px;
+  border-radius: 18px;
+}
+
+/* ── «Sotuv voronkasi» (eski Sotuv bo'limi dizayni) — vidjet kengligiga moslashadi ──
+   Oyna kengligi emas, VIDJETNING o'z kengligi o'lchanadi: foydalanuvchi vidjetni
+   torroq qilib qo'ysa ham ustunlar sig'madan siqilib qolmaydi. */
+.sotuv-old {
+  container-type: inline-size;
+}
+
+@container (max-width: 900px) {
+  .sotuv-old .dash-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sotuv-old .dash-mid-row--sotuv {
+    grid-template-columns: 1fr;
+  }
+  .sotuv-old .dash-mid-row--sotuv > .dash-sotuv-right {
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@container (max-width: 560px) {
+  .sotuv-old .dash-stats-row {
+    grid-template-columns: 1fr;
+  }
+  .sotuv-old .dash-mid-row--sotuv > .dash-sotuv-right {
+    grid-template-columns: 1fr;
+  }
+  .sotuv-old .voronka-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

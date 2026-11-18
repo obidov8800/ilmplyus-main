@@ -1,0 +1,177 @@
+.icp {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.icp__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+  transition: transform 0.12s ease;
+}
+
+.icp__trigger:hover {
+  transform: scale(1.12);
+}
+
+.icp__trigger:disabled {
+  cursor: default;
+  opacity: 0.6;
+  transform: none;
+}
+
+.icp__trigger--empty {
+  background: repeating-conic-gradient(#e5e7eb 0% 25%, #f3f4f6 0% 50%) 0 0 / 8px 8px;
+}
+
+/* Tafsilot oynasidagi "tabletka": oq fon, rang — chapdagi doirada. Butun tabletka
+   bo'yalsa, yozuv qizil/ko'k/binafsha ustida o'qilmay qolardi. */
+.icp--row .icp__trigger {
+  width: auto;
+  height: 32px;
+  padding: 0 12px 0 4px;
+  border-radius: 16px;
+  border: 1.5px solid #e5e7eb;
+  background: #fff;
+  align-self: flex-start;
+}
+
+.icp--row {
+  align-self: flex-start;
+}
+
+.icp--row .icp__trigger::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--icp-color);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+}
+
+.icp--row .icp__trigger--empty::before {
+  background: repeating-conic-gradient(#e5e7eb 0% 25%, #f3f4f6 0% 50%) 0 0 / 8px 8px;
+}
+
+.icp__trigger-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  white-space: nowrap;
+}
+
+/* `document.body`ga portal qilingan — top/left JSdan (tugma o'lchamidan) beriladi. */
+.icp__popover {
+  position: fixed;
+  z-index: 3000;
+  width: 300px;
+  max-width: calc(100vw - 16px);
+  /* Ro'yxat 7 qatorli — past ekranda (telefon yotiq, kichik oyna) ham to'liq
+     yetib borilsin: oynaning o'zi aylanadi, sahifa emas. */
+  max-height: calc(100vh - 16px);
+  max-height: calc(100dvh - 16px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-md, 10px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 10px 12px;
+}
+
+.icp__popover-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+
+/* Rang tanlash ro'yxati: har qatorda rang + nomi + ma'nosi (mijoz turi). */
+.icp__options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.icp__option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.icp__option:hover {
+  background: #f3f4f6;
+}
+
+.icp__option--active {
+  background: #f0f5ff;
+  border-color: #c7d7f5;
+}
+
+.icp__option-dot {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.icp__option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.icp__option-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.icp__option-desc {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #6b7280;
+}
+
+.icp__clear {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 6px 0;
+  border: none;
+  border-top: 1px solid #f0f1f3;
+  background: none;
+  color: #6b7280;
+  font-size: 12.5px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.icp__clear:hover {
+  color: #e53e3e;
+}

@@ -1,0 +1,314 @@
+/* Jarimalar sahifasi.
+   Palitra: primary #2563EB, success #16A34A, danger #DC2626,
+   border #E2E6EB, matn #111827, ikkilamchi #6B7280. */
+
+.pen-container {
+  width: calc(100% - 140px);
+  margin-top: 50px !important;
+  margin-left: 140px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: calc(100vh - 50px);
+  padding-bottom: 34px;
+}
+
+.pen-subtitle {
+  margin: 0;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ---------- Forma maydonlari (jarima kiritish oynasi) ---------- */
+.pen-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 150px;
+}
+
+.pen-field--wide {
+  grid-column: 1 / -1;
+}
+
+.pen-field label {
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.pen-field select,
+.pen-field input,
+.pen-field textarea {
+  padding: 9px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  font-family: noto-r, sans-serif;
+  font-size: 14px;
+  color: #111827;
+  background: #fff;
+  outline: none;
+}
+
+.pen-field select,
+.pen-field input {
+  height: 38px;
+}
+
+.pen-field textarea {
+  resize: vertical;
+}
+
+.pen-field select:focus,
+.pen-field input:focus,
+.pen-field textarea:focus {
+  border-color: var(--color-primary);
+}
+
+.pen-invalid {
+  border-color: #dc2626 !important;
+}
+
+.pen-hint {
+  font-family: noto-r, sans-serif;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+/* ---------- Ogohlantirish ---------- */
+.pen-alert {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  font-family: noto-r, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #92400e;
+}
+
+/* ---------- Tugmalar ---------- */
+.pen-btn {
+  height: 38px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.pen-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pen-btn--sm {
+  height: 30px;
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+.pen-btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.pen-btn--success {
+  background: #16a34a;
+  color: #fff;
+}
+
+.pen-btn--danger {
+  background: #dc2626;
+  color: #fff;
+}
+
+.pen-btn--ghost {
+  background: #fff;
+  border-color: #cbd5e1;
+  color: #374151;
+}
+
+.pen-btn--rm {
+  color: #dc2626;
+}
+
+/* ---------- Jadval ----------
+   Ko'rinish (o'ram, sarlavha, katak) — umumiy `.list-table` (styles/consistency.css). */
+.pen-num {
+  white-space: nowrap;
+}
+
+.pen-code {
+  color: var(--color-primary);
+  font-family: noto-m, sans-serif;
+}
+
+.pen-name {
+  font-family: noto-b, sans-serif;
+}
+
+.pen-position {
+  display: block;
+  color: #b45309;
+}
+
+.pen-type {
+  color: var(--color-primary);
+}
+
+.pen-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.pen-note {
+  max-width: 220px;
+  color: #374151;
+}
+
+.pen-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pen-empty {
+  padding: 24px 0;
+  text-align: center;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ---------- Status badge ---------- */
+.pen-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-family: noto-m, sans-serif;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.pen-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.pen-status--new {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.pen-status--accepted {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.pen-status--cancelled {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* ---------- Modal ---------- */
+.pen-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.pen-modal {
+  width: 100%;
+  max-width: 620px;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pen-modal--sm {
+  max-width: 440px;
+}
+
+.pen-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #e2e6eb;
+}
+
+.pen-modal-head h2 {
+  margin: 0;
+  font-family: noto-b, sans-serif;
+  font-size: 16px;
+  color: #111827;
+}
+
+.pen-modal-close {
+  border: none;
+  background: #f1f5f9;
+  border-radius: var(--radius-sm);
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  line-height: 1;
+  color: #475569;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.pen-modal-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+}
+
+.pen-modal-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid #e2e6eb;
+  background: #f8fafc;
+}
+
+.pen-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+/* ---------- Moslashuv ---------- */
+@media (max-width: 1024px) {
+  .pen-container {
+    width: calc(100% - 90px);
+    margin-left: 90px !important;
+  }
+
+  .pen-form {
+    grid-template-columns: 1fr;
+  }
+}

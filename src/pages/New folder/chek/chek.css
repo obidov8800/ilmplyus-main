@@ -1,0 +1,396 @@
+@font-face {
+  font-family: roboto-mono;
+  src: url(../../assets/fonts/RobotoMono-Bold.ttf);
+}
+
+/* ===== MODAL OVERLAY ===== */
+.chek-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 16px;
+  z-index: 99999;
+  /* Chek ekranga sig'diriladi (`.chek-fit`), shuning uchun scroll kerak emas. */
+  overflow: hidden;
+}
+
+.chek-modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  align-self: flex-start;
+  margin-left: auto;
+  margin-right: auto;
+  /* Kichraytirilgan chek kengligiga tenglashadi, lekin tugmalar siqilib qolmaydi. */
+  width: max(var(--chek-visual-width, 660px), 430px);
+  max-width: 100%;
+}
+
+/* ===== EKRANDA SIG'DIRISH =====
+   `.chek-fit` — tugmalar qatoridan keyin qolgan bo'sh joy. Uning o'lchami
+   masshtabga bog'liq emas, shuning uchun o'lchash barqaror.
+   `.chek-scale` — chekni o'sha joyga sig'adigan qilib vizual kichraytiradi.
+   Chop etishda ikkalasi ham neytrallanadi (@media print). */
+.chek-fit {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.chek-scale {
+  transform: scale(var(--chek-scale, 1));
+  transform-origin: top center;
+}
+
+.chek-action-btn {
+  white-space: nowrap;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  border: none;
+  background-color: var(--color-primary);
+  color: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.chek-action-btn:hover {
+  background-color: #00234a;
+}
+
+.chek-close-btn {
+  background-color: #6b7280;
+  margin-left: auto;
+}
+
+.chek-close-btn:hover {
+  background-color: #4b5563;
+}
+
+.chek {
+  /* Yon bo'shliq: matn va qiymatlar qog'oz chetiga tegib, o'ng tomondan kesilib qolmasin. */
+  --chek-side: 24px;
+  width: 660px !important;
+  height: auto !important;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding-top: 33px;
+  padding-bottom: 64px;
+  padding-left: var(--chek-side);
+  padding-right: var(--chek-side);
+  background: #ffffff;
+}
+
+/* ===== STANDALONE PAGE ===== */
+.chek-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+  min-height: 100vh;
+  background: #f3f4f6;
+  /* `.chek` bu yerda (modaldan farqli) `--chek-scale` bilan kichraytirilmaydi —
+     660px kenglik torroq ekranda shu konteynerning o'zi ichida scroll bo'ladi. */
+  overflow-x: auto;
+}
+
+/* Telefonda chek ekran kengligiga kichraytiriladi (`useWidthFit`): tashqi quti kichraygan o'lchamni egallaydi. */
+.chek-page-fit {
+  flex: none;
+}
+
+.chek-scale--page {
+  width: 660px;
+  transform-origin: top left;
+}
+
+.chek-page-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  width: 660px;
+  max-width: 100%;
+}
+
+.chek-page-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: noto-r, sans-serif;
+  font-size: 16px;
+  color: #666;
+}
+
+.logo {
+  width: 465px;
+  height: 110px;
+  margin: 0 auto;
+}
+
+.naqsh {
+  /* Naqsh chizig'i qog'ozning butun eni bo'ylab (yon bo'shliqdan chiqib) qoladi. */
+  width: 660px;
+  max-width: none;
+  margin: 31px calc(-1 * var(--chek-side)) 32px;
+}
+
+.chek-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chek-row {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  font-family: roboto-mono;
+}
+
+.chek-row span:last-child {
+  text-align: right;
+}
+
+.chek-row span {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 5% !important;
+  line-height: 150%;
+}
+
+.chek-bottom {
+  text-align: center;
+  margin-top: 42px;
+}
+
+.chek-bottom h1 {
+  font-family: roboto-mono;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 6px;
+  font-size: 36px;
+  letter-spacing: 5% !important;
+  line-height: 150%;
+  color: #000;
+}
+
+.chek-bottom p {
+  font-family: roboto-mono;
+  font-weight: 700;
+  font-size: 38px;
+  letter-spacing: 5% !important;
+  line-height: 150%;
+  color: #000;
+}
+
+.qr-code {
+  width: 353px;
+  height: 353px;
+  margin: 15px auto;
+}
+
+@media print {
+  /* DIQQAT: bu ilovada `cssCodeSplit: false` — HAMMA CSS bitta faylga
+     yig'iladi, shuning uchun bu `@media print` bloki HAR BIR sahifada
+     amal qiladi. Ilgari bu yerdagi `@page { size: 58mm }`, `body { width:
+     58mm }` va `body * { visibility: hidden }` qoidalari SKOPLANMAGAN edi
+     — natijada masalan davomat jadvalini chop etganda ham 58mm sahifa
+     tanlanib, butun sahifa yashirilib qolardi ("PDF bo'sh"). Endi bu
+     qoidalar faqat chek modali (`.chek-modal-overlay` — u `createPortal`
+     bilan faqat ochilganda DOM'da bo'ladi) mavjud bo'lganda ishlaydi. */
+  @page chek {
+    size: 58mm auto;
+    margin: 0;
+  }
+
+  html:has(.chek-modal-overlay),
+  body:has(.chek-modal-overlay) {
+    width: 58mm;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: block;
+    overflow: visible;
+  }
+
+  /* Ilovaning qolgan hamma qismi (yon panel, jadval, bildirishnomalar) chop etilmaydi va joy ham egallamaydi —
+     faqat chek qoladi. DIQQAT: ilgari bu yerda `body:has(...) * { visibility: hidden }` va undan keyin
+     `.chek-modal-overlay * { visibility: visible }` edi — birinchisining ustuvorligi (`:has()` argumenti
+     hisobga olinadi) yuqori bo'lgani uchun chekning o'zi ham yashirilib, chop etilganda BO'SH sahifa chiqardi. */
+  body:has(.chek-modal-overlay) > :not(.chek-modal-overlay) {
+    display: none !important;
+  }
+
+  /* Ilovada boshqa bo'limlarning GLOBAL `@media print { body * { visibility: hidden } }` qoidalari bor
+     (masalan `payrollSheets.css`; ishlab chiqarishda hamma CSS bitta faylga yig'iladi) — ular chekni ham
+     yashirmasligi uchun chek (modal va QR orqali ochiladigan sahifa) `!important` bilan ko'rinadigan qilinadi. */
+  .chek-modal-overlay,
+  .chek-modal-overlay *,
+  .chek-page,
+  .chek-page * {
+    visibility: visible !important;
+  }
+
+  .chek-modal-overlay {
+    /* Faqat chek shu 58mm sahifada chop etiladi — boshqa sahifalarning
+       `@page` sozlamasiga tegmaydi. Chek oqimda (static) turadi: shunda nomlangan sahifa (`chek`)
+       va sahifa balandligi chekning o'z balandligidan olinadi. */
+    page: chek;
+    position: static;
+    width: 58mm;
+    height: auto;
+    background: white;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    display: block;
+  }
+
+  .chek-modal-actions {
+    display: none !important;
+  }
+
+  /* Ekrandagi sig'dirish chop etishga umuman ta'sir qilmasligi kerak. */
+  .chek-fit {
+    display: block;
+    overflow: visible;
+    width: auto;
+    min-height: 0;
+  }
+
+  .chek-scale {
+    transform: none !important;
+  }
+
+  .chek-page-fit {
+    width: auto !important;
+    height: auto !important;
+  }
+
+  /* QR orqali ochiladigan ochiq chek sahifasi (`ChekDownloadPage`): bosib chiqarishda tugmalarsiz, faqat chek. */
+  .chek-page-actions {
+    display: none !important;
+  }
+
+  /* `<body>`dagi `#root` dan boshqa (bo'sh) qatlamlar chop etilmaydi: ular boshqa (nomlanmagan) sahifaga tegishli bo'lgani
+     uchun Chrome ularga alohida BO'SH sahifa ochardi. */
+  body:has(.chek-page) > :not(#root) {
+    display: none !important;
+  }
+
+  .chek-page {
+    page: chek;
+    min-height: 0;
+    padding: 0;
+    background: #ffffff;
+    align-items: flex-start;
+    overflow: visible;
+  }
+
+  .chek-scale--page {
+    width: 58mm;
+  }
+
+  .chek {
+    /* Termoprinter (58mm qog'oz) chetidan ~3–4mm chiqarmaydi: o'ng tomondagi ustunning oxirgi harfi kesilib
+       qolardi. Shuning uchun o'ng tomonda qo'shimcha bo'shliq (matn qog'oz chetidan 5mm ichkarida tugaydi). */
+    --chek-side: 2mm;
+    --chek-right: 5mm;
+    padding-right: var(--chek-right) !important;
+    width: 58mm !important;
+    height: auto !important;
+    padding-bottom: 10mm !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .chek-row {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 2mm;
+    align-items: start;
+  }
+
+  .chek-row span:first-child {
+    white-space: nowrap;
+  }
+
+  .chek-row span:last-child {
+    text-align: right;
+    white-space: pre-line;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .date-row span:first-child {
+    white-space: normal !important;
+    line-height: 1.2;
+  }
+
+  .naqsh {
+    /* Ekrandagi 660px kenglik 58mm sahifadan oshib ketardi — Chrome butun chekni kichraytirib qo'yardi. */
+    width: calc(100% + var(--chek-side) + var(--chek-right));
+    margin: 10mm calc(-1 * var(--chek-right)) 5mm calc(-1 * var(--chek-side));
+  }
+
+  body:has(.chek-modal-overlay) button {
+    display: none;
+  }
+
+  .logo {
+    display: block;
+    margin: 0mm auto -4mm auto;
+    width: 42mm !important;
+    height: auto !important;
+  }
+
+  .qr-code {
+    display: block;
+    margin: 15px auto;
+    width: 32mm !important;
+    height: 32mm !important;
+  }
+
+  .chek-row span {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1%;
+  }
+
+  .chek-bottom h1 {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1%;
+  }
+
+  .chek-bottom p {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1%;
+  }
+
+  .chek-bottom {
+    margin-top: 13px;
+    padding-bottom: 10mm;
+  }
+
+  .chek-bottom h1 {
+    margin-top: 2px;
+  }
+}

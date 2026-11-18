@@ -1,0 +1,67 @@
+/* InfoHint — uzun izohni undov belgili tugmaga yig'adi. Prefiks `ihint-` (production'da hamma CSS bitta faylda). */
+
+.ihint-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 15px;
+  line-height: 1;
+  vertical-align: middle;
+  color: #f59e0b;
+  cursor: pointer;
+  text-transform: none;
+}
+
+.ihint-btn:hover,
+.ihint-btn--open {
+  color: #d97706;
+}
+
+.ihint-btn:focus-visible {
+  outline: 2px solid #003366;
+  outline-offset: 2px;
+}
+
+.ihint-btn--labeled {
+  margin-left: 0;
+  padding: 3px 10px 3px 6px;
+  background: #fff7e6;
+  font-size: 12px;
+}
+
+.ihint-btn--labeled span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #92400e;
+}
+
+.ihint-pop {
+  position: fixed;
+  z-index: 100000;
+  padding: 10px 12px;
+  border: 1px solid #fde4b0;
+  border-radius: 10px;
+  background: #fffaf0;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.22);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #44403c;
+  text-align: left;
+  text-transform: none;
+  white-space: normal;
+}
+
+/* Keng oyna: ko'p qatorli matn (yangi qator saqlanadi), uzun bo'lsa ichida aylantiriladi. */
+.ihint-pop--wide {
+  max-height: min(70vh, 460px);
+  overflow-y: auto;
+  white-space: pre-line;
+  font-size: 12.5px;
+}

@@ -1,0 +1,336 @@
+/*
+ * `ModalPattern` va unga bog'liq holat-tahrirlash modallari (Aloqa/Demo/
+ * Shartnoma) uchun stil — bitta joyda.
+ *
+ * Klasslar `mp-` prefiksi bilan scope qilingan. Sabab: ilgari umumiy nomlar
+ * (`.modal-header`, `.modal-title`, `.modal-actions`, `.modal-btn`...)
+ * ishlatilgan edi — bu nomlar boshqa sahifalarda (masalan `lessons.css`dagi
+ * `.modal-header{background-color:#d1d5da}`, `lesson-schedule.css`dagi
+ * `.modal-header{background:var(--color-primary)}`) ham bor, va SPA'da
+ * foydalanuvchi o'sha sahifalarga bir marta kirsa, ularning CSS'i hujjatda
+ * qolib ketadi — qaysi qoida "g'olib chiqishi" yuklanish tartibiga bog'liq
+ * bo'lib qolardi. Aynan shu sabab bilan lidlar sahifasidagi "Holatni
+ * tahrirlash" modali saytning umumiy dizayniga mos kelmay, tasodifan boshqa
+ * sahifadan (Darslar) kulrang sarlavha rangini "meros qilib olgan" edi.
+ * `ConfirmModal` buni allaqachon `cm-` prefiksi bilan hal qilgan — bu yerda
+ * xuddi shu naqsh davom ettirilgan (bir xil dizayn tokenlari: `--color-primary`
+ * sarlavha, `--radius-md`/`--radius-sm`, `--color-accent` tanlangan holat).
+ */
+
+.mp-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.mp-container {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.25);
+  overflow: hidden;
+}
+
+/* Sarlavha — saytning boshqa modallari (masalan `.cm-header`) bilan bir xil:
+   brend rangi, oq matn. */
+.mp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px;
+  background: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.mp-title {
+  font-family: noto-b, sans-serif;
+  font-size: 16px;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+.mp-close-btn {
+  background: rgba(255, 255, 255, 0.14);
+  border: none;
+  border-radius: var(--radius-sm);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ffffff;
+  transition: background var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.mp-close-btn:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.mp-body {
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+/* ── Lid kartochkasi (ism + bo'lim) ──────────────────────────────────── */
+.mp-lead-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(254, 145, 0, 0.08);
+  border: 1px solid rgba(254, 145, 0, 0.28);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+}
+
+.mp-lead-card__icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(254, 145, 0, 0.14);
+  color: var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mp-lead-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.mp-lead-card__name {
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  color: var(--color-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mp-lead-card__group {
+  font-family: noto-sb, sans-serif;
+  font-size: 10px;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Bo'lim tablari (hozircha faqat joriy bo'limni ko'rsatadi) ───────── */
+.mp-tabs {
+  display: flex;
+  gap: 6px;
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 4px;
+}
+
+.mp-tab {
+  flex: 1;
+  padding: 8px 4px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  color: #64748b;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.mp-tab--active {
+  background: var(--color-primary);
+  color: #ffffff;
+  font-family: noto-b, sans-serif;
+}
+
+/* ── Bo'lim (sub-status, izoh) ────────────────────────────────────────── */
+.mp-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mp-section-title {
+  font-family: noto-b, sans-serif;
+  font-size: 12px;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.mp-status-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--color-bg);
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.mp-status-card:hover {
+  background: #eef2f6;
+  border-color: #cbd5e1;
+}
+
+.mp-status-card--selected {
+  border-color: var(--color-accent);
+  background: rgba(254, 145, 0, 0.08);
+}
+
+.mp-status-card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #eef2f6;
+  color: #64748b;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.mp-status-card--selected .mp-status-card__icon {
+  background: rgba(254, 145, 0, 0.16);
+  color: var(--color-accent);
+}
+
+.mp-status-card__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.mp-status-card__title {
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  color: var(--color-primary);
+}
+
+.mp-status-card__desc {
+  font-family: noto-m, sans-serif;
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.mp-status-card__check {
+  width: 24px;
+  height: 24px;
+  background: rgba(254, 145, 0, 0.12);
+  border: 1.5px solid var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mp-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--color-bg);
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: var(--color-primary);
+  resize: vertical;
+  transition: border-color var(--transition-fast);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.mp-textarea:focus {
+  border-color: var(--color-accent);
+  background: #fff;
+}
+
+.mp-textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* ── Tugmalar ─────────────────────────────────────────────────────────── */
+.mp-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.mp-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: noto-b, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.mp-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.mp-btn--cancel {
+  background: var(--color-bg);
+  color: #475569;
+}
+
+.mp-btn--cancel:hover {
+  background: #e2e8f0;
+}
+
+.mp-btn--confirm {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.mp-btn--confirm:hover:not(:disabled) {
+  background: #e07e00;
+}
+
+.mp-btn--confirm:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .mp-container {
+    max-width: 100%;
+  }
+  .mp-header {
+    padding: 16px 18px;
+  }
+  .mp-body {
+    padding: 16px 18px 18px;
+  }
+}

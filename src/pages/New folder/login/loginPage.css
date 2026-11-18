@@ -1,0 +1,560 @@
+.login {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.login-left {
+  width: 65%;
+  background: linear-gradient(to right, var(--color-primary-deep), var(--color-primary));
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-logo {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
+
+.white-logo-big {
+  position: absolute;
+  top: 0;
+  right: -400px;
+  height: 103%;
+  width: 100%;
+  z-index: 1;
+}
+
+.login-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-left-center {
+  margin: 0 auto;
+  /* 1920x1080 da 20% ≈ 22vh — past ekranlarda vh chegarasi ushlab qoladi. */
+  margin-top: min(20%, 22vh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  perspective: 1000px;
+}
+
+.login-left-center img {
+  max-width: 100%;
+}
+
+.login-left-center h1 {
+  font-family: noto-b, sans-serif;
+  color: #fff;
+}
+
+.login-left-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-left: 60px;
+}
+
+/* Inline `gap: 200` ni bosib o'tadi. Ilgari qattiq (vw'ga bog'liq) piksel
+   gap ishlatilgan edi — 4-havola (FAQ) qo'shilgach, uni har xil kenglikda
+   "aynan to'g'ri" chiqishi uchun qo'lda moslashtirish kerak bo'lardi va
+   baribir yoki tor ekranda qatorni bo'lib yuborardi (siqiq gap), yoki keng
+   ekranda havolalar chapga siqilib, o'ngda bo'sh joy qolardi. `justify-
+   content: space-between` — o'lchamdan qat'i nazar 4 havola O'ZI konteyner
+   enini to'ldirib, ORALARIDAGI masofani avtomatik TENGLASHTIRIB turadi
+   (qo'lda hisoblash shart emas). `gap` endi faqat pastki chegara — konteyner
+   torayib, `flex-wrap: wrap` ishga tushganda qatorlar bir-biriga
+   yopishmasin uchun. */
+.login-left-bottom .login-support {
+  flex-wrap: wrap;
+  justify-content: space-between !important;
+  gap: 12px !important;
+}
+
+.login-left-bottom h1 {
+  font-family: noto-m, sans-serif;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.login-left-bottom a {
+  text-decoration: none;
+  color: #fff;
+  font-family: noto-m, sans-serif;
+  font-size: 15px;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-right {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  justify-content: flex-start;
+  background-color: var(--color-surface);
+}
+
+/* Brandbook'dagi oq-fon logotip varianti ham xira naqsh bilan ko'rsatilgan
+   (sahifa 5, pastki qator) — chap panelning "yog'ayotgan" naqshidan farqli
+   o'laroq bu yerda sokin, statik suv belgisi: forma ustiga urg'u bermaydi,
+   faqat sahifa ikkala tomonda ham bir xil brendga tegishli ekanini bildiradi. */
+.login-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../../assets/images/ptc1.png');
+  background-repeat: repeat;
+  background-size: 260px;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* `margin-top: auto` ikkala bolada ham — qolgan bo'sh joy teng bo'linadi:
+   forma vertikal markazda qoladi, h4 esa har qanday ekran balandligida pastga
+   yopishadi. Foiz margin ishlatilmaydi — u konteyner *kengligidan* hisoblanib,
+   past ekranlarda matnni `overflow: hidden` ostiga surib yuborar edi. */
+.login-right-content {
+  width: 320px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: auto;
+}
+
+.login-right-content h1 {
+  font-family: noto-b, sans-serif;
+  font-size: 30px;
+  color: var(--color-primary);
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* Ikonka qatori (planshet/mobil) + mualliflik matni — bitta guruh sifatida
+   pastga yopishadi, ikonkalar matndan aniq 20px yuqorida turadi. */
+.login-bottom-group {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.login-right h4 {
+  text-align: center;
+  font-family: noto-b, sans-serif;
+  font-size: 15px;
+  letter-spacing: 2%;
+}
+
+.login-right h4 span {
+  font-family: noto-m, sans-serif !important;
+  font-size: 15px;
+  letter-spacing: 2%;
+}
+
+.login-right-content form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-top: 10px;
+}
+
+.login-mode-options {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  transition: margin-bottom 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.login-mode-options.is-selected {
+  margin-bottom: 20px;
+}
+
+.login-fields-shell {
+  display: grid;
+  grid-template-rows: 0fr;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    grid-template-rows 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 260ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.login-fields-shell.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.login-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.login-fields-shell.is-open .login-fields {
+  overflow: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-mode-options,
+  .login-fields-shell {
+    transition: none;
+  }
+}
+
+.login-mode-options button {
+  flex: 1;
+  min-width: 0;
+  min-height: 42px;
+  border: 1px solid rgba(0, 51, 102, 0.3);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  background: #fff;
+  color: var(--color-primary);
+  font: 500 14px noto-m, sans-serif;
+  cursor: pointer;
+}
+
+.login-mode-options button.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.login-right-content form input {
+  width: 100%;
+  height: 60px;
+  border: 2px solid var(--color-primary);
+  outline: none;
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  color: var(--color-primary);
+  font-size: 18px;
+  transition:
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+/* Urg'u rangidagi yumshoq halqa — ikkala brend rangi (to'q ko'k + to'q
+   sariq) formada birga ko'rinadigan yagona joy, juda me'yorida. */
+.login-right-content form input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(254, 145, 0, 0.12);
+}
+
+.login-right-content form input::placeholder {
+  font-family: noto-m, sans-serif;
+  font-size: 18px;
+  color: var(--color-primary-deep);
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  padding-right: 45px;
+}
+
+.password-eye {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-primary);
+  font-size: 18px;
+}
+
+.custom-password .mantine-PasswordInput-input {
+  width: 250px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-primary);
+  font-size: 18px;
+  color: var(--color-primary);
+  padding: 18px 20px;
+  transition:
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.custom-password .mantine-PasswordInput-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(254, 145, 0, 0.12);
+}
+
+.custom-password .mantine-PasswordInput-input::placeholder {
+  font-family: noto-m, sans-serif;
+  font-size: 18px;
+  color: var(--color-primary-deep) !important;
+}
+
+.custom-password .mantine-PasswordInput-visibilityToggle {
+  color: var(--color-primary);
+}
+
+.custom-password .mantine-PasswordInput-visibilityToggle:hover {
+  background: transparent;
+}
+
+.login-right a {
+  font-family: noto-m, sans-serif;
+  font-size: 15px;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.login-right a:hover {
+  text-decoration: underline;
+}
+
+.login-btn {
+  width: 160px;
+  height: 50px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: #fff;
+  font-family: noto-m, sans-serif;
+  background: var(--color-primary-deep);
+  font-size: 20px;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+.login-btn:hover {
+  border: 2px solid var(--color-primary-deep);
+  color: var(--color-primary-deep);
+  background: #fff;
+  font-family: noto-b, sans-serif;
+  box-shadow: var(--shadow-md);
+}
+
+.phone-logo {
+  display: none;
+}
+
+.ptl1 {
+  left: -20%;
+  animation: fallLeft 14s linear infinite;
+}
+
+.ptl2 {
+  left: -20%;
+  animation: fallLeft 18s linear infinite 6s;
+}
+
+.ptc1 {
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fallCenter 14s linear infinite 2s;
+}
+
+.ptc2 {
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fallCenter 20s linear infinite 9s;
+}
+
+.ptr1 {
+  right: 0;
+  animation: fallRight 15s linear infinite 4s;
+}
+
+.ptr2 {
+  right: 0;
+  animation: fallRight 22s linear infinite 11s;
+}
+
+.login-right-content,
+.login-bottom-group {
+  position: relative;
+  z-index: 2;
+}
+
+.ptl1,
+.ptl2,
+.ptc1,
+.ptc2,
+.ptr1,
+.ptr2 {
+  position: absolute;
+  top: -120px;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+.login-support-phone {
+  display: none !important;
+}
+
+@keyframes fallLeft {
+  from {
+    transform: translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+@keyframes fallCenter {
+  from {
+    transform: translate(-50%, 0) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, 100vh) rotate(360deg);
+  }
+}
+
+@keyframes fallRight {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+/* Noutbuk kengliklari — o'ng ustunga 320px forma + padding sig'ishi uchun joy beriladi. */
+@media (max-width: 1440px) {
+  .login-right {
+    width: 38%;
+    padding: 32px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .login-right {
+    width: 40%;
+  }
+  .login-right h4 {
+    font-size: 14px;
+  }
+  .white-logo-big {
+    right: -250px;
+  }
+  .login-left-bottom {
+    margin-top: auto;
+    margin-left: 0px;
+  }
+}
+
+/* Chap ustun juda torayib ketadigan nuqta — planshetda faqat forma qoladi.
+   `.login-left` (demak undagi telefon/telegram/youtube/FAQ havolalari ham)
+   shu yerda butunlay yashiriladi — shuning uchun ularning ikonka-only
+   nusxasi (`.login-support-phone`) ham AYNAN shu chegaradan boshlab
+   ko'rinishi kerak, aks holda 480px–900px oralig'ida (planshet) bu
+   havolalar umuman ko'rinmay qolardi. */
+@media (max-width: 900px) {
+  .login-left {
+    display: none;
+  }
+  .login-right {
+    width: 100%;
+  }
+  .login-support-phone {
+    display: flex !important;
+    gap: 20px !important;
+  }
+  .login-support-phone a {
+    font-size: 22px;
+  }
+}
+
+/* Past ekranlar (masalan 1366x768, 1280x720) — forma va pastki matn birga sig'sin. */
+@media (max-height: 800px) {
+  .login-right-content {
+    gap: 10px;
+  }
+  .login-right-content h1 {
+    font-size: 26px;
+  }
+  .login-right-content form {
+    gap: 0;
+  }
+  .login-mode-options.is-selected {
+    margin-bottom: 14px;
+  }
+  .login-fields {
+    gap: 14px;
+  }
+  .login-right-content form input {
+    height: 52px;
+    padding: 14px 18px;
+    font-size: 16px;
+  }
+  .login-right-content form input::placeholder {
+    font-size: 16px;
+  }
+  .login-btn {
+    height: 46px;
+    font-size: 18px;
+  }
+  .login-bottom-group {
+    gap: 16px;
+  }
+}
+
+@media (max-height: 680px) {
+  .login-right {
+    padding: 24px;
+  }
+  .login-right-content form input {
+    height: 46px;
+  }
+  .login-left-center {
+    margin-top: 12vh;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Telefonda ikonkalar planshetdagidan (900px bloki) biroz kattaroq —
+     barmoq bilan bosish qulayroq bo'lishi uchun. */
+  .login-support-phone a {
+    font-size: 25px;
+  }
+  .phone-logo {
+    width: 170px;
+    height: 150px;
+    display: block;
+    margin-top: 48px;
+    flex-shrink: 0;
+  }
+  .login-right-content {
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .login-right-content h1 {
+    margin-bottom: -5px;
+  }
+}

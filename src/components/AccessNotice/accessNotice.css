@@ -1,0 +1,48 @@
+/* Shartnomasiz / filialsiz foydalanuvchi uchun ogohlantirish. Prefiks `an-` (production'da hamma CSS bitta faylda). */
+
+.an-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border: 1px solid #fde4b0;
+  border-radius: 10px;
+  background: #fff7e6;
+  color: #92400e;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.an-notice--branch {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.an-notice > i {
+  flex: 0 0 auto;
+  font-size: 16px;
+}
+
+.an-notice__text {
+  flex: 1 1 auto;
+  font-family: noto-m, sans-serif;
+}
+
+.an-notice__close {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.an-notice__close:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
