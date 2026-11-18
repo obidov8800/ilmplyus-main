@@ -1,0 +1,380 @@
+/*
+ * «Guruh yaratish / tahrirlash» oynasi — Admin'dagi guruh oynasi bilan bir xil ko'rinish va tartib
+ * (o'lchamlar Admin'dagi `.add-user-modal` ning haqiqiy hisoblangan qiymatlaridan olingan):
+ * markazlashgan sarlavha, ikki ustun (chapda filial → nom → o'qituvchi → xona, o'ngda sana/vaqt/kunlar),
+ * oq maydonlar (radius 15), band/bo'sh belgili ochiladigan ro'yxatlar, markazda "Saqlash / Bekor qilish".
+ * Maxsus `gf-` prefiksi: oyna boshqa modallardagi global `.gm-modal*` (ko'k sarlavha) qoidalariga tushmasin.
+ */
+.gf-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.gf-modal {
+  width: 100%;
+  max-width: 900px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 28px 32px 32px;
+  background: #fff;
+  border: 1px solid var(--color-primary, #003366);
+  border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+  color: var(--color-primary, #003366);
+}
+
+.gf-title {
+  margin: 0 0 30px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid #eef0f3;
+  text-align: center;
+  font-family: noto-b, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-primary, #003366);
+}
+
+.gf-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.gf-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.gf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.gf-field > label {
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: var(--color-primary, #003366);
+}
+
+.gf-field select,
+.gf-field input[type='text'],
+.gf-field .date-input__field {
+  width: 100%;
+  height: 42px;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: var(--color-primary, #003366);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gf-field select {
+  padding-right: 35px;
+  line-height: 1.4;
+}
+
+.gf-field select:focus,
+.gf-field input[type='text']:focus,
+.gf-field .date-input__field:focus,
+.gf-select__trigger:focus {
+  border-color: var(--color-primary, #003366);
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+
+.gf-field select:disabled,
+.gf-field input:disabled {
+  background: #f6f7f9;
+  color: #8b97a7;
+  cursor: not-allowed;
+}
+
+.gf-field input::placeholder {
+  color: #9aa3b0;
+}
+
+/* Majburiy maydon to'ldirilmagan (Saqlash bosilgach) */
+.gf-field--invalid select,
+.gf-field--invalid input[type='text'],
+.gf-field--invalid .date-input__field,
+.gf-field--invalid .gf-select__trigger {
+  border-color: #d93025;
+}
+
+.gf-hint {
+  margin-top: 1px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #8b97a7;
+}
+
+.gf-hint--room {
+  font-size: 13px;
+  color: var(--color-primary, #003366);
+}
+
+.gf-hint--error {
+  color: #d93025;
+}
+
+/* O'quv yili (faqat maktabga tayyorlov filialda) — faqat ko'rsatiladi */
+.gf-static {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  background: #f6f7f9;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-family: noto-b, sans-serif;
+  font-size: 14px;
+  color: var(--color-primary, #003366);
+}
+
+.gf-static--missing {
+  color: #d93025;
+  border-color: #f1b9b4;
+}
+
+/* Band / bo'sh belgili ochiladigan ro'yxat (o'qituvchi, xona) */
+.gf-select {
+  position: relative;
+}
+
+.gf-select__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 42px;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-family: noto-m, sans-serif;
+  font-size: 14px;
+  color: var(--color-primary, #003366);
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+.gf-select__trigger:disabled {
+  background: #f6f7f9;
+  color: #8b97a7;
+  cursor: not-allowed;
+}
+
+/* `fixed`: oyna (`.gf-modal`) overflow'i kesmasin; joyi (top/bottom/left/width/maxHeight) JSda tugmadan hisoblanadi */
+.gf-select__dropdown {
+  position: fixed;
+  z-index: 20;
+  max-height: 360px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.gf-select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--color-primary, #003366);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.gf-select__option:hover {
+  background: #f0f5fa;
+}
+
+.gf-select__option--active {
+  background: #e6eef6;
+  font-family: noto-b, sans-serif;
+}
+
+.gf-select__option--placeholder {
+  color: #8b97a7;
+}
+
+.gf-badge {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-family: noto-b, sans-serif;
+  font-size: 11px;
+}
+
+.gf-badge--free {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.gf-badge--busy {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Vaqt maydonlari — HH:mm */
+.gf-field .gf-time {
+  text-align: left;
+}
+
+/* Dars kunlari */
+.gf-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.gf-day {
+  padding: 6px 10px;
+  background: #fff;
+  border: 1px solid var(--color-primary, #003366);
+  border-radius: 8px;
+  font-family: noto-m, sans-serif;
+  font-size: 13px;
+  color: var(--color-primary, #003366);
+  cursor: pointer;
+}
+
+.gf-day--on {
+  background: var(--color-primary, #003366);
+  color: #fff;
+}
+
+.gf-field--invalid .gf-day {
+  border-color: #d93025;
+}
+
+/* Kurs davomiyligi — faqat ko'rsatiladi */
+.gf-duration {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.gf-duration--set {
+  color: var(--color-primary, #003366);
+}
+
+.gf-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.gf-btn {
+  min-height: 47px;
+  padding: 10px 24px;
+  border-radius: 15px;
+  font-family: noto-m, sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.gf-btn--primary {
+  background: var(--color-primary, #003366);
+  border: 0;
+  color: #fff;
+}
+
+.gf-btn--primary:hover:not(:disabled) {
+  background: #00254d;
+}
+
+.gf-btn--primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.gf-btn--cancel {
+  background: #fff;
+  border: 2px solid #666;
+  color: #666;
+}
+
+.gf-btn--cancel:hover {
+  background: #f6f7f9;
+}
+
+/* Planshet va undan kichik: bitta ustun */
+@media (max-width: 860px) {
+  .gf-form {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+/* Telefon: pastdan chiqadigan «sheet» — ekran eniga to'liq, faqat yuqori burchaklari yumaloq,
+   ichida scroll; tugmalar ustma-ust (asosiysi tepada), iOS fokusda zoom qilmasin */
+@media (max-width: 640px) {
+  .gf-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .gf-modal {
+    max-width: 100%;
+    max-height: 92vh;
+    padding: 20px 18px calc(20px + env(safe-area-inset-bottom, 0px));
+    border: 0;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .gf-title {
+    margin-bottom: 18px;
+    font-size: 18px;
+  }
+
+  .gf-form {
+    margin: 12px 0;
+  }
+
+  .gf-actions {
+    flex-direction: column-reverse;
+  }
+
+  .gf-btn {
+    width: 100%;
+  }
+
+  .gf-field select,
+  .gf-field input[type='text'],
+  .gf-field .date-input__field {
+    font-size: 16px;
+  }
+}
