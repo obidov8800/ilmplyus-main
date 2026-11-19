@@ -9,7 +9,6 @@ import ChunkErrorBoundary from './components/ChunkErrorBoundary';
 import { usePrefetchRoutes } from './utils/prefetchRoutes';
 import { prefetchCallHistory } from './pages/ip-telephone/callHistory';
 import useGlobalDragScroll from './hooks/useGlobalDragScroll';
-import ContractsOnlyApp from './ContractsOnlyApp';
 
 /*
  * Sahifalar `lazy` bilan yuklanadi.
@@ -24,6 +23,7 @@ import ContractsOnlyApp from './ContractsOnlyApp';
  */
 const Dashboard = lazy(() => import('./pages/dashboard'));
 const Lids = lazy(() => import('./pages/lid'));
+const Payments = lazy(() => import('./pages/payments'));
 const Courses = lazy(() => import('./pages/courses'));
 const Reports = lazy(() => import('./pages/reports'));
 const Tasks = lazy(() => import('./pages/tasks'));
@@ -33,6 +33,8 @@ const NotFound = lazy(() => import('./pages/notFound'));
 const LoginPage = lazy(() => import('./pages/login'));
 const Attendance = lazy(() => import('./pages/attendance'));
 const EmployeeAttendanceDetail = lazy(() => import('./pages/attendance/EmployeeAttendanceDetail'));
+const Groups = lazy(() => import('./pages/groups'));
+const GroupMembersPage = lazy(() => import('./pages/groups/GroupMembersPage'));
 const Contracts = lazy(() => import('./pages/contracts'));
 const ContractDetailPage = lazy(() => import('./pages/contracts/ContractDetailPage'));
 const StudentsAttendance = lazy(() => import('./pages/students-attendance'));
@@ -113,7 +115,7 @@ import './styles/consistency.css';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 
-const FullApp = () => {
+const App = () => {
   const isAuth = useAuthStore((state) => state.isAuth);
   const { pathname } = useLocation();
 
@@ -152,9 +154,9 @@ const FullApp = () => {
                 <Route path="/lids" element={<Lids />} />
               </Route>
   
-              {/* <Route element={<PermissionRoute permission="payments.view" />}>
+              <Route element={<PermissionRoute permission="payments.view" />}>
                 <Route path="/payments" element={<Payments />} />
-              </Route> */}
+              </Route>
   
               {/* «Lidlar ro'yxati» sahifasi lidlar bilan ishlaydi (`fetchLids`), shuning
                 uchun `students.view` emas, `lids.view` talab qilinadi — yon menyu ham
@@ -176,12 +178,12 @@ const FullApp = () => {
                   ko'rinishni tanlaydi: `groups.create` bor — to'liq boshqaruv jadvali; yo'q (masalan
                   o'qituvchi) — faqat O'ZIGA biriktirilgan guruhlar kartalari (`pages/groups/index.tsx`).
                   Guruh a'zolari sahifasi — boshqaruv amali, `groups.edit` kerak. */}
-              {/* <Route element={<PermissionRoute permission="groups.view" />}>
+              <Route element={<PermissionRoute permission="groups.view" />}>
                 <Route path="/groups" element={<Groups />} />
               </Route>
               <Route element={<PermissionRoute permission="groups.edit" />}>
                 <Route path="/groups/:groupId/members" element={<GroupMembersPage />} />
-              </Route> */}
+              </Route>
 
               {/* «Dars jadvali» — faqat `lessons_schedules.view` (menyu, marshrut, bosh sahifa bir xil). Guruhlar
                   `groups.view` bo'lsa `/groups`, bo'lmasa `/options/groups` dan keladi. */}
@@ -370,8 +372,5 @@ const FullApp = () => {
     </ChunkErrorBoundary>
   );
 };
-
-// Sinov build'i (`VITE_CONTRACTS_ONLY=1`): faqat xodim shartnomalari; to'liq ilova bundle'dan chiqib ketadi.
-const App = import.meta.env.VITE_CONTRACTS_ONLY === '1' ? ContractsOnlyApp : FullApp;
 
 export default App;
