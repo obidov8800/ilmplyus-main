@@ -40,6 +40,8 @@ import {
   monthValue,
   parseMonthValue,
   placeholderRow,
+  rowCash,
+  rowNonCash,
   statusClass,
   statusI18nKey,
   sumRows,
@@ -160,6 +162,18 @@ const PayrollSheetPage = ({ type }: Props) => {
     });
     return map;
   }, [taxDistributions, type]);
+  /** Xodim hisobidan soliq bo'lsa: ushlanadigan summa naqdsiz summadan (yetmasa naqddan) ayriladi. */
+  const shownPayout = (row: SheetRow) => {
+    const nonCash = rowNonCash(row, type);
+    const cash = rowCash(row, type);
+    const withheld =
+      taxPayerByEmployee.get(row.employee_id) === 'employee'
+        ? row.income_tax_amount + row.pension_fund_amount
+        : 0;
+    const fromNonCash = Math.min(withheld, Math.max(0, nonCash));
+    const fromCash = Math.min(withheld - fromNonCash, Math.max(0, cash));
+    return { nonCash: nonCash - fromNonCash, cash: cash - fromCash, fromNonCash, fromCash };
+  };
   const taxPayerTitle = (payer: 'employee' | 'organization' | undefined) =>
     payer === 'employee'
       ? t('payrollSheets.details.taxPayerEmployee')
@@ -443,7 +457,7 @@ const PayrollSheetPage = ({ type }: Props) => {
    * va avans ustunlari hamon faqat oylikda (`showSalaryColumns` — 4 qo'shimcha),
    * shuningdek «Shartnoma» va «Ta'til maoshi» (oylikda +2).
    */
-  const columnCount = 9 + (showSalaryColumns ? 3 : 0) + (showSelection ? 1 : 0);
+  const columnCount = 11 + (showSalaryColumns ? 5 : 0) + (showSelection ? 1 : 0);
 
   // Oy va filial — vedomostning o'zini belgilaydi (doim tanlangan), shuning uchun
   // toolbar'da turadi; bo'lim va shartnoma filtri "Saralash" panelida.
@@ -680,6 +694,18 @@ const PayrollSheetPage = ({ type }: Props) => {
                     <th className="ps-num">{t('payrollSheets.columns.oklad')}</th>
                     {showSalaryColumns && (
                       <>
+                        <th className="ps-num">{t('payrollSheets.columns.advanceNonCash')}</th>
+                        <th className="ps-num">{t('payrollSheets.columns.advanceCash')}</th>
+                      </>
+                    )}
+                    <th className="ps-num">
+                      {t('payrollSheets.columns.nonCash', { type: typeWord })}
+                    </th>
+                    <th className="ps-num">
+                      {t('payrollSheets.columns.cash', { type: typeWord })}
+                    </th>
+                    {showSalaryColumns && (
+                      <>
                         <th className="ps-num">{t('payrollSheets.columns.adjustment')}</th>
                         <th className="ps-num">{t('payrollSheets.columns.kpi')}</th>
                         <th className="ps-num">{t('payrollSheets.columns.vacationPay')}</th>
@@ -797,6 +823,18 @@ const PayrollSheetPage = ({ type }: Props) => {
                           <td className="ps-num">{formatMoney(row.oklad)}</td>
                           {showSalaryColumns && (
                             <>
+                              <td className="ps-num">{formatMoney(row.advance_cashless)}</td>
+                              <td className="ps-num">{formatMoney(row.advance_cash)}</td>
+                            </>
+                          )}
+                          <td className="ps-num" title={shownPayout(row).fromNonCash > 0 ? `−${formatMoney(shownPayout(row).fromNonCash)}` : undefined}>
+                            {formatMoney(shownPayout(row).nonCash)}
+                          </td>
+                          <td className="ps-num" title={shownPayout(row).fromCash > 0 ? `−${formatMoney(shownPayout(row).fromCash)}` : undefined}>
+                            {formatMoney(shownPayout(row).cash)}
+                          </td>
+                          {showSalaryColumns && (
+                            <>
                               <td className="ps-num">{formatMoney(row.adjustment_amount)}</td>
                               <td className="ps-num">{formatMoney(row.kpi_amount)}</td>
                               <td className="ps-num">
@@ -880,6 +918,14 @@ const PayrollSheetPage = ({ type }: Props) => {
                         {t('payrollSheets.total')}
                       </td>
                       <td className="ps-num">{formatMoney(totals.oklad)}</td>
+                      {showSalaryColumns && (
+                        <>
+                          <td className="ps-num">{formatMoney(totals.advance_non_cash)}</td>
+                          <td className="ps-num">{formatMoney(totals.advance_cash)}</td>
+                        </>
+                      )}
+                      <td className="ps-num">{formatMoney(rows.reduce((a, r) => a + shownPayout(r).nonCash, 0))}</td>
+                      <td className="ps-num">{formatMoney(rows.reduce((a, r) => a + shownPayout(r).cash, 0))}</td>
                       {showSalaryColumns && (
                         <>
                           <td className="ps-num">{formatMoney(totals.adjustment)}</td>
