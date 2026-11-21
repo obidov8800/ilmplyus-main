@@ -162,21 +162,15 @@ export interface SimpleCashier {
 }
 
 /**
- * Filialning to'lov turlari va komissiyalari.
- * Manba: GET /options/payment-gateway-commissions (`api/commissions.ts`).
+ * To'lov usuli va uning komissiyasi — barcha filiallar uchun umumiy (filialga
+ * bog'lanmaydi, muddati yo'q).
+ * Manba: GET /options/payment-gateway-commissions (`api/commissions.ts`) — faqat faol usullar keladi.
  */
-export interface BranchCommission {
+export interface PaymentGatewayCommission {
   id: number;
-  branch_id: number;
   payment_method: string;
   commission_percent: string | number;
-  effective_date?: string | null;
-  expired_date?: string | null;
-  notes?: string | null;
-  is_active: boolean;
-  deleted_at?: string | null;
-  created_at?: string;
-  updated_at?: string;
+  show_on_site?: boolean;
 }
 
 export interface SavePaymentPayload {

@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useOptions } from '@/api/options';
-import { compareMethods, isUsableCommission, useBranchesCommissions } from '@/api/commissions';
+import { KNOWN_METHODS, compareMethods, useCommissions } from '@/api/commissions';
 import { normalizePaymentMethod, paymentMethodLabel } from '@/utils/paymentMethod';
 import DateInput, { type DateInputChangeEvent } from '@/components/DateInput';
-import useAuthStore from '@/store/useAuthStore';
 import {
   EMPTY_PAYMENT_FILTERS,
   countPaymentFilters,
@@ -20,24 +19,22 @@ interface PaymentsFilterProps {
 /** Jadval sarlavhasi o'rnida chiqadigan saralash qatori. */
 export default function PaymentsFilter({ filters, onChange, onClose }: PaymentsFilterProps) {
   const { t } = useTranslation();
-  const user = useAuthStore((state) => state.user);
   const activeCount = countPaymentFilters(filters);
 
   const { data: branches = [] } = useOptions('branches');
   const { data: groups = [] } = useOptions('groups');
   const { data: cashiers = [] } = useOptions('users');
 
-  // To'lov turlari filialga bog'liq: filial tanlangan bo'lsa o'shaniki,
-  // aks holda operatorning o'z filiali bo'yicha.
-  const commissionBranchId = filters.branch ?? user?.branch_id ?? null;
-  const { data: commissions } = useBranchesCommissions(
-    commissionBranchId ? [commissionBranchId] : [],
-  );
+  // To'lov turlari barcha filiallar uchun umumiy. Options faqat faol usullarni
+  // beradi — nofaol qilingan usuldagi eski to'lovlarni ham filtrlash uchun
+  // asosiy usullar (`KNOWN_METHODS`) doim qo'shiladi.
+  const { data: commissions = [] } = useCommissions();
 
   const methods = [
-    ...new Set(
-      commissions.filter(isUsableCommission).map((c) => normalizePaymentMethod(c.payment_method)),
-    ),
+    ...new Set([
+      ...KNOWN_METHODS,
+      ...commissions.map((c) => normalizePaymentMethod(c.payment_method)),
+    ]),
   ].sort(compareMethods);
 
   // Filial tanlangan bo'lsa, guruh va kassirlar ham faqat o'sha filialdan.
@@ -52,7 +49,8 @@ export default function PaymentsFilter({ filters, onChange, onClose }: PaymentsF
   const handleBranchChange = useCallback(
     (value: string) => {
       const branch = value ? Number(value) : null;
-      // Filial almashsa, boshqa filialning guruhi/kassiri va to'lov turi tanlovda qolib ketmasin.
+      // Filial almashsa, boshqa filialning guruhi/kassiri tanlovda qolib ketmasin.
+      // To'lov turi saqlanadi — u barcha filiallar uchun umumiy.
       const groupStillValid =
         !branch || groups.some((g) => g.id === filters.group && g.branch_id === branch);
       const cashierStillValid =
@@ -62,7 +60,6 @@ export default function PaymentsFilter({ filters, onChange, onClose }: PaymentsF
         branch,
         group: groupStillValid ? filters.group : null,
         cashier: cashierStillValid ? filters.cashier : null,
-        method: '',
       });
     },
     [filters, groups, cashiers, onChange],

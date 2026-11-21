@@ -353,10 +353,14 @@ const IPTelephone: React.FC = () => {
   // — ro'yxat operatorning o'zi bilan birga (`/ip-telefon-operators`
   // javobi ichidagi `contacts` maydonidan) keladi.
   const myOperators = useMemo(
-    // O'z login/paroli bilan kirgan xodimning `id`si `employees.id` — `user_id` bilan solishtirilmaydi.
-    () => (currentUser?.account_type === 'employee' ? [] : operators.filter((o) => o.user_id === currentUser?.id)),
-    [operators, currentUser?.id, currentUser?.account_type],
-  );
+  () => operators.filter((o) => o.user_id === currentUser?.id),
+  [operators, currentUser?.id],
+);
+  // const myOperators = useMemo(
+  //   // O'z login/paroli bilan kirgan xodimning `id`si `employees.id` — `user_id` bilan solishtirilmaydi.
+  //   () => (currentUser?.account_type === 'user' ? [] : operators.filter((o) => o.user_id === currentUser?.id)),
+  //   [operators, currentUser?.id, currentUser?.account_type],
+  // );
   const myOperator = myOperators[0] ?? null;
   const contacts = myOperator?.contacts ?? [];
 

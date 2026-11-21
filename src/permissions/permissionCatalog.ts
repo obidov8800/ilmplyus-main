@@ -295,9 +295,9 @@ export const GROUP_INFO: Record<string, PermissionGroupInfo> = {
   },
   payment_commission_logs: { summary: 'To‘lov komissiyasi yozuvlari jurnali.', where: 'To‘lovlar', actions: { view: 'Komissiya jurnalini ko‘rish.' } },
   payment_gateway_commissions: {
-    summary: 'To‘lov turlari bo‘yicha komissiya foizlari (filial bo‘yicha).',
+    summary: 'To‘lov turlari bo‘yicha komissiya foizlari (barcha filiallar uchun umumiy).',
     where: 'Menyu: Komissiyalar',
-    actions: { create: '«Qo‘shish» — filial, to‘lov turi va foizni belgilash (filial formada tanlanadi).' },
+    actions: { create: '«Qo‘shish» — yangi to‘lov turi va uning foizini belgilash (har bir turga bitta yozuv).' },
   },
   payments: {
     summary: 'O‘quvchi to‘lovlari.',

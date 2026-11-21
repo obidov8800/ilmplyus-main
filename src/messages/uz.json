@@ -1779,7 +1779,7 @@
       "save": "Saqlash",
       "saving": "Saqlanmoqda...",
       "loading": "Yuklanmoqda...",
-      "noPaymentTypes": "Bu filial uchun to‘lov turi topilmadi",
+      "noPaymentTypes": "Faol to‘lov turi topilmadi",
       "commission": "Komissiya",
       "period": "To‘lov oyi",
       "periodHint": "To‘lov qaysi oy uchun hisoblanadi (maktabga tayyorlov davomat jurnalida ko‘rinadi)",

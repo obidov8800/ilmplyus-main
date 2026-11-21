@@ -1775,7 +1775,7 @@
       "save": "Save",
       "saving": "Saving...",
       "loading": "Loading...",
-      "noPaymentTypes": "No payment types found for this branch",
+      "noPaymentTypes": "No active payment types found",
       "commission": "Commission",
       "period": "Payment month",
       "periodHint": "The month this payment counts for (shown in the preschool attendance register)",

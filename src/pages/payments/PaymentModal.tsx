@@ -5,12 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useOptions, type Option } from '@/api/options';
 import { formatSum } from '@/api/preschool';
 import { fetchStudentMonths, suggestedPeriod } from '@/api/preschoolPayments';
-import {
-  MANUAL_ENTRY_METHODS,
-  compareMethods,
-  isUsableCommission,
-  useBranchCommissions,
-} from '@/api/commissions';
+import { compareMethods, useCommissions } from '@/api/commissions';
 import { normalizePaymentMethod } from '@/utils/paymentMethod';
 import { dateToIso } from '@/utils/date';
 import { currentPeriod, normalizePaymentPeriod, periodLabel, periodOfDate } from '@/utils/paymentPeriod';
@@ -184,28 +179,26 @@ export default function PaymentModal({
     payment?.payment_method ?? payment?.payment_type,
   );
 
-  // ── To'lov turlari: filialga bog'liq ──
-  // O'quvchi tanlanmaguncha operatorning o'z filiali bo'yicha ko'rsatamiz.
-  const branchId = activeBranchId ? Number(activeBranchId) : null;
+  // ── To'lov turlari: barcha filiallar uchun umumiy ──
+  // Formada faqat console → Komissiyalar'da «Faol» va «Saytda ko'rinsin»
+  // belgilangan usullar chiqadi (options nofaollarni umuman qaytarmaydi).
+  // Qaysi usul chiqishini kod emas, shu belgi boshqaradi.
+  const { data: commissionsData, isLoading: commissionsLoading } = useCommissions({
+    enabled: opened,
+    showOnSite: true,
+  });
+  const commissionRows = commissionsData ?? [];
 
-  const { data: commissionsData, isLoading: commissionsLoading } = useBranchCommissions(
-    branchId,
-    opened,
-  );
+  // Tahrirlanayotgan yozuvning turi keyinroq nofaol qilingan yoki «Saytda
+  // ko'rinsin» belgisi olingan bo'lsa ham ro'yxatda qoldiramiz — aks holda
+  // saqlashda tur jimgina birinchi turga almashib ketardi.
+  const editingTypeMissing =
+    !!editingMethod && !commissionRows.some((c) => c.payment_method === editingMethod);
 
-  const paymentTypes = (commissionsData ?? [])
-    .filter(isUsableCommission)
-    // Qo'lda kiritishda faqat naqd, karta va bank o'tkazmasi ko'rsatiladi.
-    // Filialning komissiya sozlamalarida Click/Payme/Paynet ham bo'lishi mumkin,
-    // lekin ular onlayn to'lov shlyuzi orqali o'zi tushadi — xodim ularni qo'lda
-    // kiritmaydi. Tahrirlashda esa yozuvning O'Z turi ro'yxatda qoldiriladi,
-    // aks holda eski (masalan Paynet) to'lov saqlanganda turi jimgina
-    // o'zgarib ketardi.
-    .filter(
-      (c) =>
-        MANUAL_ENTRY_METHODS.includes(c.payment_method) ||
-        c.payment_method === editingMethod,
-    )
+  const paymentTypes = [
+    ...commissionRows,
+    ...(editingTypeMissing ? [{ payment_method: editingMethod, commission_percent: 0 }] : []),
+  ]
     .sort((a, b) => compareMethods(a.payment_method, b.payment_method))
     .map((c) => ({
       key: c.payment_method,
@@ -213,8 +206,8 @@ export default function PaymentModal({
       percent: Number(c.commission_percent) || 0,
     }));
 
-  // Tanlangan tur filialning ro'yxatida bo'lmasa (filial almashdi yoki eski yozuvda
-  // "Naqd" kabi tarjima saqlangan) — mos kelganiga, topilmasa birinchisiga tushamiz.
+  // Tanlangan tur ro'yxatda bo'lmasa (masalan eski yozuvda "Naqd" kabi tarjima
+  // saqlangan) — mos kelganiga, topilmasa birinchisiga tushamiz.
   const activeKey =
     paymentTypes.find((pt) => pt.key === paymentTypeKey)?.key ??
     paymentTypes.find((pt) => pt.label === paymentTypeKey)?.key ??
